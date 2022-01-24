@@ -10,7 +10,19 @@
   <packaging>jar</packaging>
 
   <name>einsatz-tool</name>
-  <url>https://vkd.de</url>
+  <description>
+    Ein Tool der Verkehrskadetten Duesseldorf zur Erstellung von Einsatzberichten.
+  </description>
+  <organization>
+    <name>Verkehrskadetten Duesseldorf</name>
+    <url>https://vkd.de</url>
+  </organization>
+  <developers>
+    <developer>
+      <name>Felix Blanke</name>
+      <email>einsatz-tool@fblanke.de</email>
+    </developer>
+  </developers>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
