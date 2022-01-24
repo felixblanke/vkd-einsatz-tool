@@ -2,7 +2,9 @@ package de.vkd.gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JScrollBar;
@@ -10,6 +12,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+
+import de.vkd.auxiliary.Auxiliary;
 
 @SuppressWarnings("serial")
 public class Console extends JFrame{
@@ -59,7 +63,14 @@ public class Console extends JFrame{
     public JTextPane getTextPane() {
         return textPane;
     }
-    public void setIcon(String iconPath){
-        setIconImage(new ImageIcon(iconPath).getImage());
+    public void setIcon(String iconPath) throws IOException{
+        setIcon(iconPath, false);
+    }
+    public void setIcon(String iconPath, boolean loadFromJAR) throws IOException{
+        if (loadFromJAR) {
+            setIconImage(new ImageIcon(ImageIO.read(Auxiliary.getResourceURLFromJAR(iconPath))).getImage());
+        } else {
+            setIconImage(new ImageIcon(iconPath).getImage());
+        }
     }
 }
