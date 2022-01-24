@@ -891,7 +891,7 @@ public class Einsatzbericht {
 
             FormulaEvaluator evaluator = wb.getCreationHelper().createFormulaEvaluator();
             if (cell!=null) {
-                switch (evaluator.evaluateFormulaCellEnum(cell)) {
+                switch (evaluator.evaluateFormulaCell(cell)) {
                     case BOOLEAN:
                         s = Boolean.toString(cell.getBooleanCellValue());
                         break;
