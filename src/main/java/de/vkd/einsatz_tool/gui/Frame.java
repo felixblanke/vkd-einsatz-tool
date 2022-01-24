@@ -9,7 +9,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Window;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -469,66 +468,44 @@ public class Frame extends JFrame{
         pnlPageOne.add(scrollPane_pageOne, gbc);
 
         //Listener:
-        btnSelectAll.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                for(int i = 0; i < table_pageOne.getRowCount(); i++){
-                    table_pageOne.setValueAt(true, i, 0);
-                    m.getVK((int)table_pageOne.getValueAt(i, 7)).setSelected((boolean)table_pageOne.getValueAt(i, 0));
-                }
-                table_pageOne.refreshTable();
+        btnSelectAll.addActionListener(e -> {
+            for(int i = 0; i < table_pageOne.getRowCount(); i++){
+                table_pageOne.setValueAt(true, i, 0);
+                m.getVK((int)table_pageOne.getValueAt(i, 7)).setSelected((boolean)table_pageOne.getValueAt(i, 0));
             }
+            table_pageOne.refreshTable();
         });
-        btnDeSelectAll.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                for(int i = 0; i < table_pageOne.getRowCount(); i++){
-                    table_pageOne.setValueAt(false, i, 0);
-                    m.getVK((int)table_pageOne.getValueAt(i, 7)).setSelected((boolean)table_pageOne.getValueAt(i, 0));
-                }
-                table_pageOne.refreshTable();
+        btnDeSelectAll.addActionListener(e -> {
+            for(int i = 0; i < table_pageOne.getRowCount(); i++){
+                table_pageOne.setValueAt(false, i, 0);
+                m.getVK((int)table_pageOne.getValueAt(i, 7)).setSelected((boolean)table_pageOne.getValueAt(i, 0));
             }
+            table_pageOne.refreshTable();
         });
-        btnShowDriver.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                btnShowSelected.setSelected(false);
-                showDriver = btnShowDriver.isSelected();
-                showSelected = btnShowSelected.isSelected();
-                table_pageOne.refreshTable();
-            }
+        btnShowDriver.addActionListener(e -> {
+            btnShowSelected.setSelected(false);
+            showDriver = btnShowDriver.isSelected();
+            showSelected = btnShowSelected.isSelected();
+            table_pageOne.refreshTable();
         });
-        btnShowSelected.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                btnShowDriver.setSelected(false);
-                showDriver = btnShowDriver.isSelected();
-                showSelected = btnShowSelected.isSelected();
-                table_pageOne.refreshTable();
-            }
+        btnShowSelected.addActionListener(e -> {
+            btnShowDriver.setSelected(false);
+            showDriver = btnShowDriver.isSelected();
+            showSelected = btnShowSelected.isSelected();
+            table_pageOne.refreshTable();
         });
-        btnPrevPanelPageOne.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cl.first(pnlMain);
-                table_pageOne.refreshTable();
-                table_pageTwo.refreshTable();
-            }
+        btnPrevPanelPageOne.addActionListener(e -> {
+            cl.first(pnlMain);
+            table_pageOne.refreshTable();
+            table_pageTwo.refreshTable();
         });
-        btnNextPanelPageOne.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cl.last(pnlMain);
-
-                table_pageOne.refreshTable();
-                table_pageTwo.refreshTable();
-            }
+        btnNextPanelPageOne.addActionListener(e -> {
+            cl.last(pnlMain);
+            table_pageOne.refreshTable();
+            table_pageTwo.refreshTable();
         });
-        btnOtherActions.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                menuOtherActions.show(btnOtherActions, btnOtherActions.getWidth()/2, btnOtherActions.getHeight()/2);
-            }
+        btnOtherActions.addActionListener(e -> {
+            menuOtherActions.show(btnOtherActions, btnOtherActions.getWidth()/2, btnOtherActions.getHeight()/2);
         });
 
         pnlMain.add(pnlPageOne);
@@ -717,151 +694,144 @@ public class Frame extends JFrame{
         pnlControlTwo.add(pnlEinsatzInfo, "Center");
 
 
-        btnPrevPanelPageTwo.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cl.first(pnlMain);
-                table_pageOne.refreshTable();
-                table_pageTwo.refreshTable();
-            }
+        btnPrevPanelPageTwo.addActionListener(e -> {
+            cl.first(pnlMain);
+            table_pageOne.refreshTable();
+            table_pageTwo.refreshTable();
         });
-        btnNextPanelPageTwo.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(pnlPageTwo.isVisible()){
-                    Container c = btnNextPanelPageTwo.getParent();
-                    while(true){
-                        if(c instanceof Frame)break;
-                        else c = c.getParent();
-                    }
-                    String begin = "";
-                    String end = "";
-                    begin = beginPicker.getDateTimePermissive().format(m.settings.getDateTimeFormatter()) + " " +
-                            beginPicker.getTimePicker().getTimeStringOrEmptyString();
+        btnNextPanelPageTwo.addActionListener(e -> {
+            if(pnlPageTwo.isVisible()){
+                Container c = btnNextPanelPageTwo.getParent();
+                while(true){
+                    if(c instanceof Frame)break;
+                    else c = c.getParent();
+                }
+                String begin = "";
+                String end = "";
+                begin = beginPicker.getDateTimePermissive().format(m.settings.getDateTimeFormatter()) + " " +
+                        beginPicker.getTimePicker().getTimeStringOrEmptyString();
 
-                    end = endPicker.getDateTimePermissive().format(m.settings.getDateTimeFormatter()) + " " +
-                            endPicker.getTimePicker().getTimeStringOrEmptyString();
+                end = endPicker.getDateTimePermissive().format(m.settings.getDateTimeFormatter()) + " " +
+                        endPicker.getTimePicker().getTimeStringOrEmptyString();
 
-                    List<VK> selectedVK = new ArrayList<VK>();
-                    for(VK vk: m.getDatabase()){
-                        if(vk.isSelected())selectedVK.add(vk);
-                    }
+                List<VK> selectedVK = new ArrayList<VK>();
+                for(VK vk: m.getDatabase()){
+                    if(vk.isSelected())selectedVK.add(vk);
+                }
 
-                    List<String> errorMsgList = new ArrayList<String>();
+                List<String> errorMsgList = new ArrayList<String>();
 
-                    if(htfName.getText().isEmpty()) errorMsgList.add(m.getFramework().getString("CREATION_EXCEPTION_NO_NAME"));
-                    if(begin.isEmpty()) errorMsgList.add(m.getFramework().getString("CREATION_EXCEPTION_NO_BEGIN"));
-                    if(end.isEmpty()) errorMsgList.add(m.getFramework().getString("CREATION_EXCEPTION_NO_END"));
-                    if(begin.equals(end)) errorMsgList.add(m.getFramework().getString("CREATION_EXCEPTION_SAME_BEGIN_END"));
-                    try {
-                        if(m.settings.getDateFormat().parse(begin).getTime() > m.settings.getDateFormat().parse(end).getTime())
-                            errorMsgList.add(m.getFramework().getString("CREATION_EXCEPTION_BEGIN_AFTER_END"));
-                    } catch (ParseException ex) {
+                if(htfName.getText().isEmpty()) errorMsgList.add(m.getFramework().getString("CREATION_EXCEPTION_NO_NAME"));
+                if(begin.isEmpty()) errorMsgList.add(m.getFramework().getString("CREATION_EXCEPTION_NO_BEGIN"));
+                if(end.isEmpty()) errorMsgList.add(m.getFramework().getString("CREATION_EXCEPTION_NO_END"));
+                if(begin.equals(end)) errorMsgList.add(m.getFramework().getString("CREATION_EXCEPTION_SAME_BEGIN_END"));
+                try {
+                    if(m.settings.getDateFormat().parse(begin).getTime() > m.settings.getDateFormat().parse(end).getTime())
                         errorMsgList.add(m.getFramework().getString("CREATION_EXCEPTION_BEGIN_AFTER_END"));
-                    }
-                    if(listEL.isEmpty() && listAL.isEmpty()) {
-                        errorMsgList.add(m.getFramework().getString("CREATION_EXCEPTION_NO_EL_NOR_AL"));
-                    }
-                    if(selectedVK.isEmpty()) errorMsgList.add(m.getFramework().getString("CREATION_EXCEPTION_NO_VK"));
+                } catch (ParseException ex) {
+                    errorMsgList.add(m.getFramework().getString("CREATION_EXCEPTION_BEGIN_AFTER_END"));
+                }
+                if(listEL.isEmpty() && listAL.isEmpty()) {
+                    errorMsgList.add(m.getFramework().getString("CREATION_EXCEPTION_NO_EL_NOR_AL"));
+                }
+                if(selectedVK.isEmpty()) errorMsgList.add(m.getFramework().getString("CREATION_EXCEPTION_NO_VK"));
 
-                    for(VK vk : listEL){
-                        if(!vk.isSelected())errorMsgList.add(
-                                m.getFramework().getString("CREATION_EXCEPTION_EL_NOT_SELECTED")
-                                + " (" + vk.getStringRepresentation() + ")");
-                    }
-                    for(VK vk : listAL){
-                        if(!vk.isSelected())errorMsgList.add(
-                                m.getFramework().getString("CREATION_EXCEPTION_AL_NOT_SELECTED")
-                                + " (" + vk.getStringRepresentation() + ")");
-                    }
-                    for(VK vk : listBus){
-                        if(!vk.isSelected())errorMsgList.add(
-                                m.getFramework().getString("CREATION_EXCEPTION_BUS_NOT_SELECTED")
-                                + " (" + vk.getStringRepresentation() + ")");
-                    }
+                for(VK vk : listEL){
+                    if(!vk.isSelected())errorMsgList.add(
+                            m.getFramework().getString("CREATION_EXCEPTION_EL_NOT_SELECTED")
+                            + " (" + vk.getStringRepresentation() + ")");
+                }
+                for(VK vk : listAL){
+                    if(!vk.isSelected())errorMsgList.add(
+                            m.getFramework().getString("CREATION_EXCEPTION_AL_NOT_SELECTED")
+                            + " (" + vk.getStringRepresentation() + ")");
+                }
+                for(VK vk : listBus){
+                    if(!vk.isSelected())errorMsgList.add(
+                            m.getFramework().getString("CREATION_EXCEPTION_BUS_NOT_SELECTED")
+                            + " (" + vk.getStringRepresentation() + ")");
+                }
 
-                    for(VK vk : listEL){
-                        if(!vk.hasAttendedEinsatz())errorMsgList.add(
-                                m.getFramework().getString("CREATION_EXCEPTION_EL_NOT_ASSIGNED")
-                                + " (" + vk.getStringRepresentation() + " ist als " + vk.getStatus().getShortName() + " eingetragen).");
-                    }
-                    for(VK vk : listAL){
-                        if(!vk.hasAttendedEinsatz())errorMsgList.add(
-                                m.getFramework().getString("CREATION_EXCEPTION_AL_NOT_ASSIGNED")
-                                + " (" + vk.getStringRepresentation() + " ist als " + vk.getStatus().getShortName() + " eingetragen).");
-                    }
-                    for(VK vk: selectedVK){
-                        if(vk.getStatus().equals(Status.NONE) && !listBus.contains(vk))
-                            errorMsgList.add(
-                                    m.getFramework().getString("CREATION_EXCEPTION_VK_NO_STATUS")
-                                    + " (" + vk.getStringRepresentation() + ").");
-                    }
-                    if(!errorMsgList.isEmpty()){
-                        String s = m.getFramework().getString("CREATION_EXCEPTION") + " \n";
-                        for(String str: errorMsgList)s = s.concat("- " + str + "\n");
-                        JOptionPane.showMessageDialog(c, s);
-                    }else{
-                        //Check, whether user is sure, that a driver who is not in the Fahrdienst should drive a bus
-                        boolean ret = true;
-                        for(VK vk: listBus) {
-                            if(!vk.isDriver()) {
-                                ret = JOptionPane.showConfirmDialog(Frame.this, m.getFramework().getString("OPTION_CONFIRM_NO_FD"),
-                                        m.getFramework().getString("OPTION_CONFIRM_NO_FD_TITLE"),
-                                        JOptionPane.YES_NO_OPTION,
-                                        JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION;
-                                break;
-                            }
-                        }
-                        if(!ret)return;
-
-                        //check if a driver without status was intentional
-
-                        //list of all drivers without a status
-                        List<VK> driverWithoutStatusList = new ArrayList<VK>();
-                        for(VK vk: listBus) {
-                            if(vk.getStatus().equals(Status.NONE)) driverWithoutStatusList.add(vk);
-                        }
-
-                        if(!driverWithoutStatusList.isEmpty()) {
-                            String listAsString = m.getStringFromVKList(driverWithoutStatusList, "\n");
-                            //ask user whether intentional
-                            ret = JOptionPane.showConfirmDialog(Frame.this, m.getFramework().getString("OPTION_CONFIRM_FD_NO_STATUS") + "\n" + listAsString,
-                                    m.getFramework().getString("OPTION_CONFIRM_FD_NO_STATUS_TITLE"),
+                for(VK vk : listEL){
+                    if(!vk.hasAttendedEinsatz())errorMsgList.add(
+                            m.getFramework().getString("CREATION_EXCEPTION_EL_NOT_ASSIGNED")
+                            + " (" + vk.getStringRepresentation() + " ist als " + vk.getStatus().getShortName() + " eingetragen).");
+                }
+                for(VK vk : listAL){
+                    if(!vk.hasAttendedEinsatz())errorMsgList.add(
+                            m.getFramework().getString("CREATION_EXCEPTION_AL_NOT_ASSIGNED")
+                            + " (" + vk.getStringRepresentation() + " ist als " + vk.getStatus().getShortName() + " eingetragen).");
+                }
+                for(VK vk: selectedVK){
+                    if(vk.getStatus().equals(Status.NONE) && !listBus.contains(vk))
+                        errorMsgList.add(
+                                m.getFramework().getString("CREATION_EXCEPTION_VK_NO_STATUS")
+                                + " (" + vk.getStringRepresentation() + ").");
+                }
+                if(!errorMsgList.isEmpty()){
+                    String s = m.getFramework().getString("CREATION_EXCEPTION") + " \n";
+                    for(String str: errorMsgList)s = s.concat("- " + str + "\n");
+                    JOptionPane.showMessageDialog(c, s);
+                }else{
+                    //Check, whether user is sure, that a driver who is not in the Fahrdienst should drive a bus
+                    boolean ret = true;
+                    for(VK vk: listBus) {
+                        if(!vk.isDriver()) {
+                            ret = JOptionPane.showConfirmDialog(Frame.this, m.getFramework().getString("OPTION_CONFIRM_NO_FD"),
+                                    m.getFramework().getString("OPTION_CONFIRM_NO_FD_TITLE"),
                                     JOptionPane.YES_NO_OPTION,
                                     JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION;
-                            if(!ret)return;
-                        }
-
-                        try {
-
-                            new Einsatzbericht(
-                                    m,
-                                    m.getFramework().getVersion(),
-                                    htfName.getText(),
-                                    m.settings.getDateFormat().parse(begin),
-                                    m.settings.getDateFormat().parse(end),
-                                    remark,
-                                    selectedVK,
-                                    listEL,
-                                    listAL,
-                                    listBus)
-                                .createEinsatzbericht(menuItemBussePutzen.isSelected());
-                            JOptionPane.showMessageDialog(c, m.getFramework().getString("CREATION_SUCCESS"));
-                        } catch (ParseException ex) {
-                            m.getLogger().log(Level.SEVERE, "", ex);
-                        } catch(FileNotFoundException ex){
-                            m.getLogger().log(Level.WARNING, "", ex);
-                            JOptionPane.showMessageDialog(c, m.getFramework().getString("CREATION_EXCEPTION")
-                                    + m.getFramework().getString("CREATION_EXCEPTION_FILE_NOT_FOUND"));
-                        } catch (IOException ex) {
-                            m.getLogger().log(Level.SEVERE, "", ex);
+                            break;
                         }
                     }
+                    if(!ret)return;
+
+                    //check if a driver without status was intentional
+
+                    //list of all drivers without a status
+                    List<VK> driverWithoutStatusList = new ArrayList<VK>();
+                    for(VK vk: listBus) {
+                        if(vk.getStatus().equals(Status.NONE)) driverWithoutStatusList.add(vk);
+                    }
+
+                    if(!driverWithoutStatusList.isEmpty()) {
+                        String listAsString = m.getStringFromVKList(driverWithoutStatusList, "\n");
+                        //ask user whether intentional
+                        ret = JOptionPane.showConfirmDialog(Frame.this, m.getFramework().getString("OPTION_CONFIRM_FD_NO_STATUS") + "\n" + listAsString,
+                                m.getFramework().getString("OPTION_CONFIRM_FD_NO_STATUS_TITLE"),
+                                JOptionPane.YES_NO_OPTION,
+                                JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION;
+                        if(!ret)return;
+                    }
+
+                    try {
+                        new Einsatzbericht(
+                                m,
+                                m.getFramework().getVersion(),
+                                htfName.getText(),
+                                m.settings.getDateFormat().parse(begin),
+                                m.settings.getDateFormat().parse(end),
+                                remark,
+                                selectedVK,
+                                listEL,
+                                listAL,
+                                listBus)
+                            .createEinsatzbericht(menuItemBussePutzen.isSelected());
+                        JOptionPane.showMessageDialog(c, m.getFramework().getString("CREATION_SUCCESS"));
+                    } catch (ParseException ex) {
+                        m.getLogger().log(Level.SEVERE, "", ex);
+                    } catch(FileNotFoundException ex){
+                        m.getLogger().log(Level.WARNING, "", ex);
+                        JOptionPane.showMessageDialog(c, m.getFramework().getString("CREATION_EXCEPTION")
+                                + m.getFramework().getString("CREATION_EXCEPTION_FILE_NOT_FOUND"));
+                    } catch (IOException ex) {
+                        m.getLogger().log(Level.SEVERE, "", ex);
+                    }
                 }
-                cl.last(pnlMain);
-                table_pageOne.refreshTable();
-                table_pageTwo.refreshTable();
             }
+            cl.last(pnlMain);
+            table_pageOne.refreshTable();
+            table_pageTwo.refreshTable();
         });
 
         btnEL.addActionListener(createActionListener(
@@ -931,48 +901,43 @@ public class Frame extends JFrame{
                     }
                 }));
 
-        btnAddRemark.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Container c = btnNextPanelPageTwo.getParent();
-                while(true){
-                    if(c instanceof Frame)break;
-                    else c = c.getParent();
-                }
-                Dialog d = new Dialog((Frame) c, m.getFramework().getString("FRAME_TITLE"));
-                d.setLayout(new GridBagLayout());
-                GridBagConstraints gbc = new GridBagConstraints();
-                gbc.insets = new Insets(INSETS_PNLCONTROL2, INSETS_PNLCONTROL2, INSETS_PNLCONTROL2, INSETS_PNLCONTROL2);
-                gbc.anchor = GridBagConstraints.FIRST_LINE_START;
-                JLabel lblRemark = new JLabel("Bemerkung: ");
-                d.add(lblRemark, gbc);
+        btnAddRemark.addActionListener(e -> {
+            Container c = btnNextPanelPageTwo.getParent();
+            while(true){
+                if(c instanceof Frame)break;
+                else c = c.getParent();
+            }
+            Dialog d = new Dialog((Frame) c, m.getFramework().getString("FRAME_TITLE"));
+            d.setLayout(new GridBagLayout());
+            GridBagConstraints local_gbc = new GridBagConstraints();
+            local_gbc.insets = new Insets(INSETS_PNLCONTROL2, INSETS_PNLCONTROL2, INSETS_PNLCONTROL2, INSETS_PNLCONTROL2);
+            local_gbc.anchor = GridBagConstraints.FIRST_LINE_START;
+            JLabel lblRemark = new JLabel("Bemerkung: ");
+            d.add(lblRemark, local_gbc);
 
-                gbc.gridy = 1;
-                gbc.fill = GridBagConstraints.HORIZONTAL;
+            local_gbc.gridy = 1;
+            local_gbc.fill = GridBagConstraints.HORIZONTAL;
 
-                CustomButton btnOK = new CustomButton(m.getFramework().getString("BUTTON_ACCEPT"));
-                btnOK.setFocusPainted(false);
-                d.add(btnOK, gbc);
+            CustomButton btnOK = new CustomButton(m.getFramework().getString("BUTTON_ACCEPT"));
+            btnOK.setFocusPainted(false);
+            d.add(btnOK, local_gbc);
 
-                gbc.gridy = 2;
+            local_gbc.gridy = 2;
 
-                CustomButton btnCancel = new CustomButton(m.getFramework().getString("BUTTON_CANCEL"));
-                btnCancel.setFocusPainted(false);
-                d.add(btnCancel, gbc);
+            CustomButton btnCancel = new CustomButton(m.getFramework().getString("BUTTON_CANCEL"));
+            btnCancel.setFocusPainted(false);
+            d.add(btnCancel, local_gbc);
 
-                gbc.gridy = 0;
-                gbc.fill = GridBagConstraints.BOTH;
-                gbc.gridx = 1;
-                gbc.weightx = 1;
-                gbc.weighty = 1;
-                gbc.gridheight = GridBagConstraints.REMAINDER;
+            local_gbc.gridy = 0;
+            local_gbc.fill = GridBagConstraints.BOTH;
+            local_gbc.gridx = 1;
+            local_gbc.weightx = 1;
+            local_gbc.weighty = 1;
+            local_gbc.gridheight = GridBagConstraints.REMAINDER;
 
 
-                JTextPane remarkHintTextPane = new JTextPane();
+            JTextPane remarkHintTextPane = new JTextPane();
 //                    hta.setText(WordUtils.wrap(remark, 100));
-
-
-
 //                    hta.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.DARK_GRAY));
 //                    SimpleAttributeSet attribs = new SimpleAttributeSet();
 //                    StyleConstants.setAlignment(attribs, StyleConstants.ALIGN_JUSTIFIED);
@@ -980,40 +945,28 @@ public class Frame extends JFrame{
 //                    StyleConstants.setFontFamily(attribs, Main.f.getFamily());
 //                    StyleConstants.setFontSize(attribs, 11);
 
-                StyleContext context = new StyleContext();
-                StyledDocument document = new DefaultStyledDocument(context);
-                Style style = context.getStyle(StyleContext.DEFAULT_STYLE);
-                StyleConstants.setAlignment(style, StyleConstants.ALIGN_JUSTIFIED);
-                remarkHintTextPane.setDocument(document);
-                if(m.settings.getRemarkFont() != null)remarkHintTextPane.setFont(m.settings.getRemarkFont().deriveFont(11.5f));
+            StyleContext context = new StyleContext();
+            StyledDocument document = new DefaultStyledDocument(context);
+            Style style = context.getStyle(StyleContext.DEFAULT_STYLE);
+            StyleConstants.setAlignment(style, StyleConstants.ALIGN_JUSTIFIED);
+            remarkHintTextPane.setDocument(document);
+            if(m.settings.getRemarkFont() != null)remarkHintTextPane.setFont(m.settings.getRemarkFont().deriveFont(11.5f));
 
-                remarkHintTextPane.setText(remark);
+            remarkHintTextPane.setText(remark);
 
-                JScrollPane hta_scrollPane = new JScrollPane(remarkHintTextPane);
-                d.add(hta_scrollPane, gbc);
+            JScrollPane hta_scrollPane = new JScrollPane(remarkHintTextPane);
+            d.add(hta_scrollPane, local_gbc);
 
-                btnOK.addActionListener(new ActionListener() {
+            btnOK.addActionListener(e1 -> {
+                remark = remarkHintTextPane.getText();
+                d.dispose();
+            });
+            btnCancel.addActionListener(e1 -> d.dispose());
 
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        remark = remarkHintTextPane.getText();
-                        d.dispose();
-                    }
-                });
-                btnCancel.addActionListener(new ActionListener() {
-
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        d.dispose();
-                    }
-                });
-
-                d.setPreferredSize(new Dimension(600, 300));
-                d.pack();
-                d.setLocationRelativeTo(c);
-                d.setVisible(true);
-
-            }
+            d.setPreferredSize(new Dimension(600, 300));
+            d.pack();
+            d.setLocationRelativeTo(c);
+            d.setVisible(true);
         });
 
         pnlPageTwo.add(pnlControlTwo, "North");
@@ -1077,117 +1030,106 @@ public class Frame extends JFrame{
             });
 
         menuItemRemarkDialog = new JMenuItem(m.getFramework().getString("MNU_ADD_REMARK"));
-        menuItemRemarkDialog.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(table_pageTwo.getSelectedRow() >= 0) {
-                    Container c = table_pageTwo.getParent();
-                    while(true){
-                        if(c instanceof Frame)break;
-                        else c = c.getParent();
-                        }
-                    VK vk = m.getVK((int) table_pageTwo.getValueAt(table_pageTwo.getSelectedRow(), 6));
-                    RemarkDialog d = new RemarkDialog(m.getFramework(), (Frame)c, m.getFramework().getString("FRAME_TITLE"), vk);
-                    d.setVisible(true);
-                    table_pageTwo.refreshTable();
-                }
+        menuItemRemarkDialog.addActionListener(e -> {
+            if(table_pageTwo.getSelectedRow() >= 0) {
+                Container c = table_pageTwo.getParent();
+                while(true){
+                    if(c instanceof Frame)break;
+                    else c = c.getParent();
+                    }
+                VK vk = m.getVK((int) table_pageTwo.getValueAt(table_pageTwo.getSelectedRow(), 6));
+                RemarkDialog d = new RemarkDialog(m.getFramework(), (Frame)c, m.getFramework().getString("FRAME_TITLE"), vk);
+                d.setVisible(true);
+                table_pageTwo.refreshTable();
             }
         });
         table_pageTwo.addMenuItem(menuItemRemarkDialog);
 
-        btnDefaultStatus.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                for(VK vk: m.getDatabase()){
-                    if(vk.isSelected()){
-                        if(vk.getStatus().equals(Status.NONE)){
-                            if(!listBus.contains(vk)){
-                                vk.setStatus(Status.EINGETEILT);
-                                table_pageTwo.refreshTable();
-                            }
+        btnDefaultStatus.addActionListener(e -> {
+            for(VK vk: m.getDatabase()){
+                if(vk.isSelected()){
+                    if(vk.getStatus().equals(Status.NONE)){
+                        if(!listBus.contains(vk)){
+                            vk.setStatus(Status.EINGETEILT);
+                            table_pageTwo.refreshTable();
                         }
                     }
                 }
-
             }
         });
         pnlPageTwo.add(scrollPane_pageTwo, "Center");
         pnlMain.add(pnlPageTwo);
 
-        menuItemOpenFile.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser fileChooser = new JFileChooser(".");
-                fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-                fileChooser.setFileFilter(new FileFilter() {
-                    @Override
-                    public String getDescription() {
-                        return ".xls Dateien";
-                    }
+        menuItemOpenFile.addActionListener(e -> {
+            JFileChooser fileChooser = new JFileChooser(".");
+            fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            fileChooser.setFileFilter(new FileFilter() {
+                @Override
+                public String getDescription() {
+                    return ".xls Dateien";
+                }
 
-                    @Override
-                    public boolean accept(File f) {
-                        return f.isDirectory() || f.getName().endsWith(".xls");
-                    }
-                });
-                int status = fileChooser.showOpenDialog(menuItemOpenFile);
-                if(status == JFileChooser.APPROVE_OPTION) {
-                    File selectedFile = fileChooser.getSelectedFile();
-                    Container c = btnNextPanelPageTwo.getParent();
-                    while(true){
-                        if(c instanceof Frame)break;
-                        else c = c.getParent();
-                    }
-                    try {
-                        //TODO:
-                        //BUG: report throws Exception, if the underlying Einsatzbericht an older GuZ uses.
-                        //TODO: maybe create a unique code for each GuZ, so that it can be distinguished, which report uses what
-                        Einsatzbericht report = new Einsatzbericht(m, selectedFile);
-                        beginPicker.setDateTimePermissive(LocalDateTime.ofInstant(report.getBegin().toInstant(), ZoneId.systemDefault()));
-                        endPicker.setDateTimePermissive(LocalDateTime.ofInstant(report.getEnd().toInstant(), ZoneId.systemDefault()));
+                @Override
+                public boolean accept(File f) {
+                    return f.isDirectory() || f.getName().endsWith(".xls");
+                }
+            });
+            int status = fileChooser.showOpenDialog(menuItemOpenFile);
+            if(status == JFileChooser.APPROVE_OPTION) {
+                File selectedFile = fileChooser.getSelectedFile();
+                Container c = btnNextPanelPageTwo.getParent();
+                while(true){
+                    if(c instanceof Frame)break;
+                    else c = c.getParent();
+                }
+                try {
+                    //TODO:
+                    //BUG: report throws Exception, if the underlying Einsatzbericht an older GuZ uses.
+                    //TODO: maybe create a unique code for each GuZ, so that it can be distinguished, which report uses what
+                    Einsatzbericht report = new Einsatzbericht(m, selectedFile);
+                    beginPicker.setDateTimePermissive(LocalDateTime.ofInstant(report.getBegin().toInstant(), ZoneId.systemDefault()));
+                    endPicker.setDateTimePermissive(LocalDateTime.ofInstant(report.getEnd().toInstant(), ZoneId.systemDefault()));
 
-                        List<VK> database = m.getCleanDatabase();
-                        for(VK vk_report: report.getSelectedVK()) {
-                            boolean vkFound = false;
-                            for(VK vk: database) {
-                                if(vk.getID() == vk_report.getID()) {
-                                    database.remove(vk);
-                                    database.add(vk_report);
-                                    vkFound = true;
-                                    break;
-                                }
+                    List<VK> database = m.getCleanDatabase();
+                    for(VK vk_report: report.getSelectedVK()) {
+                        boolean vkFound = false;
+                        for(VK vk: database) {
+                            if(vk.getID() == vk_report.getID()) {
+                                database.remove(vk);
+                                database.add(vk_report);
+                                vkFound = true;
+                                break;
                             }
-                            if(!vkFound)throw new EinsatzberichtLoadingException(selectedFile.getAbsolutePath(), "The Einsatzbericht could not be loaded correctly.", -1, -1);
                         }
-                        m.getFramework().setDatabase(new DatabaseReturnType<>(database, report.getVersion()));
-
-                        remark = report.getRemark();
-                        listEL = report.getListEL();
-                        listAL = report.getListAL();
-                        listBus = report.getListBus();
-
-                        listEL = Framework.sort(listEL, defaultChainEL);
-                        lblEL.setText(m.getFramework().getString("LABEL_EL")
-                                .concat(m.getStringFromVKList(listEL)));
-
-                        listAL = Framework.sort(listAL, defaultChainAL);
-                        lblAL.setText(m.getFramework().getString("LABEL_AL")
-                                .concat(m.getStringFromVKList(listAL)));
-
-                        listBus = Framework.sort(listBus, defaultChainBus);
-                        lblBus.setText(m.getFramework().getString("LABEL_BUS")
-                                .concat(m.getStringFromVKList(listBus)));
-
-                        htfName.setText(report.getName());
-
-                        JOptionPane.showMessageDialog(c, m.getFramework().getString("LOADING_SUCCESS") );
-
-                        //TODO
-                    } catch (Exception ex) {
-                        m.getLogger().log(Level.SEVERE, null, ex);
-                        JOptionPane.showMessageDialog(c, m.getFramework().getString("LOADING_EXCEPTION"));
+                        if(!vkFound)throw new EinsatzberichtLoadingException(selectedFile.getAbsolutePath(), "The Einsatzbericht could not be loaded correctly.", -1, -1);
                     }
+                    m.getFramework().setDatabase(new DatabaseReturnType<>(database, report.getVersion()));
+
+                    remark = report.getRemark();
+                    listEL = report.getListEL();
+                    listAL = report.getListAL();
+                    listBus = report.getListBus();
+
+                    listEL = Framework.sort(listEL, defaultChainEL);
+                    lblEL.setText(m.getFramework().getString("LABEL_EL")
+                            .concat(m.getStringFromVKList(listEL)));
+
+                    listAL = Framework.sort(listAL, defaultChainAL);
+                    lblAL.setText(m.getFramework().getString("LABEL_AL")
+                            .concat(m.getStringFromVKList(listAL)));
+
+                    listBus = Framework.sort(listBus, defaultChainBus);
+                    lblBus.setText(m.getFramework().getString("LABEL_BUS")
+                            .concat(m.getStringFromVKList(listBus)));
+
+                    htfName.setText(report.getName());
+
+                    JOptionPane.showMessageDialog(c, m.getFramework().getString("LOADING_SUCCESS") );
+
+                    //TODO
+                } catch (Exception ex) {
+                    m.getLogger().log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(c, m.getFramework().getString("LOADING_EXCEPTION"));
                 }
             }
         });
@@ -1256,27 +1198,24 @@ public class Frame extends JFrame{
         parent.add(lbl, gbc);
     }
 
-    private ActionListener  createActionListener(
+    private ActionListener createActionListener(
                 CustomButton dialogCause, String[] columnNames, /*String userErrorStringVal,*/ String labelStartStringVal,
                 //List<VK> workingList,
                 JLabel outputLabel, ComparatorChain<VK> defaultChain, boolean isDriverDialog,
                 ListHolder<VK> listHolder){
-        return new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Container parentWindow = dialogCause.getParent();
-                while(true){
-                    if(parentWindow instanceof Window)break;
-                    else parentWindow = parentWindow.getParent();
-                }
-                ButtonDialog d = new ButtonDialog(
-                        m, (Window) parentWindow, m.getFramework().getString("FRAME_TITLE"),
-                        columnNames, /*userErrorStringVal,*/ labelStartStringVal,
-                        listHolder.getWorkingList(), outputLabel, new Insets(INSETS_PNLCONTROL2, INSETS_PNLCONTROL2, INSETS_PNLCONTROL2, INSETS_PNLCONTROL2),
-                        defaultChain,
-                        isDriverDialog && menuItemOnlyFahrdienst.getState()); //State true: Only Fahrdienst
-                d.setVisible(true);
+        return e -> {
+            Container parentWindow = dialogCause.getParent();
+            while(true){
+                if(parentWindow instanceof Window)break;
+                else parentWindow = parentWindow.getParent();
             }
+            ButtonDialog d = new ButtonDialog(
+                    m, (Window) parentWindow, m.getFramework().getString("FRAME_TITLE"),
+                    columnNames, /*userErrorStringVal,*/ labelStartStringVal,
+                    listHolder.getWorkingList(), outputLabel, new Insets(INSETS_PNLCONTROL2, INSETS_PNLCONTROL2, INSETS_PNLCONTROL2, INSETS_PNLCONTROL2),
+                    defaultChain,
+                    isDriverDialog && menuItemOnlyFahrdienst.getState()); //State true: Only Fahrdienst
+            d.setVisible(true);
         };
     }
 
@@ -1294,14 +1233,10 @@ public class Frame extends JFrame{
             gbc.gridy = y;
             gbc.gridwidth = width;
 
-            addActionListener(new ActionListener() {
-
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    filterCheckBoxSelected(filterCheckBoxMap.get(stringName), isSelected());
-                    if(stringName.equals("RANK_HVK")){
-                        filterCheckBoxSelected(filterCheckBoxMap.get("RANK_HVKA"), isSelected());
-                    }
+            addActionListener(e -> {
+                filterCheckBoxSelected(filterCheckBoxMap.get(stringName), isSelected());
+                if(stringName.equals("RANK_HVK")){
+                    filterCheckBoxSelected(filterCheckBoxMap.get("RANK_HVKA"), isSelected());
                 }
             });
             parent.add(this, gbc);

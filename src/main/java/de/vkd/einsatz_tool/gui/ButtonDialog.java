@@ -5,8 +5,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -105,27 +103,19 @@ public class ButtonDialog extends Dialog{
         add(scrollPane);
         pack();
 
-        accept.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                List<VK> list = ((CustomDialogTableModel)table.getModel()).getWorkingList();
-                ComparatorChain<VK> chain = defaultChain;
-                list = Framework.sort(list, chain);
-                //write to workingList
-                workingList.clear();
-                workingList.addAll(list);
-                outputLabel.setText(m.getFramework().getString(labelStartStringVal)
-                        .concat(m.getStringFromVKList(workingList)));
+        accept.addActionListener(e -> {
+            List<VK> list = ((CustomDialogTableModel)table.getModel()).getWorkingList();
+            ComparatorChain<VK> chain = defaultChain;
+            list = Framework.sort(list, chain);
+            //write to workingList
+            workingList.clear();
+            workingList.addAll(list);
+            outputLabel.setText(m.getFramework().getString(labelStartStringVal)
+                    .concat(m.getStringFromVKList(workingList)));
 
-                dispose();
-            }
+            dispose();
         });
-        cancel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
-        });
+        cancel.addActionListener(e -> dispose());
 
         setLocationRelativeTo(parent);
     }

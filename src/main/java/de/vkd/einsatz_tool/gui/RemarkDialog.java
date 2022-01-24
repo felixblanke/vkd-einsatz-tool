@@ -5,10 +5,7 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -20,8 +17,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.event.CaretEvent;
-import javax.swing.event.CaretListener;
 
 import de.vkd.auxiliary.ComparatorChain;
 import de.vkd.gui.CustomButton;
@@ -231,101 +226,68 @@ public class RemarkDialog extends Dialog{
                 pack();
         }
 
-         cmb.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    if(cmb.getSelectedIndex() == 4){
-                        temp.setVisible(true);
-                        cmb2.setVisible(true);
-                        spacer1.setVisible(true);
-                        spacer2.setVisible(true);
-                        pack();
-                    }else{
-                        temp.setVisible(false);
-                        cmb2.setVisible(false);
-                        spacer1.setVisible(false);
-                        spacer2.setVisible(false);
-                        pack();
-                    }
-                }
-            });
-         cmb2.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {}
-                });
-         remark.addCaretListener(new CaretListener() {
-                @Override
-                public void caretUpdate(CaretEvent e) {
-                    pack();
-                }
-            });
-         reason.addCaretListener(new CaretListener() {
-                @Override
-                public void caretUpdate(CaretEvent e) {
-                    pack();
-                }
-            });
-         btnOK.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                vk.setRemark(remark.getText());
-                vk.setStatus(Status.getStatusByListName((String)cmb.getSelectedItem()));
-                if(vk.getStatus().equals(Status.ERSATZ)){
-                    String[] strArrSE = getSEArray(framework);
-                    String reference = (String) cmb2.getSelectedItem();
-                    for(int i = 0; i < strArrSE.length; i++){
-                        if(strArrSE[i].equals(reference)){
-                            for(VK vkL: framework.getDatabase()){
-                                if(vkL.getStringRepresentation().equals(strArrSE[i])){
-                                    vk.setErsatz(vkL);
-                                    break;
-                                }
+        cmb.addActionListener(e -> {
+            if(cmb.getSelectedIndex() == 4){
+                temp.setVisible(true);
+                cmb2.setVisible(true);
+                spacer1.setVisible(true);
+                spacer2.setVisible(true);
+                pack();
+            }else{
+                temp.setVisible(false);
+                cmb2.setVisible(false);
+                spacer1.setVisible(false);
+                spacer2.setVisible(false);
+                pack();
+            }
+        });
+        cmb2.addActionListener(e -> {});
+        remark.addCaretListener(e -> pack());
+        reason.addCaretListener(e -> pack());
+        btnOK.addActionListener(e -> {
+            vk.setRemark(remark.getText());
+            vk.setStatus(Status.getStatusByListName((String)cmb.getSelectedItem()));
+            if(vk.getStatus().equals(Status.ERSATZ)){
+                String[] strArrSE = getSEArray(framework);
+                String reference = (String) cmb2.getSelectedItem();
+                for(int i = 0; i < strArrSE.length; i++){
+                    if(strArrSE[i].equals(reference)){
+                        for(VK vkL: framework.getDatabase()){
+                            if(vkL.getStringRepresentation().equals(strArrSE[i])){
+                                vk.setErsatz(vkL);
+                                break;
                             }
-                            break;
                         }
-                    }
-                }
-                vk.getKuerzungsListe().clear();
-                vk.getKuerzungsListe().addAll(workingList);
-
-                dispose();
-            }
-        });
-         btnCancel.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
-        });
-         btnKuerzungen.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String r = reason.getText();
-                String p = (String) cmbPercentage.getSelectedItem();
-                if(checkSelection(p)){
-                    if(!r.isEmpty()){
-                        workingList.add(new Kuerzung(cmbPercentage.getPercentage(p), r));
-                        ((TableModelRemarkDialog) table.getModel()).refreshTable();
+                        break;
                     }
                 }
             }
+            vk.getKuerzungsListe().clear();
+            vk.getKuerzungsListe().addAll(workingList);
+
+            dispose();
         });
-         btnRemoveKuerzungen.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                int[] i = table.getSelectedRows();
-                for(int k = 0; k < i.length; k++){
-                    TableModelRemarkDialog model = (TableModelRemarkDialog) table.getModel();
-                    model.removeKuerzung((int)table.getModel().getValueAt(i[k], 0));
-        //                    model.removeRow(i[k]);
+        btnCancel.addActionListener(e -> dispose());
+        btnKuerzungen.addActionListener(e -> {
+            String r = reason.getText();
+            String p = (String) cmbPercentage.getSelectedItem();
+            if(checkSelection(p)){
+                if(!r.isEmpty()){
+                    workingList.add(new Kuerzung(cmbPercentage.getPercentage(p), r));
+                    ((TableModelRemarkDialog) table.getModel()).refreshTable();
                 }
-                ((TableModelRemarkDialog) table.getModel()).refreshTable();
-
-
             }
+        });
+        btnRemoveKuerzungen.addActionListener(e -> {
+            int[] i = table.getSelectedRows();
+            for(int k = 0; k < i.length; k++){
+                TableModelRemarkDialog model = (TableModelRemarkDialog) table.getModel();
+                model.removeKuerzung((int)table.getModel().getValueAt(i[k], 0));
+      //                    model.removeRow(i[k]);
+            }
+            ((TableModelRemarkDialog) table.getModel()).refreshTable();
+
+
         });
         ((TableModelRemarkDialog) table.getModel()).refreshTable();
         pack();
@@ -365,18 +327,14 @@ public class RemarkDialog extends Dialog{
 
         public PercentageJComboBox(String[] options) {
             super(options);
-            addItemListener(new ItemListener() {
-
-                @Override
-                public void itemStateChanged(ItemEvent event){
-                    if(event.getStateChange() == ItemEvent.SELECTED){
-                        if (!checkSelection(getCorrectedSelection((String) getSelectedItem()))){
-                            if(previousValue != null)setSelectedItem(previousValue);
-                            else setSelectedIndex(-1);
-                        }else{
-                            setSelectedItem(getCorrectedSelection((String) getSelectedItem()));
-                            previousValue = (String) getSelectedItem();
-                        }
+            addItemListener(event -> {
+                if(event.getStateChange() == ItemEvent.SELECTED){
+                    if (!checkSelection(getCorrectedSelection((String) getSelectedItem()))){
+                        if(previousValue != null)setSelectedItem(previousValue);
+                        else setSelectedIndex(-1);
+                    }else{
+                        setSelectedItem(getCorrectedSelection((String) getSelectedItem()));
+                        previousValue = (String) getSelectedItem();
                     }
                 }
             });

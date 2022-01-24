@@ -302,13 +302,11 @@ public class Main {
 
             /* Create and display the GUI */
             if(startFrame){
-                java.awt.EventQueue.invokeLater(new Runnable() {
-                    public void run() {
-                        Frame f = new Frame(fixScopeProblemMain);
-                        f.setLocationRelativeTo(null);
-                        f.setVisible(true);
-                        f.requestFocus();
-                    }
+                java.awt.EventQueue.invokeLater(() -> {
+                    Frame f = new Frame(fixScopeProblemMain);
+                    f.setLocationRelativeTo(null);
+                    f.setVisible(true);
+                    f.requestFocus();
                 });
             }
         } catch (Exception e) {
