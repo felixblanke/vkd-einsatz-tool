@@ -43,7 +43,7 @@ public class CustomTable<E> extends JTable {
 
     private boolean alternateColorEnabled;
 
-    public CustomTable(Framework framework, Container directParent, List<NamedComparator<E>> comparatorList) {
+    public CustomTable(@SuppressWarnings("rawtypes") Framework framework, Container directParent, List<NamedComparator<E>> comparatorList) {
         while(true){
             if(directParent instanceof Window)break;
             else directParent = directParent.getParent();
