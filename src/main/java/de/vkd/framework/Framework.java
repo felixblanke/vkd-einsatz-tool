@@ -1,6 +1,7 @@
 package de.vkd.framework;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
+import de.vkd.auxiliary.Auxiliary;
 import de.vkd.auxiliary.ComparatorChain;
 import de.vkd.database.DatabaseReturnType;
 import de.vkd.gui.Console;
@@ -140,7 +142,8 @@ public class Framework<E> {
         log.log(Level.FINER, "loading StringValues from " + filedir);
         Document doc;
         if(loadFromJar) {
-            doc = new SAXBuilder().build(filedir);
+            InputStream resource = Auxiliary.getResourceFromJAR(filedir, log);
+            doc = new SAXBuilder().build(resource);
         } else {
             doc = new SAXBuilder().build(filedir);
         }
