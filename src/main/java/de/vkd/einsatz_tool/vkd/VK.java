@@ -9,15 +9,16 @@ public class VK{
         return currID;
     }
 
-    private String name, surname;
-    private Rank rank;
-    private int group;
-    private int position;
-    private int ID;
+    private final String name;
+    private final String surname;
+    private final Rank rank;
+    private final int group;
+    private final int position;
+    private final int ID;
     private boolean driver = false;
     private boolean selected = false;
     private Status status = Status.NONE;
-    private List<Kuerzung> kuerzungsListe = new ArrayList<Kuerzung>();
+    private final List<Kuerzung> kuerzungsListe = new ArrayList<>();
     private String remark = "";
     private VK ersatz;
 
@@ -49,10 +50,11 @@ public class VK{
     @Override
     public String toString() {
         String s = " || ";
-        String kuerzung = "";
+        StringBuilder kuerzungBuilder = new StringBuilder();
         for(Kuerzung k: getKuerzungsListe()) {
-            kuerzung += "(" + k.getID() + ", " + k.getPercentage() + "%, " + k.getReason() + "), ";
+            kuerzungBuilder.append("(").append(k.getID()).append(", ").append(k.getPercentage()).append("%, ").append(k.getReason()).append("), ");
         }
+        String kuerzung = kuerzungBuilder.toString();
         if(kuerzung.length() > 2)kuerzung = kuerzung.substring(0, kuerzung.length() -2);
 
         if(status.equals(Status.ERSATZ) && ersatz!=null)

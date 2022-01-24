@@ -2,10 +2,7 @@ package de.vkd.einsatz_tool.vkd;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -39,9 +36,9 @@ public class Main {
     public final static String DB_VERSION_MARKER_XML = "version";
     public final static String DB_DEFAULT_VERSION = "NO_VERSION";
 
-    private final static BidiMap<Integer, String> GROUP_MAP = new TreeBidiMap<Integer, String>();
-    private final static BidiMap<Integer, String> POSITION_MAP = new TreeBidiMap<Integer, String>();
-    private final static BidiMap<Rank, String> RANK_MAP = new TreeBidiMap<Rank, String>();
+    private final static BidiMap<Integer, String> GROUP_MAP = new TreeBidiMap<>();
+    private final static BidiMap<Integer, String> POSITION_MAP = new TreeBidiMap<>();
+    private final static BidiMap<Rank, String> RANK_MAP = new TreeBidiMap<>();
 
 //CONSTANTS
     public final Settings settings;
@@ -50,19 +47,19 @@ public class Main {
 
 //NONSTATIC VARS
     //filters
-    private boolean[] filter_group = new boolean[8];
-    private boolean[] filter_pos = new boolean[4];
-    private boolean[] filter_rank = new boolean[9];
+    private final boolean[] filter_group = new boolean[8];
+    private final boolean[] filter_pos = new boolean[4];
+    private final boolean[] filter_rank = new boolean[9];
 
     //comparators:
-    private final static List<NamedComparator<VK>> VK_COMPARATOR_LIST = new ArrayList<NamedComparator<VK>>();
+    private final static List<NamedComparator<VK>> VK_COMPARATOR_LIST = new ArrayList<>();
     public static NamedComparator<VK> VK_GROUP_COMPARATOR;
     public static NamedComparator<VK> VK_POSITION_COMPARATOR;
     public static NamedComparator<VK> VK_RANK_COMPARATOR;
     public static NamedComparator<VK> VK_NAME_COMPARATOR;
     public static NamedComparator<VK> VK_SURNAME_COMPARATOR;
 
-    private final static List<NamedComparator<Kuerzung>> KUERZUNG_COMPARATOR_LIST = new ArrayList<NamedComparator<Kuerzung>>();
+    private final static List<NamedComparator<Kuerzung>> KUERZUNG_COMPARATOR_LIST = new ArrayList<>();
     public static NamedComparator<Kuerzung> KUERZUNG_ID_COMPARATOR;
     public static NamedComparator<Kuerzung> KUERZUNG_PERCENTAGE_COMPARATOR;
     public static NamedComparator<Kuerzung> KUERZUNG_REASON_COMPARATOR;
@@ -72,14 +69,12 @@ public class Main {
 
     /**Loads the Settings used
      * @return The Settings that should be used
-     * @throws IOException
-     * @throws SettingsLoadingException
      */
     private Settings loadSettings() throws SettingsLoadingException, JDOMException, IOException{
         return new Settings(this, SETTINGS_PATH);
     }
-    public Main() throws ReadDataException, Exception  {
-        framework = new Framework<VK>(Level.ALL);
+    public Main() throws Exception {
+        framework = new Framework<>(Level.ALL);
         getLogger().log(Level.FINE, "Starting loading process");
         getLogger().log(Level.FINE, JAR_PATH);
         this.settings = loadSettings();
@@ -91,7 +86,7 @@ public class Main {
             getLogger().log(Level.WARNING, "", ex);
         }
 
-        List<Variable> sysVarList = new ArrayList<Variable>();
+        List<Variable> sysVarList = new ArrayList<>();
         sysVarList.add(new Variable("VER", settings.getVersion()));
         framework.setSysVarList(sysVarList);
 
@@ -108,6 +103,7 @@ public class Main {
         getLogger().log(Level.FINE, "Loading complete");
         printCopyright();
 
+        assert databaseReturnType != null;
         getLogger().log(Level.INFO, "DB-Version: " + databaseReturnType.getVersion());
     }
 
@@ -142,23 +138,23 @@ public class Main {
         RANK_MAP.put(Rank.DEF, getFramework().getString("EMPTY_LIST"));
 
         //comparators
-        VK_GROUP_COMPARATOR = new NamedComparator<VK>(
+        VK_GROUP_COMPARATOR = new NamedComparator<>(
                 getFramework().getString("VK_GROUP"),
                 Comparator.comparing(VK::getGroup)
         );
-        VK_POSITION_COMPARATOR = new NamedComparator<VK>(
+        VK_POSITION_COMPARATOR = new NamedComparator<>(
                 getFramework().getString("VK_POS"),
                 Comparator.comparing(VK::getPosition)
         );
-        VK_RANK_COMPARATOR = new NamedComparator<VK>(
+        VK_RANK_COMPARATOR = new NamedComparator<>(
                 getFramework().getString("VK_RANK"),
                 Comparator.comparing((VK vk) -> vk.getRank().getHierarchy()).reversed()
         );
-        VK_NAME_COMPARATOR = new NamedComparator<VK>(
+        VK_NAME_COMPARATOR = new NamedComparator<>(
                 getFramework().getString("VK_NAME"),
                 Comparator.comparing(VK::getName)
         );
-        VK_SURNAME_COMPARATOR = new NamedComparator<VK>(
+        VK_SURNAME_COMPARATOR = new NamedComparator<>(
                 getFramework().getString("VK_SURNAME"),
                 Comparator.comparing(VK::getSurname)
         );
@@ -169,23 +165,23 @@ public class Main {
         VK_COMPARATOR_LIST.add(VK_NAME_COMPARATOR);
         VK_COMPARATOR_LIST.add(VK_SURNAME_COMPARATOR);
 
-        VK_DEFAULT_COMPARATOR_CHAIN = new ComparatorChain<VK>(
+        VK_DEFAULT_COMPARATOR_CHAIN = new ComparatorChain<>(
             VK_GROUP_COMPARATOR, VK_POSITION_COMPARATOR, VK_RANK_COMPARATOR, VK_NAME_COMPARATOR, VK_SURNAME_COMPARATOR
         );
 
-        VK_DEFAULT_COMPARATOR_CHAIN_IGNORING_GROUPS = new ComparatorChain<VK>(
+        VK_DEFAULT_COMPARATOR_CHAIN_IGNORING_GROUPS = new ComparatorChain<>(
                 VK_POSITION_COMPARATOR, VK_RANK_COMPARATOR, VK_NAME_COMPARATOR, VK_SURNAME_COMPARATOR
         );
 
-        KUERZUNG_ID_COMPARATOR = new NamedComparator<Kuerzung>(
+        KUERZUNG_ID_COMPARATOR = new NamedComparator<>(
                 getFramework().getString("KUERZUNG_ID_COMPARATOR"),
                 Comparator.comparing(Kuerzung::getID)
         );
-        KUERZUNG_PERCENTAGE_COMPARATOR = new NamedComparator<Kuerzung>(
+        KUERZUNG_PERCENTAGE_COMPARATOR = new NamedComparator<>(
                 getFramework().getString("KUERZUNG_PERCENTAGE_COMPARATOR"),
                 Comparator.comparing(Kuerzung::getPercentage).reversed()
         );
-        KUERZUNG_REASON_COMPARATOR = new NamedComparator<Kuerzung>(
+        KUERZUNG_REASON_COMPARATOR = new NamedComparator<>(
                 getFramework().getString("KUERZUNG_REASON_COMPARATOR"),
                 Comparator.comparing(Kuerzung::getReason)
         );
@@ -214,16 +210,9 @@ public class Main {
         Status.ERSATZ.setDemandingAttendance(true);
 
 
-
-        for(int i = 0; i < filter_group.length; i++){
-            filter_group[i] = true;
-        }
-        for(int i = 0; i < filter_pos.length; i++){
-            filter_pos[i] = true;
-        }
-        for(int i = 0; i < filter_rank.length; i++){
-            filter_rank[i] = true;
-        }
+        Arrays.fill(filter_group, true);
+        Arrays.fill(filter_pos, true);
+        Arrays.fill(filter_rank, true);
         getLogger().log(Level.FINER, "Variables initialized");
     }
 
@@ -238,8 +227,6 @@ public class Main {
      */
 
     public static void main(String[] args){
-        //DEBUGGING ONLY:
-        boolean startFrame = true;
         Main m = null;
         try {
             m = new Main();
@@ -264,14 +251,12 @@ public class Main {
             */
 
             /* Create and display the GUI */
-            if(startFrame){
-                java.awt.EventQueue.invokeLater(() -> {
-                    Frame f = new Frame(fixScopeProblemMain);
-                    f.setLocationRelativeTo(null);
-                    f.setVisible(true);
-                    f.requestFocus();
-                });
-            }
+            java.awt.EventQueue.invokeLater(() -> {
+                Frame f = new Frame(fixScopeProblemMain);
+                f.setLocationRelativeTo(null);
+                f.setVisible(true);
+                f.requestFocus();
+            });
         } catch (Exception e) {
             if(m != null && m.getLogger() != null)m.getLogger().log(Level.SEVERE, "", e);
             else e.printStackTrace();
@@ -291,10 +276,8 @@ public class Main {
      * @return The VK belonging to the specific ID.
      */
     public VK getVK(int id, List<VK> database){
-        Iterator<VK> iterator = database.iterator();
-        while(iterator.hasNext()) {
-            VK vk = iterator.next();
-            if(vk.getID()==id)return vk;
+        for (VK vk : database) {
+            if (vk.getID() == id) return vk;
         }
         return null;
     }
@@ -312,10 +295,8 @@ public class Main {
      * @return The VK belonging to the String representation.
      */
     public VK getVK(String stringRepresentation, List<VK> database){
-        Iterator<VK> iterator = database.iterator();
-        while(iterator.hasNext()) {
-            VK vk = iterator.next();
-            if(vk.getStringRepresentation().equals(stringRepresentation.trim()))return vk;
+        for (VK vk : database) {
+            if (vk.getStringRepresentation().equals(stringRepresentation.trim())) return vk;
         }
         return null;
     }
@@ -325,27 +306,25 @@ public class Main {
      * @return A List containing the result of the filtering process.
      */
     public List<VK> applyFilter(List<VK> list){
-        List<VK> tmp = new ArrayList<VK>();
-        for(Iterator<VK> i = list.iterator(); i.hasNext();){
-            VK vk = i.next();
-
-            if(filter_rank[vk.getRank().getHierarchy()]){
-                if( filter_pos[vk.getPosition()-1]){
-                    switch(vk.getGroup()){
-                    case 1:
-                    case 2:
-                    case 3:
-                    case 4:
-                    case 5:
-                    case 6:
-                        if(filter_group[vk.getGroup()-1])tmp.add(vk);
-                        break;
-                    case -1:
-                        if(filter_group[6])tmp.add(vk);
-                        break;
-                    case -2:
-                        if(filter_group[7])tmp.add(vk);
-                        break;
+        List<VK> tmp = new ArrayList<>();
+        for (VK vk : list) {
+            if (filter_rank[vk.getRank().getHierarchy()]) {
+                if (filter_pos[vk.getPosition() - 1]) {
+                    switch (vk.getGroup()) {
+                        case 1:
+                        case 2:
+                        case 3:
+                        case 4:
+                        case 5:
+                        case 6:
+                            if (filter_group[vk.getGroup() - 1]) tmp.add(vk);
+                            break;
+                        case -1:
+                            if (filter_group[6]) tmp.add(vk);
+                            break;
+                        case -2:
+                            if (filter_group[7]) tmp.add(vk);
+                            break;
                     }
                 }
             }
@@ -365,7 +344,7 @@ public class Main {
      */
     public List<VK> getCleanDatabase(){
         List<VK> database = getDatabase();
-        List<VK> cleanDatabase = new ArrayList<VK>();
+        List<VK> cleanDatabase = new ArrayList<>();
         for(VK vk: database) {
             cleanDatabase.add(new VK(vk));
         }
@@ -380,7 +359,7 @@ public class Main {
      * @throws IOException Throws this Exception, if the reading process from the file was not successful, e.g. because the file could not be opened
      * @throws ReadDataException Throws this Exception, if the read data is not valid.
      */
-    private DatabaseReturnType<VK> readInData(String filedir) throws ReadDataException, Exception {
+    private DatabaseReturnType<VK> readInData(String filedir) throws Exception {
         getLogger().log(Level.FINER, "Loading VK data from " + filedir + (settings.getDatabaseType() == DatabaseType.XML?" (XML-Mode)":settings.getDatabaseType() == DatabaseType.CSV?" (CSV-Mode)":""));
         if(settings.getDatabaseType() == DatabaseType.XML){
             throw new RuntimeException("XML data files currently not supported due to work on the backend. Try a CSV Sheet.");
@@ -428,21 +407,20 @@ public class Main {
                     "Position",
                     "Funktion"
             };
-            DatabaseCSV<VK> databaseCSV = new DatabaseCSV<VK>(
+            DatabaseCSV<VK> databaseCSV = new DatabaseCSV<>(
                     filedir,
                     settings.getVkDataEncoding().name(),
-                    new DatabaseEntryCreator<VK>(
+                    new DatabaseEntryCreator<>(
                             new ObjectCreator<VK>(colNames) {
                                 @Override
                                 public VK create(String... arr) {
-                                    boolean driver = false;
-                                    if(arr[getColumnIndex("Funktion")] != null && arr[getColumnIndex("Funktion")].equals("Fahrdienst"))driver = true;
+                                    boolean driver = arr[getColumnIndex("Funktion")] != null && arr[getColumnIndex("Funktion")].equals("Fahrdienst");
                                     return new VK(
                                             getGroupNumber(arr[getColumnIndex("Gruppe")]),
                                             parseRank(arr[getColumnIndex("Rang")]),
                                             arr[getColumnIndex("Vorname")],
                                             arr[getColumnIndex("Nachname")],
-                                            Integer.valueOf(arr[getColumnIndex("Position")]),
+                                            Integer.parseInt(arr[getColumnIndex("Position")]),
                                             driver);
                                 }
                             },
@@ -452,7 +430,7 @@ public class Main {
                     DB_DEFAULT_VERSION
                     );
             getLogger().log(Level.FINER, "VK data loaded");
-            return new DatabaseReturnType<VK>(databaseCSV.getReadData(), databaseCSV.getVersion());
+            return new DatabaseReturnType<>(databaseCSV.getReadData(), databaseCSV.getVersion());
         }else
             return null;
     }

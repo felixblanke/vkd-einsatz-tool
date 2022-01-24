@@ -86,7 +86,7 @@ public class ButtonDialog extends Dialog{
 
         add(pnlControl);
 
-        CustomTable<VK> table = new CustomTable<VK>(m.getFramework(), parent, Main.getVKComparatorList());
+        CustomTable<VK> table = new CustomTable<>(m.getFramework(), parent, Main.getVKComparatorList());
 
 
         CustomDialogTableModel tb = new CustomDialogTableModel(m, columnNames, workingList, lblAlreadyAssigned, defaultChain, table, isDriverDialog);
@@ -105,8 +105,7 @@ public class ButtonDialog extends Dialog{
 
         accept.addActionListener(e -> {
             List<VK> list = ((CustomDialogTableModel)table.getModel()).getWorkingList();
-            ComparatorChain<VK> chain = defaultChain;
-            list = Framework.sort(list, chain);
+            list = Framework.sort(list, defaultChain);
             //write to workingList
             workingList.clear();
             workingList.addAll(list);

@@ -16,10 +16,10 @@ import de.vkd.einsatz_tool.vkd.VK;
 @SuppressWarnings("serial")
 final class CustomDialogTableModel extends CustomTableModel<VK>{
     //Funktion, "Rang", "Position", "Vorname", "Nachname", "ID"
-    private List<VK> workingList = new ArrayList<VK>();
-    private JLabel label;
-    private Main m;
-    private boolean isDriverTable;
+    private List<VK> workingList = new ArrayList<>();
+    private final JLabel label;
+    private final Main m;
+    private final boolean isDriverTable;
 
     public CustomDialogTableModel(Main m, String[] columnNames, List<VK> workingList, JLabel outputLabel, ComparatorChain<VK> defaultChain, CustomTable<VK> table, boolean isDriverTable) {
         super(columnNames, defaultChain, table);
@@ -63,18 +63,17 @@ final class CustomDialogTableModel extends CustomTableModel<VK>{
 
     @Override
     public void refreshTable(){
-        List<VK> l = new ArrayList<VK>();
+        List<VK> l = new ArrayList<>();
         if(!isDriverTable){
             for(VK vk: m.getDatabase()){
                 if(vk.isSelected())l.add(vk);
             }
-            l = sort(l);
         }else{
             for(VK vk: m.getDatabase()){
                 if(vk.isSelected() && vk.isDriver())l.add(vk);
             }
-            l = sort(l);
         }
+        l = sort(l);
         this.setRowCount(0);
         Object[][] rowData = new Object[l.size()][this.getColumnCount()];
         for(int i = 0; i < l.size(); i++){

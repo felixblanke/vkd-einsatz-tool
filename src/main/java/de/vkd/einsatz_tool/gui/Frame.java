@@ -88,82 +88,55 @@ public class Frame extends JFrame{
 
     private static final int NAV_BTN_PREF_WIDTH = 100;
 
-    private ComparatorChain<VK> defaultChainEL;
-    private ComparatorChain<VK> defaultChainAL;
-    private ComparatorChain<VK> defaultChainBus;
+    private final ComparatorChain<VK> defaultChainEL;
+    private final ComparatorChain<VK> defaultChainAL;
+    private final ComparatorChain<VK> defaultChainBus;
 
 
 //COMPONENTS
     private JPanel pnlMain;
-    private JPanel pnlPageOne;
     private JPanel pnlPageTwo;
 
     private CardLayout cl;
 
-//PAGE ONE:
-    private JPanel pnlControl;
-
-//SELECTIONS:
-    private JPanel pnlFilter;
-//Buttons
-    private CustomButton btnSelectAll;
-    private CustomButton btnDeSelectAll;
     private JToggleButton btnShowSelected;
     private JToggleButton btnShowDriver;
-    private CustomButton btnPrevPanelPageOne;
-    private CustomButton btnNextPanelPageOne;
     private CustomButton btnOtherActions;
 //Table (showing the VK)
     private CustomTable<VK> table_pageOne;
-    private JScrollPane scrollPane_pageOne;
-//Labels
+    //Labels
 
 //Menu
     private JPopupMenu menuOtherActions;
     private JMenuItem menuItemOpenFile;
-    private JMenuItem menuItemRemarkDialog;
     private JCheckBoxMenuItem menuItemBussePutzen;
     private JCheckBoxMenuItem menuItemOnlyFahrdienst;
 
 
-    private SearchHintTextField htfSearchPageOne;
-//PAGE TWO:
-    private JPanel pnlControlTwo;
-//Buttons
-    private CustomButton btnPrevPanelPageTwo;
     private CustomButton btnNextPanelPageTwo;
 
     private DateTimePicker beginPicker;
     private DateTimePicker endPicker;
-    private CustomButton btnEL;
     private JLabel lblEL;
-    private CustomButton btnAL;
     private JLabel lblAL;
-    private CustomButton btnBus;
     private JLabel lblBus;
 
-    private CustomButton btnAddRemark;
-    private CustomButton btnDefaultStatus;
-
     private HintTextField htfName;
-    private SearchHintTextField htfSearchPageTwo;
 
-    private List<VK> listEL = new ArrayList<VK>();
-    private List<VK> listAL = new ArrayList<VK>();
-    private List<VK> listBus = new ArrayList<VK>();
+    private List<VK> listEL = new ArrayList<>();
+    private List<VK> listAL = new ArrayList<>();
+    private List<VK> listBus = new ArrayList<>();
 
 
     private CustomTable<VK> table_pageTwo;
-    private JScrollPane scrollPane_pageTwo;
 
-    private Main m;
+    private final Main m;
     private boolean showSelected = false;
     private boolean showDriver = false;
-    private boolean showMenuBar = false;
 
     private String remark = "";
 
-    private HashMap<String, Integer[]> filterCheckBoxMap = new HashMap<String, Integer[]>();
+    private final HashMap<String, Integer[]> filterCheckBoxMap = new HashMap<>();
     {
         /*
          * Integer[2]:
@@ -199,9 +172,9 @@ public class Frame extends JFrame{
 
     public Frame(Main m) {
         this.m = m;
-        this.defaultChainEL = new ComparatorChain<VK>(Main.VK_POSITION_COMPARATOR, Main.VK_RANK_COMPARATOR, Main.VK_NAME_COMPARATOR, Main.VK_SURNAME_COMPARATOR);
-        this.defaultChainAL = new ComparatorChain<VK>(Main.VK_POSITION_COMPARATOR, Main.VK_RANK_COMPARATOR, Main.VK_NAME_COMPARATOR, Main.VK_SURNAME_COMPARATOR);
-        this.defaultChainBus = new ComparatorChain<VK>(Main.VK_POSITION_COMPARATOR, Main.VK_RANK_COMPARATOR, Main.VK_NAME_COMPARATOR, Main.VK_SURNAME_COMPARATOR);
+        this.defaultChainEL = new ComparatorChain<>(Main.VK_POSITION_COMPARATOR, Main.VK_RANK_COMPARATOR, Main.VK_NAME_COMPARATOR, Main.VK_SURNAME_COMPARATOR);
+        this.defaultChainAL = new ComparatorChain<>(Main.VK_POSITION_COMPARATOR, Main.VK_RANK_COMPARATOR, Main.VK_NAME_COMPARATOR, Main.VK_SURNAME_COMPARATOR);
+        this.defaultChainBus = new ComparatorChain<>(Main.VK_POSITION_COMPARATOR, Main.VK_RANK_COMPARATOR, Main.VK_NAME_COMPARATOR, Main.VK_SURNAME_COMPARATOR);
         initComponents();
     }
     //TODO: Inverse Sorting (e.g. Z-A instead of A-Z)
@@ -226,8 +199,9 @@ public class Frame extends JFrame{
         }
         setLayout(new BorderLayout());
 
-        GridBagConstraints gbc = new GridBagConstraints();
+        GridBagConstraints gbc;
 
+        boolean showMenuBar = false;
         if(showMenuBar){
             JMenuBar menuBar = new JMenuBar();
             JMenu menu1 = new JMenu("Datei");
@@ -246,11 +220,12 @@ public class Frame extends JFrame{
 
 
         //page one:
-        pnlPageOne = new JPanel();
+        JPanel pnlPageOne = new JPanel();
         pnlPageOne.setLayout(new GridBagLayout());//(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
         pnlPageOne.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
-        pnlControl = new JPanel();
+        //PAGE ONE:
+        JPanel pnlControl = new JPanel();
         //TODO: CLEAN UP CODE: REMOVE PREFERRED SIZE
         pnlControl.setPreferredSize(new Dimension((int) getContentPane().getPreferredSize().getWidth(), HEIGHT_OF_PNLCONTROL));
         pnlControl.setLayout(new BorderLayout());
@@ -258,12 +233,12 @@ public class Frame extends JFrame{
         JPanel pnlTemp = new JPanel();
         pnlTemp.setLayout(new BoxLayout(pnlTemp, BoxLayout.Y_AXIS));
 
-        btnPrevPanelPageOne = new CustomButton();
+        CustomButton btnPrevPanelPageOne = new CustomButton();
         btnPrevPanelPageOne.setText(m.getFramework().getString("BUTTON_PREVPANEL"));
         btnPrevPanelPageOne.setFocusPainted(false);
         btnPrevPanelPageOne.setAlignmentX(0);
 
-        btnNextPanelPageOne = new CustomButton();
+        CustomButton btnNextPanelPageOne = new CustomButton();
         btnNextPanelPageOne.setText(m.getFramework().getString("BUTTON_NEXTPANEL"));
         btnNextPanelPageOne.setFocusPainted(false);
         btnNextPanelPageOne.setAlignmentX(0);
@@ -296,7 +271,8 @@ public class Frame extends JFrame{
 
         pnlControl.add(pnlTemp, "East");
 
-        pnlFilter = new JPanel();
+        //SELECTIONS:
+        JPanel pnlFilter = new JPanel();
         pnlFilter.setLayout(new GridBagLayout());
 
         gbc = new GridBagConstraints();
@@ -342,7 +318,8 @@ public class Frame extends JFrame{
         gbc.anchor = GridBagConstraints.CENTER;
 
         gbc.gridy = 0;
-        btnSelectAll = new CustomButton();
+        //Buttons
+        CustomButton btnSelectAll = new CustomButton();
         btnSelectAll.setText(m.getFramework().getString("BUTTON_SELECTALL"));
         btnSelectAll.setFocusPainted(false);
         pnlTemp2.add(btnSelectAll, gbc);
@@ -350,7 +327,7 @@ public class Frame extends JFrame{
         gbc.insets = new Insets(INSETS_PNLCONTROL, INSETS_PNLCONTROL, INSETS_PNLCONTROL, INSETS_PNLCONTROL);
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.gridy = 1;
-        btnDeSelectAll = new CustomButton();
+        CustomButton btnDeSelectAll = new CustomButton();
         btnDeSelectAll.setText(m.getFramework().getString("BUTTON_DESELECTALL"));
         btnDeSelectAll.setFocusPainted(false);
         pnlTemp2.add(btnDeSelectAll, gbc);
@@ -386,13 +363,13 @@ public class Frame extends JFrame{
         gbc.fill = GridBagConstraints.BOTH;
         gbc.weightx = 1;
         gbc.weighty = 1;
-        gbc.anchor = GridBagConstraints.FIRST_LINE_START;;
+        gbc.anchor = GridBagConstraints.FIRST_LINE_START;
         gbc.gridx = 0;
         gbc.gridy = 4;
         gbc.gridheight = 1;
         gbc.gridwidth = 11;
         gbc.insets = new Insets(0, INSETS_PNLCONTROL, INSETS_PNLCONTROL, INSETS_PNLCONTROL);
-        htfSearchPageOne = new SearchHintTextField(m.getFramework().getString("TF_SEARCH"), 1, 2, 3, 4, 5);
+        SearchHintTextField htfSearchPageOne = new SearchHintTextField(m.getFramework().getString("TF_SEARCH"), 1, 2, 3, 4, 5);
 
         JPanel subPanelSearch = new JPanel();
         subPanelSearch.setLayout(new GridBagLayout());
@@ -437,7 +414,7 @@ public class Frame extends JFrame{
 
         pnlPageOne.add(pnlControl, gbc);
 
-        table_pageOne = new CustomTable<VK>(m.getFramework(), this, Main.getVKComparatorList());
+        table_pageOne = new CustomTable<>(m.getFramework(), this, Main.getVKComparatorList());
         table_pageOne.setModel(
                 new TableModelPageOne(
                         new String[]{
@@ -449,10 +426,10 @@ public class Frame extends JFrame{
                                 m.getFramework().getString("TABLE_SURNAME"),
                                 m.getFramework().getString("TABLE_DRIVER"),
                                 m.getFramework().getString("TABLE_ID")},
-                        new ComparatorChain<VK>(Main.VK_GROUP_COMPARATOR, Main.VK_POSITION_COMPARATOR, Main.VK_RANK_COMPARATOR, Main.VK_NAME_COMPARATOR, Main.VK_SURNAME_COMPARATOR),
+                        new ComparatorChain<>(Main.VK_GROUP_COMPARATOR, Main.VK_POSITION_COMPARATOR, Main.VK_RANK_COMPARATOR, Main.VK_NAME_COMPARATOR, Main.VK_SURNAME_COMPARATOR),
                         table_pageOne));
         table_pageOne.refreshTable();
-        scrollPane_pageOne = new JScrollPane(table_pageOne);
+        JScrollPane scrollPane_pageOne = new JScrollPane(table_pageOne);
 
         htfSearchPageOne.setTable(table_pageOne);
 
@@ -504,9 +481,7 @@ public class Frame extends JFrame{
             table_pageOne.refreshTable();
             table_pageTwo.refreshTable();
         });
-        btnOtherActions.addActionListener(e -> {
-            menuOtherActions.show(btnOtherActions, btnOtherActions.getWidth()/2, btnOtherActions.getHeight()/2);
-        });
+        btnOtherActions.addActionListener(e -> menuOtherActions.show(btnOtherActions, btnOtherActions.getWidth()/2, btnOtherActions.getHeight()/2));
 
         pnlMain.add(pnlPageOne);
         //end of page one
@@ -515,7 +490,8 @@ public class Frame extends JFrame{
         pnlPageTwo = new JPanel();
         pnlPageTwo.setLayout(new BorderLayout());
 
-        pnlControlTwo = new JPanel();
+        //PAGE TWO:
+        JPanel pnlControlTwo = new JPanel();
         pnlControlTwo.setPreferredSize(new Dimension((int) getContentPane().getPreferredSize().getWidth(), HEIGHT_OF_PNLCONTROLTWO));
         pnlControlTwo.setLayout(new BorderLayout());
 
@@ -523,7 +499,8 @@ public class Frame extends JFrame{
         navPanelPageTwo = new JPanel();
         navPanelPageTwo.setLayout(new BoxLayout(navPanelPageTwo, BoxLayout.Y_AXIS));
 
-        btnPrevPanelPageTwo = new CustomButton();
+        //Buttons
+        CustomButton btnPrevPanelPageTwo = new CustomButton();
         btnPrevPanelPageTwo.setText(m.getFramework().getString("BUTTON_PREVPANEL"));
         btnPrevPanelPageTwo.setFocusPainted(false);
         btnPrevPanelPageTwo.setAlignmentX(0);
@@ -571,7 +548,7 @@ public class Frame extends JFrame{
                 HEIGHT_OF_PNLCONTROL));
 
 
-        addHintTextFieldToPageTwo(htfName = new HintTextField(m.getFramework().getString("TF_NAME")), m.getFramework().getString("LABEL_NAME"),  pnlEinsatzInfo, 0);
+        addHintTextFieldToPageTwo(htfName = new HintTextField(m.getFramework().getString("TF_NAME")), m.getFramework().getString("LABEL_NAME"),  pnlEinsatzInfo);
 
         //pnlTime
 
@@ -628,9 +605,9 @@ public class Frame extends JFrame{
         pnlEinsatzInfo.add(pnlTime, gbc);
 
         //Buttons
-        btnEL = new CustomButton();
-        btnAL = new CustomButton();
-        btnBus = new CustomButton();
+        CustomButton btnEL = new CustomButton();
+        CustomButton btnAL = new CustomButton();
+        CustomButton btnBus = new CustomButton();
         lblEL = new JLabel();
         lblAL = new JLabel();
         lblBus = new JLabel();
@@ -662,6 +639,7 @@ public class Frame extends JFrame{
         gbc.gridx = 0;
         gbc.gridwidth = 1;
         gbc.weightx = 0;
+        SearchHintTextField htfSearchPageTwo;
         pnlEinsatzInfo.add(htfSearchPageTwo = new SearchHintTextField(m.getFramework().getString("TF_SEARCH"), 0, 1, 2, 4), gbc);
 
         gbc = new GridBagConstraints();
@@ -669,14 +647,14 @@ public class Frame extends JFrame{
         gbc.insets = new Insets(0, 0, 0, 5);
         gbc.weightx = 1;
 
-        btnDefaultStatus = new CustomButton(m.getFramework().getString("BUTTON_DEFAULT_STATUS"));
+        CustomButton btnDefaultStatus = new CustomButton(m.getFramework().getString("BUTTON_DEFAULT_STATUS"));
         btnDefaultStatus.setFocusPainted(false);
         pnlTemp.add(btnDefaultStatus, gbc);
 
 
         gbc.insets = new Insets(0, 5, 0, 0);
         gbc.gridx = 1;
-        btnAddRemark = new CustomButton(m.getFramework().getString("BUTTON_ADDREMARK"));
+        CustomButton btnAddRemark = new CustomButton(m.getFramework().getString("BUTTON_ADDREMARK"));
         btnAddRemark.setFocusPainted(false);
         pnlTemp.add(btnAddRemark, gbc);
         gbc = new GridBagConstraints();
@@ -714,12 +692,12 @@ public class Frame extends JFrame{
                 end = endPicker.getDateTimePermissive().format(m.settings.getDateTimeFormatter()) + " " +
                         endPicker.getTimePicker().getTimeStringOrEmptyString();
 
-                List<VK> selectedVK = new ArrayList<VK>();
+                List<VK> selectedVK = new ArrayList<>();
                 for(VK vk: m.getDatabase()){
                     if(vk.isSelected())selectedVK.add(vk);
                 }
 
-                List<String> errorMsgList = new ArrayList<String>();
+                List<String> errorMsgList = new ArrayList<>();
 
                 if(htfName.getText().isEmpty()) errorMsgList.add(m.getFramework().getString("CREATION_EXCEPTION_NO_NAME"));
                 if(begin.isEmpty()) errorMsgList.add(m.getFramework().getString("CREATION_EXCEPTION_NO_BEGIN"));
@@ -789,7 +767,7 @@ public class Frame extends JFrame{
                     //check if a driver without status was intentional
 
                     //list of all drivers without a status
-                    List<VK> driverWithoutStatusList = new ArrayList<VK>();
+                    List<VK> driverWithoutStatusList = new ArrayList<>();
                     for(VK vk: listBus) {
                         if(vk.getStatus().equals(Status.NONE)) driverWithoutStatusList.add(vk);
                     }
@@ -818,13 +796,11 @@ public class Frame extends JFrame{
                                 listBus)
                             .createEinsatzbericht(menuItemBussePutzen.isSelected());
                         JOptionPane.showMessageDialog(c, m.getFramework().getString("CREATION_SUCCESS"));
-                    } catch (ParseException ex) {
-                        m.getLogger().log(Level.SEVERE, "", ex);
                     } catch(FileNotFoundException ex){
                         m.getLogger().log(Level.WARNING, "", ex);
                         JOptionPane.showMessageDialog(c, m.getFramework().getString("CREATION_EXCEPTION")
                                 + m.getFramework().getString("CREATION_EXCEPTION_FILE_NOT_FOUND"));
-                    } catch (IOException ex) {
+                    } catch (ParseException | IOException ex) {
                         m.getLogger().log(Level.SEVERE, "", ex);
                     }
                 }
@@ -971,7 +947,7 @@ public class Frame extends JFrame{
 
         pnlPageTwo.add(pnlControlTwo, "North");
 
-        table_pageTwo = new CustomTable<VK>(m.getFramework(), this, Main.getVKComparatorList());
+        table_pageTwo = new CustomTable<>(m.getFramework(), this, Main.getVKComparatorList());
 
         table_pageTwo.setModel(
                 new TableModelPageTwo(
@@ -984,23 +960,23 @@ public class Frame extends JFrame{
                                 m.getFramework().getString("TABLE_KUERZUNG"),
                                 m.getFramework().getString("TABLE_ID")
                                 },
-                        new ComparatorChain<VK>(Main.VK_POSITION_COMPARATOR, Main.VK_RANK_COMPARATOR, Main.VK_NAME_COMPARATOR, Main.VK_SURNAME_COMPARATOR),
+                        new ComparatorChain<>(Main.VK_POSITION_COMPARATOR, Main.VK_RANK_COMPARATOR, Main.VK_NAME_COMPARATOR, Main.VK_SURNAME_COMPARATOR),
                         table_pageTwo));
         //initializing column 4 with JComboBoxes
         TableColumn col = table_pageTwo.getColumnModel().getColumn(4);
-        JComboBox<String> statusBox = new JComboBox<String>();
+        JComboBox<String> statusBox = new JComboBox<>();
         for(Status s: Status.values()){
             statusBox.addItem(s.getShortName());
         }
         col.setCellEditor(new DefaultCellEditor(statusBox));
 
         table_pageTwo.refreshTable();
-        scrollPane_pageTwo = new JScrollPane(table_pageTwo);
+        JScrollPane scrollPane_pageTwo = new JScrollPane(table_pageTwo);
 
         table_pageTwo.resizeColumnWidth();
         table_pageTwo.setFillsViewportHeight(true);
         scrollPane_pageTwo.setPreferredSize(new Dimension((int)getContentPane().getPreferredSize().getWidth(),
-                (int) (getContentPane().getPreferredSize().getHeight()-pnlControlTwo.getPreferredSize().getHeight())));
+                (int) (getContentPane().getPreferredSize().getHeight()- pnlControlTwo.getPreferredSize().getHeight())));
         htfSearchPageTwo.setTable(table_pageTwo);
         table_pageTwo.addMouseListener(new MouseAdapter() {
             @Override
@@ -1029,7 +1005,7 @@ public class Frame extends JFrame{
               }
             });
 
-        menuItemRemarkDialog = new JMenuItem(m.getFramework().getString("MNU_ADD_REMARK"));
+        JMenuItem menuItemRemarkDialog = new JMenuItem(m.getFramework().getString("MNU_ADD_REMARK"));
         menuItemRemarkDialog.addActionListener(e -> {
             if(table_pageTwo.getSelectedRow() >= 0) {
                 Container c = table_pageTwo.getParent();
@@ -1143,12 +1119,12 @@ public class Frame extends JFrame{
 
 
 
-    private void addHintTextFieldToPageTwo(HintTextField htf, String lblText, JPanel parent, int y){
+    private void addHintTextFieldToPageTwo(HintTextField htf, String lblText, JPanel parent){
         //suppose parent uses GridBagLayout
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.anchor = GridBagConstraints.FIRST_LINE_START;
         gbc.insets = new Insets(INSETS_PNLCONTROL2, INSETS_PNLCONTROL2_SIDES, INSETS_PNLCONTROL2, INSETS_PNLCONTROL2_SIDES);
-        gbc.gridy = y;
+        gbc.gridy = 0;
         gbc.gridheight = 1;
         gbc.weighty = 0;
         gbc.fill = GridBagConstraints.BOTH;
@@ -1219,7 +1195,7 @@ public class Frame extends JFrame{
         };
     }
 
-    abstract private class ListHolder<T>{ //No (Function) Pointer in Java
+    abstract private static class ListHolder<T>{ //No (Function) Pointer in Java
         abstract List<T> getWorkingList();
     }
 
@@ -1299,13 +1275,13 @@ public class Frame extends JFrame{
         public void refreshTable() {
             List<VK> l;
             if(showSelected){
-                l = new ArrayList<VK>();
+                l = new ArrayList<>();
                 for(VK vk: m.getDatabase()){
                     if(vk.isSelected())l.add(vk);
                 }
                 l = sort(l);
             }else if(showDriver){
-                l = new ArrayList<VK>();
+                l = new ArrayList<>();
                 for(VK vk: m.getDatabase()){
                     if(vk.isDriver())l.add(vk);
                 }
@@ -1364,7 +1340,7 @@ public class Frame extends JFrame{
 
         @Override
         public void refreshTable() {
-            List<VK> l = new ArrayList<VK>();
+            List<VK> l = new ArrayList<>();
             for(VK vk: m.getDatabase()){
                 if(vk.isSelected())l.add(vk);
             }

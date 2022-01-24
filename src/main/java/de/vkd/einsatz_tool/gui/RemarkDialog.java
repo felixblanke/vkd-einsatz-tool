@@ -32,7 +32,7 @@ import de.vkd.einsatz_tool.vkd.VK;
 
 @SuppressWarnings("serial")
 public class RemarkDialog extends Dialog{
-    private List<Kuerzung> workingList = new ArrayList<Kuerzung>();
+    private List<Kuerzung> workingList = new ArrayList<>();
     public RemarkDialog(Framework<VK> framework, Frame parent, String title, VK vk) {
          super(parent, title);
 
@@ -96,7 +96,7 @@ public class RemarkDialog extends Dialog{
          for(int i = 0; i < cmbVals.length; i++){
              cmbVals[i] = Status.values()[i].getListName();
          }
-         JComboBox<String> cmb = new JComboBox<String>(cmbVals);
+         JComboBox<String> cmb = new JComboBox<>(cmbVals);
          cmb.setEditable(false);
          cmb.setSelectedItem(vk.getStatus().getListName());
          pnlEinsatzstatus.add(cmb);
@@ -115,7 +115,7 @@ public class RemarkDialog extends Dialog{
          pnlEinsatzstatus.add(temp);
          pnlEinsatzstatus.add(spacer2);
 
-         JComboBox<String> cmb2 = new JComboBox<String>(getSEArray(framework));
+         JComboBox<String> cmb2 = new JComboBox<>(getSEArray(framework));
          cmb2.setEditable(false);
          if(vk.getErsatz()!=null)cmb2.setSelectedItem(vk.getErsatz().getStringRepresentation());
          cmb2.setVisible(false);
@@ -199,7 +199,7 @@ public class RemarkDialog extends Dialog{
          add(pnlCenter);
          add(Box.createVerticalStrut(3));
 
-         CustomTable<Kuerzung> table = new CustomTable<Kuerzung>(framework, this, Main.getKuerzungComparatorList());
+         CustomTable<Kuerzung> table = new CustomTable<>(framework, this, Main.getKuerzungComparatorList());
          table.setModel(
                  new TableModelRemarkDialog(
                      new String[]{
@@ -207,7 +207,7 @@ public class RemarkDialog extends Dialog{
                              framework.getString("TABLE_PERCENTAGE"),
                              framework.getString("TABLE_REASON")
                          },
-                     new ComparatorChain<Kuerzung>(Main.KUERZUNG_PERCENTAGE_COMPARATOR, Main.KUERZUNG_ID_COMPARATOR),
+                         new ComparatorChain<>(Main.KUERZUNG_PERCENTAGE_COMPARATOR, Main.KUERZUNG_ID_COMPARATOR),
                      table));
          JScrollPane scrollPane = new JScrollPane(table);
 
@@ -250,10 +250,10 @@ public class RemarkDialog extends Dialog{
             if(vk.getStatus().equals(Status.ERSATZ)){
                 String[] strArrSE = getSEArray(framework);
                 String reference = (String) cmb2.getSelectedItem();
-                for(int i = 0; i < strArrSE.length; i++){
-                    if(strArrSE[i].equals(reference)){
-                        for(VK vkL: framework.getDatabase()){
-                            if(vkL.getStringRepresentation().equals(strArrSE[i])){
+                for (String s : strArrSE) {
+                    if (s.equals(reference)) {
+                        for (VK vkL : framework.getDatabase()) {
+                            if (vkL.getStringRepresentation().equals(s)) {
                                 vk.setErsatz(vkL);
                                 break;
                             }
@@ -280,10 +280,10 @@ public class RemarkDialog extends Dialog{
         });
         btnRemoveKuerzungen.addActionListener(e -> {
             int[] i = table.getSelectedRows();
-            for(int k = 0; k < i.length; k++){
+            for (int j : i) {
                 TableModelRemarkDialog model = (TableModelRemarkDialog) table.getModel();
-                model.removeKuerzung((int)table.getModel().getValueAt(i[k], 0));
-      //                    model.removeRow(i[k]);
+                model.removeKuerzung((int) table.getModel().getValueAt(j, 0));
+                //                    model.removeRow(i[k]);
             }
             ((TableModelRemarkDialog) table.getModel()).refreshTable();
 
@@ -310,7 +310,7 @@ public class RemarkDialog extends Dialog{
         return b;
     }
     private String[] getSEArray(Framework<VK> framework){
-        List<VK> l = new ArrayList<VK>();
+        List<VK> l = new ArrayList<>();
         for(VK vk: framework.getDatabase()){
             if(vk.isSelected() && (vk.getStatus().equals(Status.SE)||vk.getStatus().equals(Status.UE)))l.add(vk);
         }

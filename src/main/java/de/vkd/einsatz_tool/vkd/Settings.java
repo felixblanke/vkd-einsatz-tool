@@ -22,16 +22,8 @@ import de.vkd.database.DatabaseType;
 import de.vkd.framework.VarSet;
 
 public class Settings {
-    private final String XML_VERSION = "version";
-    private final String XML_VK_DATA = "vk_data";
-    private final String XML_STRING_VALUES = "string_values";
-    private final String XML_ICON = "icon";
-    private final String XML_REMARK_FONT = "remark_font";
-    private final String XML_VAR_FLAG = "var_flag";
 
-    private final String XML_ATTRIBUTE_NAME = "name";
-
-//    private String dbVersion = "NO_VAL";
+    //    private String dbVersion = "NO_VAL";
     private String version;
     private String resPath;
     private String exportPath;
@@ -70,10 +62,15 @@ public class Settings {
         final Charset vkDataEncoding = StandardCharsets.UTF_8;
 
         //version:
+        String XML_VERSION = "version";
         final String version = readString(XML_VERSION, root);
+        String XML_VK_DATA = "vk_data";
         final String vkDataPath = readString(XML_VK_DATA, root);
+        String XML_STRING_VALUES = "string_values";
         final String stringValuesPath = readString(XML_STRING_VALUES, root);
+        String XML_ICON = "icon";
         final String iconPath = readString(XML_ICON, root);
+        String XML_REMARK_FONT = "remark_font";
         final String remarkFontPath =  readString(XML_REMARK_FONT, root);
 
         final DatabaseType databaseType;
@@ -84,11 +81,13 @@ public class Settings {
 
         //varFlags
         final VarSet varSet = new VarSet();
+        String XML_VAR_FLAG = "var_flag";
         for(Element e: root.getChildren(XML_VAR_FLAG)) {
             String elemVal = e.getValue();
             if(!e.hasAttributes())throw new SettingsLoadingException("Exception loading a '" + XML_VAR_FLAG + "' tag: no attributes");
             List<Attribute> attributes= e.getAttributes();
             if(attributes.size() > 1)throw new SettingsLoadingException("Exception loading a '" + XML_VAR_FLAG + "' tag: too many attributes");
+            String XML_ATTRIBUTE_NAME = "name";
             if(!attributes.get(0).getName().equals(XML_ATTRIBUTE_NAME))throw new SettingsLoadingException("Exception loading a '" + XML_VAR_FLAG + "' tag: wrong attribute ('" + attributes.get(0).getName() + "' instead of '" + XML_ATTRIBUTE_NAME + "')");
             if(elemVal.trim().isEmpty())throw new SettingsLoadingException("Exception loading a '" + XML_VAR_FLAG + "' tag: no value");
 
@@ -97,10 +96,8 @@ public class Settings {
 
         switch(databaseType) {
         case CSV:
-            initVars(m, version, resPath, exportPath, stringValuesPath, vkDataPath,iconPath, remarkFontPath, dateFormat, dateFormat2, dateFormat3, vkDataEncoding, databaseType, varSet);
-            break;
-        case XML:
-            initVars(m, version, resPath, exportPath, stringValuesPath, vkDataPath, iconPath, remarkFontPath, dateFormat, dateFormat2, dateFormat3, vkDataEncoding, databaseType, varSet);
+            case XML:
+                initVars(m, version, resPath, exportPath, stringValuesPath, vkDataPath,iconPath, remarkFontPath, dateFormat, dateFormat2, dateFormat3, vkDataEncoding, databaseType, varSet);
             break;
         }
 
