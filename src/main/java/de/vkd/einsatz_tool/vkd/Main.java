@@ -83,7 +83,13 @@ public class Main {
         getLogger().log(Level.FINE, "Starting loading process");
         getLogger().log(Level.FINE, JAR_PATH);
         this.settings = loadSettings();
-        framework.getConsole().setIcon(JAR_PATH + settings.getIconPath());
+        try {
+            getLogger().log(Level.FINEST, "Loading icon from " + settings.getIconPath());
+            framework.getConsole().setIcon(settings.getIconPath(), true);
+            getLogger().log(Level.FINEST, "Icon loaded");
+        } catch(IOException ex) {
+            getLogger().log(Level.WARNING, "", ex);
+        }
 
         List<Variable> sysVarList = new ArrayList<Variable>();
         sysVarList.add(new Variable("VER", settings.getVersion()));
@@ -91,12 +97,12 @@ public class Main {
 
         framework.initVars(settings.getVarSet());
 
-        framework.loadStringValuesFromXML(JAR_PATH + settings.getStringValuesPath());
+        framework.loadStringValuesFromXML(settings.getStringValuesPath(), true);
 
         initVars();
 
         //read Data
-        DatabaseReturnType<VK> databaseReturnType = readInData(JAR_PATH + settings.getVkDataPath());
+        DatabaseReturnType<VK> databaseReturnType = readInData(settings.getVkDataPath());
         framework.setDatabase(databaseReturnType);
 
         getLogger().log(Level.FINE, "Loading complete");
