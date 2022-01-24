@@ -17,6 +17,7 @@ import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
+import de.vkd.auxiliary.Auxiliary;
 import de.vkd.database.DatabaseType;
 import de.vkd.framework.VarSet;
 
@@ -53,7 +54,7 @@ public class Settings {
         if(elems.size() != 1)throw new SettingsLoadingException("There must be exactly one '" + elemName + "' tag, not " + elems.size());
         return elems.get(0).getValue();
     }
-    public Settings(Main m,String filedir) throws SettingsLoadingException, JDOMException, IOException {
+    public Settings(Main m, String filedir) throws SettingsLoadingException, JDOMException, IOException {
         m.getLogger().log(Level.FINER, "loading settings from " + filedir);
 
         Document doc = new SAXBuilder().build(filedir);
@@ -286,17 +287,11 @@ public class Settings {
 
         Font remarkFont = null;
         try {
-            InputStream fontResource = Settings.class.getResourceAsStream(resPath + remarkFontPath);
-            if(fontResource == null) {
-                m.getLogger().log(Level.WARNING, "failed loading " + resPath + remarkFontPath);
-            }else {
-                m.getLogger().log(Level.FINER, "loading: " + Settings.class.getResource(resPath + remarkFontPath).getPath());
-            }
-
+            InputStream fontResource = Auxiliary.getResourceFromJAR(resPath + remarkFontPath, m.getLogger());
             remarkFont = Font.createFont( Font.TRUETYPE_FONT, fontResource );
         } catch (FontFormatException | IOException e) {
             m.getLogger().log(Level.WARNING, "", e);
-        }finally{
+        } finally{
             this.remarkFont = remarkFont;
         }
 
