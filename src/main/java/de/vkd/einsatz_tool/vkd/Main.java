@@ -144,45 +144,23 @@ public class Main {
         //comparators
         VK_GROUP_COMPARATOR = new NamedComparator<VK>(
                 getFramework().getString("VK_GROUP"),
-                new Comparator<VK>() {
-                    @Override
-                    public int compare( VK vk1, VK vk2 ) {
-                        return vk1.getGroup() - vk2.getGroup();
-                    }
-                }
+                Comparator.comparing(VK::getGroup)
         );
         VK_POSITION_COMPARATOR = new NamedComparator<VK>(
                 getFramework().getString("VK_POS"),
-                new Comparator<VK>() {
-                    @Override
-                    public int compare( VK vk1, VK vk2 ) {
-                        return vk1.getPosition() - vk2.getPosition();
-                    }
-                }
+                Comparator.comparing(VK::getPosition)
         );
         VK_RANK_COMPARATOR = new NamedComparator<VK>(
                 getFramework().getString("VK_RANK"),
-                new Comparator<VK>() {
-                    @Override public int compare( VK vk1, VK vk2 ) {
-                        return vk2.getRank().getHierarchy()-vk1.getRank().getHierarchy();
-                    }
-                }
+                Comparator.comparing((VK vk) -> vk.getRank().getHierarchy()).reversed()
         );
         VK_NAME_COMPARATOR = new NamedComparator<VK>(
                 getFramework().getString("VK_NAME"),
-                new Comparator<VK>() {
-                    @Override public int compare( VK vk1, VK vk2 ) {
-                        return vk1.getName().compareTo( vk2.getName() );
-                    }
-                }
+                Comparator.comparing(VK::getName)
         );
         VK_SURNAME_COMPARATOR = new NamedComparator<VK>(
                 getFramework().getString("VK_SURNAME"),
-                new Comparator<VK>() {
-                    @Override public int compare( VK vk1, VK vk2 ) {
-                        return vk1.getSurname().compareTo( vk2.getSurname() );
-                    }
-                }
+                Comparator.comparing(VK::getSurname)
         );
 
         VK_COMPARATOR_LIST.add(VK_GROUP_COMPARATOR);
@@ -201,30 +179,15 @@ public class Main {
 
         KUERZUNG_ID_COMPARATOR = new NamedComparator<Kuerzung>(
                 getFramework().getString("KUERZUNG_ID_COMPARATOR"),
-                new Comparator<Kuerzung>() {
-                    @Override
-                    public int compare( Kuerzung k1, Kuerzung k2 ) {
-                        return k1.getID()-k2.getID();
-                    }
-                }
+                Comparator.comparing(Kuerzung::getID)
         );
         KUERZUNG_PERCENTAGE_COMPARATOR = new NamedComparator<Kuerzung>(
                 getFramework().getString("KUERZUNG_PERCENTAGE_COMPARATOR"),
-                new Comparator<Kuerzung>() {
-                    @Override
-                    public int compare( Kuerzung k1, Kuerzung k2 ) {
-                        return k2.getPercentage()-k1.getPercentage();
-                    }
-                }
+                Comparator.comparing(Kuerzung::getPercentage).reversed()
         );
         KUERZUNG_REASON_COMPARATOR = new NamedComparator<Kuerzung>(
                 getFramework().getString("KUERZUNG_REASON_COMPARATOR"),
-                new Comparator<Kuerzung>() {
-                    @Override
-                    public int compare( Kuerzung k1, Kuerzung k2 ) {
-                        return k1.getReason().compareTo(k2.getReason());
-                    }
-                }
+                Comparator.comparing(Kuerzung::getReason)
         );
 
         KUERZUNG_COMPARATOR_LIST.add(KUERZUNG_ID_COMPARATOR);
