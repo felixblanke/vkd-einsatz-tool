@@ -2,8 +2,8 @@ package de.vkd.einsatz_tool.vkd;
 
 import java.awt.Font;
 import java.awt.FontFormatException;
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
@@ -64,16 +64,16 @@ public class Settings {
 		final String dateFormat2 = "dd.MM.yyyy hh:mm";
 		final String dateFormat3 = "dd.MM.yyyy";
 		
-		final String resPath = "_res";
+		final String resPath = "/";
 		final String exportPath = "_export";
 		final Charset vkDataEncoding = StandardCharsets.UTF_8;
 		
 		//version:
 		final String version = readString(XML_VERSION, root);		
-		final String vkDataPath = "/" + readString(XML_VK_DATA, root);
-		final String stringValuesPath = "/" + readString(XML_STRING_VALUES, root);
-		final String iconPath = "/" + readString(XML_ICON, root);
-		final String remarkFontPath = "/" + readString(XML_REMARK_FONT, root);
+		final String vkDataPath = readString(XML_VK_DATA, root);
+		final String stringValuesPath = readString(XML_STRING_VALUES, root);
+		final String iconPath = readString(XML_ICON, root);
+		final String remarkFontPath =  readString(XML_REMARK_FONT, root);
 		
 		final DatabaseType databaseType;
 		
@@ -286,8 +286,14 @@ public class Settings {
 		
 		Font remarkFont = null;
 		try {
-			remarkFont = Font.createFont( Font.TRUETYPE_FONT,
-					new File( resPath + remarkFontPath) );
+			InputStream fontResource = Settings.class.getResourceAsStream(resPath + remarkFontPath);
+			if(fontResource == null) {
+				m.getLogger().log(Level.WARNING, "failed loading " + resPath + remarkFontPath);
+			}else {
+				m.getLogger().log(Level.FINER, "loading: " + Settings.class.getResource(resPath + remarkFontPath).getPath());
+			}
+
+			remarkFont = Font.createFont( Font.TRUETYPE_FONT, fontResource );
 		} catch (FontFormatException | IOException e) {
 			m.getLogger().log(Level.WARNING, "", e);
 		}finally{
