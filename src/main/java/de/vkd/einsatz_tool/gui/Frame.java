@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -58,6 +59,7 @@ import com.github.lgooddatepicker.components.DatePickerSettings;
 import com.github.lgooddatepicker.components.DateTimePicker;
 import com.github.lgooddatepicker.components.TimePickerSettings;
 
+import de.vkd.auxiliary.Auxiliary;
 import de.vkd.auxiliary.ComparatorChain;
 import de.vkd.database.DatabaseReturnType;
 import de.vkd.framework.Framework;
@@ -218,7 +220,11 @@ public class Frame extends JFrame{
         setTitle(m.getFramework().getString("FRAME_TITLE"));
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(true);
-        setIconImage(new ImageIcon(m.settings.getIconPath()).getImage());
+        try {
+            setIconImage(new ImageIcon(ImageIO.read(Auxiliary.getResourceURLFromJAR(m.settings.getIconPath()))).getImage());
+        } catch (IOException ex) {
+            m.getLogger().log(Level.WARNING, "", ex);
+        }
         setLayout(new BorderLayout());
 
         GridBagConstraints gbc = new GridBagConstraints();
