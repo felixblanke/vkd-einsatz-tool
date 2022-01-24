@@ -1,0 +1,721 @@
+<!-- SYSTEM VARIABLES CAN BE CALLED BY SOUROUNDING THE VARIABLE NAME WITH '%', like in '%VER%'.
+    THE VARIABLE WILL BE REPLACED WITH ITS VALUE, IF A VALUE IS SET.
+
+    VARIABLES CAN BE DECLARED IN THE VAR TAG. VARIABLES CAN BE CALLED USING '?', like in '?GRP?'
+-->
+<string_values lang="de">
+    <var name="CREATOR">
+        <var_name>CREATOR</var_name>
+        <var_value>Felix Blanke</var_value>
+    </var>
+    <var name="ADMIN">
+        <var_name>ADMIN</var_name>
+        <var_value>Felix Blanke</var_value>
+    </var>
+    <var name="GROUP_POS">
+        <var_name>POS</var_name>
+        <var_value>Position</var_value>
+    </var>
+    <var name="GROUP_VAR">
+        <var_name>GRP</var_name>
+        <var_value>Gruppe</var_value>
+    </var>
+    <var name="RANK_VAR">
+        <var_name>RNK</var_name>
+        <var_value>Rang</var_value>
+    </var>
+    <var name="NAME_VAR">
+        <var_name>NME</var_name>
+        <var_value>Vorname</var_value>
+    </var>
+    <var name="SURNAME_VAR">
+        <var_name>SRNME</var_name>
+        <var_value>Nachname</var_value>
+    </var>
+    <var name="ID_VAR">
+        <var_name>ID</var_name>
+        <var_value>ID</var_value>
+    </var>
+    <var name="BUS_VAR">
+        <var_name>BUS</var_name>
+        <var_value>Busfahrer</var_value>
+    </var>
+    <var name="EL_VAR">
+        <var_name>EL</var_name>
+        <var_value>Einsatzleiter</var_value>
+    </var>
+    <var name="EL_SHORT_VAR">
+        <var_name>EL_SHORT</var_name>
+        <var_value>EL</var_value>
+    </var>
+    <var name="AL_VAR">
+        <var_name>AL</var_name>
+        <var_value>Abschnittsleiter</var_value>
+    </var>
+    <var name="AL_SHORT_VAR">
+        <var_name>AL_SHORT</var_name>
+        <var_value>AL</var_value>
+    </var>
+    <var name="FAHRD_VAR">
+        <var_name>FAHRD</var_name>
+        <var_value>Fahrdienst</var_value>
+    </var>
+    <var name="KUERZ_VAR">
+        <var_name>KUERZ</var_name>
+        <var_value>Kürzungen</var_value>
+    </var>
+    <var name="VKD_VAR">
+        <var_name>VKD</var_name>
+        <var_value>Verkehrskadetten Düsseldorf</var_value>
+    </var>
+    <var name="VK_VAR">
+        <var_name>VK</var_name>
+        <var_value>Verkehrskadett</var_value>
+    </var>
+    <var name="VKS_VAR">
+        <var_name>VKS</var_name>
+        <var_value>Verkehrskadetten</var_value>
+    </var>
+    <var name="REMARK_VAR">
+        <var_name>RMRK</var_name>
+        <var_value>Bemerkung</var_value>
+    </var>
+    <var name="EINSATZBER_VAR">
+        <var_name>EINSATZBER</var_name>
+        <var_value>Einsatzbericht</var_value>
+    </var>
+    <var name="CHOOSE_VAR">
+        <var_name>CHOOSE</var_name>
+        <var_value>Wähle</var_value>
+    </var>
+    <var name="STATUS">
+        <var_name>STATUS</var_name>
+        <var_value>Status</var_value>
+    </var>
+    <var name="STATUS_EING">
+        <var_name>STATUS_EING</var_name>
+        <var_value>eingeteilt</var_value>
+    </var>
+    <var name="STATUS_ERS">
+        <var_name>STATUS_ERS</var_name>
+        <var_value>Ersatz</var_value>
+    </var>
+    <var name="STATUS_ZUS">
+        <var_name>STATUS_ZUS</var_name>
+        <var_value>Zusätzlich</var_value>
+    </var>
+    <var name="STATUS_SE">
+        <var_name>STATUS_SE</var_name>
+        <var_value>SE</var_value>
+    </var>
+    <var name="STATUS_AE">
+        <var_name>STATUS_AE</var_name>
+        <var_value>AE</var_value>
+    </var>
+    <var name="STATUS_UE">
+        <var_name>STATUS_UE</var_name>
+        <var_value>UE</var_value>
+    </var>
+    <var name="STATUS_NONE">
+        <var_name>STATUS_NONE</var_name>
+        <var_value>--</var_value>
+    </var>
+    <var name="STATUS_AUSG">
+        <var_name>STATUS_AUSG</var_name>
+        <var_value>Ausgetreten</var_value>
+    </var>
+    <var name="BEGIN_VAR">
+        <var_name>BGN</var_name>
+        <var_value>Einsatzbeginn</var_value>
+    </var>
+    <var name="END_VAR">
+        <var_name>END</var_name>
+        <var_value>Einsatzende</var_value>
+    </var>
+    <var name="EINSATZBEZ_VAR">
+        <var_name>EINSATZBEZ</var_name>
+        <var_value>Einsatzbezeichnung</var_value>
+    </var>
+    <var name="SCHLACKSIGER_HRNSHN">
+        <var_name>HRNSHN</var_name>
+        <var_value>Mussplay</var_value>
+    </var>
+    <!--
+        USING ARGS
+    -->
+    <var name="NOT_SELECTED_VAR">
+        <var_name>NOT_SELECTED</var_name>
+        <var_value>ein ?ARG0? nicht ausgewählt ist.</var_value>
+        <var_args>
+            <var_argument>ARG0</var_argument>
+        </var_args>
+    </var>
+    <var name="NOT_SET_VAR">
+        <var_name>NOT_SET</var_name>
+        <var_value>kein ?ARG0? gesetzt ist.</var_value>
+        <var_args>
+            <var_argument>ARG0</var_argument>
+        </var_args>
+    </var>
+    <var name="NOT_ASSIGNED_VAR">
+        <var_name>NOT_ASSIGNED</var_name>
+        <var_value>ein ?ARG0? nicht ?ARG1? ist.</var_value>
+        <var_args>
+            <var_argument>ARG0</var_argument>
+            <var_argument>ARG1</var_argument>
+        </var_args>
+    </var>
+
+    <!--
+        GENERAL
+    -->
+    <value name="COPYRIGHT_NAME">
+        <value_text>?EINSATZBER?e ?VKD? %VER%</value_text>
+    </value>
+    <value name="COPYRIGHT_AUTHOR">
+        <value_text>(C) Felix Blanke 2017-2019</value_text>
+    </value>
+    <value name="EMPTY_LIST">
+        <value_text>--</value_text>
+    </value>
+    <!--
+        GROUPS:
+    -->
+    <value name="GROUP_1">
+        <value_text>?GRP? I</value_text>
+    </value>
+    <value name="GROUP_2">
+        <value_text>?GRP? II</value_text>
+    </value>
+    <value name="GROUP_3">
+        <value_text>?GRP? III</value_text>
+    </value>
+    <value name="GROUP_4">
+        <value_text>?GRP? IV</value_text>
+    </value>
+    <value name="GROUP_5">
+        <value_text>?GRP? V</value_text>
+    </value>
+    <value name="GROUP_6">
+        <value_text>?GRP? VI</value_text>
+    </value>
+    <value name="GROUP_L">
+        <value_text>Leitung</value_text>
+    </value>
+    <value name="GROUP_ER">
+        <value_text>Einsatzreserve</value_text>
+    </value>
+    <!--
+        POSITIONS:
+    -->
+    <value name="POS_MANNSCHAFT_TABLE">
+        <value_text>--</value_text>
+    </value>
+    <value name="POS_MANNSCHAFT_CHECKBOX">
+        <value_text>Mannschaft</value_text>
+    </value>
+    <value name="POS_2STV">
+        <value_text>2. Stellvertreter</value_text>
+    </value>
+    <value name="POS_1STV">
+        <value_text>1. Stellvertreter</value_text>
+    </value>
+    <value name="POS_GL">
+        <value_text>Gruppenleiter</value_text>
+    </value>
+    <!--
+        RANKS:
+    -->
+    <value name="RANK_VK">
+        <value_text>VK</value_text>
+    </value>
+    <value name="RANK_OVK">
+        <value_text>OVK</value_text>
+    </value>
+    <value name="RANK_HVK">
+        <value_text>HVK</value_text>
+    </value>
+    <value name="RANK_HVKA">
+        <value_text>HVK*</value_text>
+    </value>
+    <value name="RANK_UGL">
+        <value_text>UGL</value_text>
+    </value>
+    <value name="RANK_PGL">
+        <value_text>PGL</value_text>
+    </value>
+    <value name="RANK_GL">
+        <value_text>GL</value_text>
+    </value>
+    <value name="RANK_OGL">
+        <value_text>OGL</value_text>
+    </value>
+    <value name="RANK_HGL">
+        <value_text>HGL</value_text>
+    </value>
+    <!--
+        GUI
+    -->
+    <value name="BUTTON_PREVPANEL">
+        <value_text>Zurück</value_text>
+    </value>
+    <value name="BUTTON_NEXTPANEL">
+        <value_text>Weiter</value_text>
+    </value>
+    <value name="BUTTON_ACCEPT">
+        <value_text>Bestätigen</value_text>
+    </value>
+    <value name="BUTTON_CANCEL">
+        <value_text>Abbrechen</value_text>
+    </value>
+    <value name="FRAME_TITLE">
+        <value_text>?VKD? - %VER%</value_text>
+    </value>
+    <value name="TF_SEARCH">
+        <value_text>Suche</value_text>
+    </value>
+    <value name="MNU_SORT">
+        <value_text>Ändere Sortierreihenfolge</value_text>
+    </value>
+    <value name="MNU_ADD_REMARK">
+        <value_text>Kürzung/Bemerkung hinzufügen</value_text>
+    </value>
+    <value name="DIALOG_TITLE_SORT">
+        <value_text>Sortierreihenfolge ändern</value_text>
+    </value>
+    <!--
+        GUI_PAGEONE:
+    -->
+    <value name="BUTTON_SHOWDRIVER">
+        <value_text>Zeige nur den ?FAHRD?</value_text>
+    </value>
+    <value name="BUTTON_SELECTALL">
+        <value_text>Markiere alle angezeigten VK</value_text>
+    </value>
+    <value name="BUTTON_DESELECTALL">
+        <value_text>"Entmarkiere" alle angezeigten VK</value_text>
+    </value>
+    <value name="BUTTON_SHOWSELECTED">
+        <value_text>Zeige nur alle markierten VK</value_text>
+    </value>
+    <value name="MENU_OPEN_FILE">
+        <value_text>Einsatzbericht öffnen</value_text>
+    </value>
+    <value name="MENU_CHECK_BP">
+        <value_text>Busse putzen</value_text>
+    </value>
+    <value name="MENU_CHECK_ONLY_FD">
+        <value_text>Nur ?FAHRD? darf Busse fahren</value_text>
+    </value>
+    <!--
+        GUI_PAGETWO:
+    -->
+    <value name="LABEL_BEGIN">
+        <value_text>?BGN?: </value_text>
+    </value>
+    <value name="LABEL_END">
+        <value_text>?END?: </value_text>
+    </value>
+    <value name="LABEL_BETWEEN">
+        <value_text>bis</value_text>
+    </value>
+    <value name="LABEL_AL">
+        <value_text>?AL?: </value_text>
+    </value>
+    <value name="LABEL_EL">
+        <value_text>?EL?: </value_text>
+    </value>
+    <value name="LABEL_BUS">
+        <value_text>?BUS?: </value_text>
+    </value>
+    <value name="LABEL_NAME">
+        <value_text>?EINSATZBEZ?: </value_text>
+    </value>
+    <value name="BUTTON_AL">
+        <value_text>?CHOOSE? ?AL?</value_text>
+    </value>
+    <value name="BUTTON_EL">
+        <value_text>?CHOOSE? ?EL?</value_text>
+    </value>
+    <value name="BUTTON_BUS">
+        <value_text>?CHOOSE? ?BUS?</value_text>
+    </value>
+    <value name="TF_NAME">
+        <value_text>Name des Einsatzes</value_text>
+    </value>
+    <value name="BUTTON_DEFAULT_STATUS">
+        <value_text>Standard-Status: ?STATUS_EING?</value_text>
+    </value>
+    <value name="BUTTON_ADDREMARK">
+        <value_text>?RMRK? hinzufügen</value_text>
+    </value>
+    <!--
+        GUI DIALOG
+    -->
+    <value name="LABEL_ALREADY_ASSIGNED">
+        <value_text>Bisher eingeteilt: </value_text>
+    </value>
+    <value name="LABEL_DIALOG_NAME">
+        <value_text>Name: </value_text>
+    </value>
+    <value name="LABEL_STATUS">
+        <value_text>?STATUS?:</value_text>
+    </value>
+    <value name="LABEL_ERS_FOR">
+        <value_text>für</value_text>
+    </value>
+    <value name="LABEL_REMARKS">
+        <value_text>Bemerkungen:</value_text>
+    </value>
+    <value name="LABEL_KUERZ">
+        <value_text>Kürzung:</value_text>
+    </value>
+    <value name="LABEL_REASON">
+        <value_text>Grund:</value_text>
+    </value>
+    <value name="BUTTON_ADD_REASON">
+        <value_text>+</value_text>
+    </value>
+    <value name="BUTTON_REMOVE_REASON">
+        <value_text>-</value_text>
+    </value>
+
+    <value name="BUTTON_MOVE_UP">
+        <value_text>ʌ</value_text>
+    </value>
+    <value name="BUTTON_MOVE_UP_TOOLTIP">
+        <value_text>Erhöht die Sortierpriorisierung des ausgewählten Kriteriums</value_text>
+    </value>
+    <value name="BUTTON_MOVE_DOWN">
+        <value_text>v</value_text>
+    </value>
+    <value name="BUTTON_MOVE_DOWN_TOOLTIP">
+        <value_text>Verringert die Sortierpriorisierung des ausgewählten Kriteriums</value_text>
+    </value>
+    <value name="BUTTON_MOVE_LEFT">
+        <value_text>&lt;</value_text>
+    </value>
+    <value name="BUTTON_MOVE_LEFT_TOOLTIP">
+        <value_text>Aktiviert das ausgewählte Kriterium, sodass es bei der Sortierung berücksichtigt wird</value_text>
+    </value>
+    <value name="BUTTON_MOVE_RIGHT">
+        <value_text>&gt;</value_text>
+    </value>
+    <value name="BUTTON_MOVE_RIGHT_TOOLTIP">
+        <value_text>Deaktiviert das ausgewählte Kriterium, sodass es bei der Sortierung nicht mehr berücksichtigt wird</value_text>
+    </value>
+    <value name="LIST_ACTIVE_TOOLTIP">
+        <value_text>Liste aller bei der Sortierung verwendeten Kriterien</value_text>
+    </value>
+    <value name="LIST_INACTIVE_TOOLTIP">
+        <value_text>Liste aller bei der Sortierung nicht verwendeten Kriterien</value_text>
+    </value>
+    <value name="EXCEPTION_SELECTION_IN_BOTH_LISTS">
+        <value_text>Es wurde eine Auswahl in beiden Listen getätigt!</value_text>
+    </value>
+    <value name="EXCEPTION_SELECTION_IN_NO_LIST">
+        <value_text>Es wurde keine Auswahl getroffen!</value_text>
+    </value>
+    <!--
+        TABLE HEADING
+    -->
+    <value name="TABLE_SELECTION">
+        <value_text>Auswahl</value_text>
+    </value>
+    <value name="TABLE_EL">
+        <value_text>?EL_SHORT?</value_text>
+    </value>
+    <value name="TABLE_AL">
+        <value_text>?AL_SHORT?</value_text>
+    </value>
+    <value name="TABLE_BUS">
+        <value_text>?BUS?</value_text>
+    </value>
+    <value name="TABLE_GROUP">
+        <value_text>?GRP?</value_text>
+    </value>
+    <value name="TABLE_RANK">
+        <value_text>?RNK?</value_text>
+    </value>
+    <value name="TABLE_POS">
+        <value_text>?POS?</value_text>
+    </value>
+    <value name="TABLE_NAME">
+        <value_text>?NME?</value_text>
+    </value>
+    <value name="TABLE_SURNAME">
+        <value_text>?SRNME?</value_text>
+    </value>
+    <value name="TABLE_DRIVER">
+        <value_text>?FAHRD?</value_text>
+    </value>
+    <value name="TABLE_ID">
+        <value_text>?ID?</value_text>
+    </value>
+    <value name="TABLE_STATUS">
+        <value_text>?STATUS?</value_text>
+    </value>
+    <value name="TABLE_KUERZUNG">
+        <value_text>?KUERZ?</value_text>
+    </value>
+    <value name="TABLE_PERCENTAGE">
+        <value_text>Prozent</value_text>
+    </value>
+    <value name="TABLE_REASON">
+        <value_text>Grund</value_text>
+    </value>
+    <!--
+        CLASS KUERZUNG
+    -->
+    <value name="KUERZUNG_ID_COMPARATOR">
+        <value_text>Kürzungs-ID</value_text>
+    </value>
+    <value name="KUERZUNG_PERCENTAGE_COMPARATOR">
+        <value_text>Prozent Kürzung</value_text>
+    </value>
+    <value name="KUERZUNG_REASON_COMPARATOR">
+        <value_text>Kürzungsbegründung</value_text>
+    </value>
+    <!--
+        CLASS STATUS
+    -->
+    <value name="STATUS_EING">
+        <value_text>Eingeteilt</value_text>
+    </value>
+    <value name="STATUS_ERS">
+        <value_text>?STATUS_ERS?</value_text>
+    </value>
+    <value name="STATUS_SE">
+        <value_text>?STATUS_SE?</value_text>
+    </value>
+    <value name="STATUS_AE">
+        <value_text>?STATUS_AE?</value_text>
+    </value>
+    <value name="STATUS_UE">
+        <value_text>?STATUS_UE?</value_text>
+    </value>
+    <value name="STATUS_SE_LONG">
+        <value_text>?STATUS_SE? - Selbst Entschuldigt</value_text>
+    </value>
+    <value name="STATUS_AE_LONG">
+        <value_text>?STATUS_AE? - Abgesagt Entschuldigt</value_text>
+    </value>
+    <value name="STATUS_UE_LONG">
+        <value_text>?STATUS_UE? - Unentschuldigt</value_text>
+    </value>
+    <value name="STATUS_ZUS">
+        <value_text>?STATUS_ZUS?</value_text>
+    </value>
+    <value name="STATUS_NONE">
+        <value_text>?STATUS_NONE?</value_text>
+    </value>
+    <value name="STATUS_AUSG">
+        <value_text>?STATUS_AUSG?</value_text>
+    </value>
+    <!--
+        CLASS VK
+    -->
+    <value name="VK_GROUP">
+        <value_text>?GRP?</value_text>
+    </value>
+    <value name="VK_POS">
+        <value_text>?POS?</value_text>
+    </value>
+    <value name="VK_NAME">
+        <value_text>?NME?</value_text>
+    </value>
+    <value name="VK_SURNAME">
+        <value_text>?SRNME?</value_text>
+    </value>
+    <value name="VK_RANK">
+        <value_text>?RNK?</value_text>
+    </value>
+    <!--
+        EXCEPTION CREATE EXCEL FILE
+    -->
+    <value name="CREATION_EXCEPTION_NO_NAME">
+        <value_text>der Einsatz nicht benannt ist. (?EINSATZBEZ? ist leer)</value_text>
+    </value>
+    <value name="CREATION_EXCEPTION_NO_BEGIN">
+        <value_text>?NOT_SET?(?BGN?)</value_text>
+    </value>
+    <value name="CREATION_EXCEPTION_NO_END">
+        <value_text>?NOT_SET?(?END?)</value_text>
+    </value>
+    <value name="CREATION_EXCEPTION_SAME_BEGIN_END">
+        <value_text>der ?BGN? und das ?END? übereinstimmen.</value_text>
+    </value>
+    <value name="CREATION_EXCEPTION_BEGIN_AFTER_END">
+        <value_text>der ?BGN? nach dem ?END? liegt.</value_text>
+    </value>
+    <value name="CREATION_EXCEPTION_NO_EL">
+        <value_text>kein ?EL? gewählt ist.</value_text>
+    </value>
+    <value name="CREATION_EXCEPTION_NO_EL_NOR_AL">
+        <value_text>kein ?EL? und auch kein ?AL? gewählt ist.</value_text>
+    </value>
+    <value name="CREATION_EXCEPTION_NO_VK">
+        <value_text>keine ?VKS? ausgewählt sind.</value_text>
+    </value>
+    <value name="CREATION_EXCEPTION_EL_NOT_SELECTED">
+        <value_text>?NOT_SELECTED?(?EL?)</value_text>
+    </value>
+    <value name="CREATION_EXCEPTION_AL_NOT_SELECTED">
+        <value_text>?NOT_SELECTED?(?AL?)</value_text>
+    </value>
+    <value name="CREATION_EXCEPTION_BUS_NOT_SELECTED">
+        <value_text>?NOT_SELECTED?(?BUS?)</value_text>
+    </value>
+    <value name="CREATION_EXCEPTION_EL_NOT_ASSIGNED">
+        <value_text>?NOT_ASSIGNED?(?EL?, ?STATUS_EING?)</value_text>
+    </value>
+    <value name="CREATION_EXCEPTION_AL_NOT_ASSIGNED">
+        <value_text>?NOT_ASSIGNED?(?AL?, ?STATUS_EING?)</value_text>
+    </value>
+    <value name="CREATION_EXCEPTION_VK_NO_STATUS">
+        <value_text>ein ?VK? keinen ?STATUS? zugewiesen bekommen hat und nicht als ?BUS? vermerkt ist.</value_text>
+    </value>
+    <value name="CREATION_EXCEPTION">
+        <value_text>Es konnte kein ?EINSATZBER? erstellt werden, da</value_text>
+    </value>
+    <value name="CREATION_EXCEPTION_FILE_NOT_FOUND">
+        <value_text> auf die Datei nicht zugegriffen werden kann. Schließe ggf. Programme, die die Datei derzeit bearbeiten, z.B. Excel, und überprüfe, ob der Ordner, in die der ?EINSATZBER? exportiert werden soll, existiert.</value_text>
+    </value>
+    <value name="CREATION_SUCCESS">
+        <value_text>Ein ?EINSATZBER? wurde erfolgreich erstellt.</value_text>
+    </value>
+    <value name="LOADING_EXCEPTION">
+        <value_text>Der ?EINSATZBER? konnte nicht geladen werden. Schaue ggf. in die Konsole für die Gründe hierfür und/oder wende dich an ?ADMIN? für weitere Hilfe. (Momentan ist die Lade-Funktion noch in der Entwicklung)</value_text>
+    </value>
+    <value name="LOADING_SUCCESS">
+        <value_text>Der ?EINSATZBER? wurde erfolgreich geladen.</value_text>
+    </value>
+    <value name="USER_ERROR_NO_EL_SELECTED">
+        <value_text>Es wurde kein ?EL? ausgewählt!</value_text>
+    </value>
+    <value name="USER_ERROR_NO_AL_SELECTED">
+        <value_text>Es wurde kein ?AL? ausgewählt!</value_text>
+    </value>
+    <value name="USER_ERROR_NO_DRIVER_SELECTED">
+        <value_text>Es wurde kein ?BUS? ausgewählt!</value_text>
+    </value>
+    <value name="OPTION_CONFIRM_NO_FD">
+        <value_text>Es wurde ein ?BUS? ausgewählt, der nicht im ?FAHRD? ist. Soll dennoch ein ?EINSATZBER? erstellt werden?</value_text>
+    </value>
+    <value name="OPTION_CONFIRM_NO_FD_TITLE">
+        <value_text>?BUS? nicht im ?FAHRD?</value_text>
+    </value>
+    <value name="OPTION_CONFIRM_FD_NO_STATUS">
+        <value_text>Folgende ?BUS? sind ausschließlich gefahren und haben nicht am Einsatz teilgenommen. Ist das korrekt?</value_text>
+    </value>
+    <value name="OPTION_CONFIRM_FD_NO_STATUS_TITLE">
+        <value_text>?BUS? ohne ?STATUS?</value_text>
+    </value>
+    <!--
+        EXCEL FILE
+    -->
+    <!--
+        SHEET ONE
+    -->
+    <value name="SHEET_ONE">
+        <value_text>?EINSATZBER?</value_text>
+    </value>
+    <value name="SHEET_ONE_TITLE">
+        <value_text>?EINSATZBER? ?VKD?</value_text>
+    </value>
+    <value name="SHEET_ONE_EINSATZBEZ">
+        <value_text>?EINSATZBEZ?</value_text>
+    </value>
+    <value name="SHEET_ONE_BEGIN">
+        <value_text>?BGN?</value_text>
+    </value>
+    <value name="SHEET_ONE_END">
+        <value_text>?END?</value_text>
+    </value>
+    <value name="SHEET_ONE_EINSATZBEZ">
+        <value_text>?END?</value_text>
+    </value>
+    <value name="SHEET_ONE_EL">
+        <value_text>?EL?</value_text>
+    </value>
+    <value name="SHEET_ONE_AL">
+        <value_text>?AL?</value_text>
+    </value>
+    <value name="SHEET_ONE_BUS">
+        <value_text>?BUS?</value_text>
+    </value>
+    <value name="SHEET_ONE_DATE_OF_CREATION">
+        <value_text>Datum der Erstellung</value_text>
+    </value>
+    <value name="SHEET_ONE_ASSIGNED_VKS">
+        <value_text>Eingeteilte ?VKS?</value_text>
+    </value>
+    <value name="SHEET_ONE_KUERZUNG">
+        <value_text>Fahrgeldkürzungen</value_text>
+    </value>
+    <value name="SHEET_ONE_OTHER">
+        <value_text>Sonstiges</value_text>
+    </value>
+    <value name="SHEET_ONE_RANK">
+        <value_text>?RNK?</value_text>
+    </value>
+    <value name="SHEET_ONE_NAME">
+        <value_text>?NME?, ?SRNME?</value_text>
+    </value>
+    <value name="SHEET_ONE_REASON">
+        <value_text>Begründung</value_text>
+    </value>
+    <value name="SHEET_ONE_PERCENTAGE">
+        <value_text>%</value_text>
+    </value>
+    <value name="SHEET_ONE_SE">
+        <value_text>?STATUS_SE?</value_text>
+    </value>
+    <value name="SHEET_ONE_AE">
+        <value_text>?STATUS_AE?</value_text>
+    </value>
+    <value name="SHEET_ONE_UE">
+        <value_text>?STATUS_UE?</value_text>
+    </value>
+    <value name="SHEET_ONE_ZUS">
+        <value_text>?STATUS_ZUS?</value_text>
+    </value>
+    <value name="SHEET_ONE_AUSG">
+        <value_text>?STATUS_AUSG?</value_text>
+    </value>
+    <value name="SHEET_ONE_ERS">
+        <value_text>?STATUS_ERS?</value_text>
+    </value>
+    <value name="SHEET_ONE_ERS_FOR">
+        <value_text>?STATUS_ERS? für </value_text>
+    </value>
+    <value name="SHEET_ONE_NO_STATUS">
+        <value_text>?STATUS_NONE?</value_text>
+    </value>
+    <value name="SHEET_ONE_ATTENDED_TRUE">
+        <value_text>X</value_text>
+    </value>
+    <value name="SHEET_ONE_ATTENDED_FALSE">
+        <value_text>--</value_text>
+    </value>
+    <value name="SHEET_ONE_ATTENDED">
+        <value_text>(X/--)</value_text>
+    </value>
+    <value name="SHEET_ONE_REMARKS">
+        <value_text>Bemerkungen</value_text>
+    </value>
+    <!--
+        SHEET TWO
+    -->
+    <value name="SHEET_TWO">
+        <value_text>Einsatzstatistik</value_text>
+    </value>
+
+    <!--value name="">
+        <value_text>
+    </value>
+    <value name="">
+        <value_text>
+    </value>
+    -->
+</string_values>
