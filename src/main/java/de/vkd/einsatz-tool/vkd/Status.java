@@ -1,44 +1,44 @@
 package de.vkd.einsatz_tool.vkd;
 
 public enum Status {
-	EINGETEILT,	UE, AE, SE, ERSATZ,	ZUSAETZLICH, NONE, AUSGETRETEN;
+    EINGETEILT,    UE, AE, SE, ERSATZ,    ZUSAETZLICH, NONE, AUSGETRETEN;
 
-	private String shortName;
-	private String listName;
-	private boolean demandingAttendance;
-	
-	public void setName(String shortName){
-		setName(shortName, shortName);
-	}
-	public void setName(String shortName, String listName){
-		this.shortName = shortName;
-		this.listName = listName;
-	}
-	public void setDemandingAttendance(boolean demandingAttendance) {
-		this.demandingAttendance = demandingAttendance;
-	}
-	public boolean isDemandingAttendance() {
-		return demandingAttendance;
-	}
-	public String getShortName() {
-		return shortName;
-	}
-	public String getListName() {
-		return listName;
-	}
-	public static Status getStatusByShortName(String shortName) {
-		Status[] v = values();
-		for(Status s: v){
-			if(s.getShortName().equals(shortName))return s;
-		}
-		return null;
-	}
-	public static Status getStatusByListName(String listName) {
-		Status[] v = values();
-		for(Status s: v){
-			if(s.getListName().equals(listName))return s;
-		}
-		return null;
-	}
-	
+    private String shortName;
+    private String listName;
+    private boolean demandingAttendance;
+
+    public void setName(String shortName){
+        setName(shortName, shortName);
+    }
+    public void setName(String shortName, String listName){
+        this.shortName = shortName;
+        this.listName = listName;
+    }
+    public void setDemandingAttendance(boolean demandingAttendance) {
+        this.demandingAttendance = demandingAttendance;
+    }
+    public boolean isDemandingAttendance() {
+        return demandingAttendance;
+    }
+    public String getShortName() {
+        return shortName;
+    }
+    public String getListName() {
+        return listName;
+    }
+    public static Status getStatusByShortName(String shortName) {
+        Status[] v = values();
+        for(Status s: v){
+            if(s.getShortName().equals(shortName))return s;
+        }
+        return null;
+    }
+    public static Status getStatusByListName(String listName) {
+        Status[] v = values();
+        for(Status s: v){
+            if(s.getListName().equals(listName))return s;
+        }
+        return null;
+    }
+
 }
