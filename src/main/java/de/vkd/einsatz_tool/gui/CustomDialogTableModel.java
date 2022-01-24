@@ -91,7 +91,7 @@ final class CustomDialogTableModel extends CustomTableModel<VK> {
       rowData[i][2] = Main.outputPosition(vk.getPosition());
       rowData[i][3] = vk.getName();
       rowData[i][4] = vk.getSurname();
-      rowData[i][5] = vk.getID();
+      rowData[i][5] = vk.getId();
     }
     for (Object[] o : rowData) {
       this.addRow(o);

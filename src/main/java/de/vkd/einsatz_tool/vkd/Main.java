@@ -277,7 +277,7 @@ public class Main {
      */
     public VK getVK(int id, List<VK> database){
         for (VK vk : database) {
-            if (vk.getID() == id) return vk;
+            if (vk.getId() == id) return vk;
         }
         return null;
     }

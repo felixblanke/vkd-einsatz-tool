@@ -1074,7 +1074,7 @@ public class Frame extends JFrame {
           for (VK vkReport : report.getSelectedVK()) {
             boolean vkFound = false;
             for (VK vk : database) {
-              if (vk.getID() == vkReport.getID()) {
+              if (vk.getId() == vkReport.getId()) {
                 database.remove(vk);
                 database.add(vkReport);
                 vkFound = true;
@@ -1328,7 +1328,7 @@ public class Frame extends JFrame {
         rowData[i][4] = vk.getName();
         rowData[i][5] = vk.getSurname();
         rowData[i][6] = vk.isDriver();
-        rowData[i][7] = vk.getID();
+        rowData[i][7] = vk.getId();
       }
       for (Object[] o : rowData) {
         this.addRow(o);
@@ -1389,7 +1389,7 @@ public class Frame extends JFrame {
         rowData[i][3] = vk.isDriver();
         rowData[i][4] = vk.getStatus().getShortName();
         rowData[i][5] = vk.getKuerzungsListe().isEmpty() ? "" : vk.getKuerzungsListe().size();
-        rowData[i][6] = vk.getID();
+        rowData[i][6] = vk.getId();
       }
       for (Object[] o : rowData) {
         this.addRow(o);
