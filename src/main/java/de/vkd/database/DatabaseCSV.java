@@ -1,10 +1,14 @@
 package de.vkd.database;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Logger;
+
+import de.vkd.auxiliary.Auxiliary;
 
 /**
  * It is recommended to comment the first line of each csv file that is loaded
@@ -37,7 +41,15 @@ public class DatabaseCSV <E> {
     public DatabaseCSV(String filedir, String charsetName, DatabaseEntryCreator<E> creator, String versionMarker, String defaultVersion, String commentString) throws ReadDataException, IOException {
         this.comment_string = commentString;
         List<E> readData = new ArrayList<E>();
-        Scanner scanner =  new Scanner(Paths.get(filedir), charsetName);
+
+        Scanner scanner;
+        try {
+            InputStream resource = Auxiliary.getResourceFromJAR(filedir, Logger.getLogger(DatabaseCSV.class.getName()));
+            scanner =  new Scanner(resource, charsetName);
+        } catch (IOException ex){
+            throw ex;
+        }
+
         try{
             //skip first line:
             scanner.nextLine();
