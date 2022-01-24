@@ -52,7 +52,7 @@ public class VK {
     String s = " || ";
     StringBuilder kuerzungBuilder = new StringBuilder();
     for (Kuerzung k : getKuerzungsListe()) {
-      kuerzungBuilder.append("(").append(k.getID()).append(", ").append(k.getPercentage())
+      kuerzungBuilder.append("(").append(k.getId()).append(", ").append(k.getPercentage())
           .append("%, ").append(k.getReason()).append("), ");
     }
     String kuerzung = kuerzungBuilder.toString();

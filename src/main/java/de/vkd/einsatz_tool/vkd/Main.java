@@ -175,7 +175,7 @@ public class Main {
 
         KUERZUNG_ID_COMPARATOR = new NamedComparator<>(
                 getFramework().getString("KUERZUNG_ID_COMPARATOR"),
-                Comparator.comparing(Kuerzung::getID)
+                Comparator.comparing(Kuerzung::getId)
         );
         KUERZUNG_PERCENTAGE_COMPARATOR = new NamedComparator<>(
                 getFramework().getString("KUERZUNG_PERCENTAGE_COMPARATOR"),

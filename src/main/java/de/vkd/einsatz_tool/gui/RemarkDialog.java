@@ -419,7 +419,7 @@ public class RemarkDialog extends Dialog {
       this.setRowCount(0);
       Object[][] rowData = new Object[workingList.size()][this.getColumnCount()];
       for (int i = 0; i < workingList.size(); i++) {
-        rowData[i][0] = workingList.get(i).getID();
+        rowData[i][0] = workingList.get(i).getId();
         rowData[i][1] = String.valueOf(workingList.get(i).getPercentage()).concat("%");
         rowData[i][2] = workingList.get(i).getReason();
       }
@@ -431,7 +431,7 @@ public class RemarkDialog extends Dialog {
 
     private Kuerzung getKuerzung(int id) {
       for (Kuerzung k : workingList) {
-        if (k.getID() == id) {
+        if (k.getId() == id) {
           return k;
         }
       }
@@ -440,7 +440,7 @@ public class RemarkDialog extends Dialog {
 
     private void removeKuerzung(int id) {
       for (Kuerzung kuerz : workingList) {
-        if (kuerz.getID() == id) {
+        if (kuerz.getId() == id) {
           workingList.remove(kuerz);
           return;
         }
