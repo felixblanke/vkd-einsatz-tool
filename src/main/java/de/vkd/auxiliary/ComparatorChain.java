@@ -22,7 +22,9 @@ public class ComparatorChain<E> implements Comparator<E>
     {
         if ( comparators == null )
             throw new IllegalArgumentException( "Argument is not allowed to be null" );
-        Collections.addAll( comparatorChain, comparators );
+        for (NamedComparator<E> c: comparators){
+            comparatorChain.add(c);
+        }
     }
 
     /**
