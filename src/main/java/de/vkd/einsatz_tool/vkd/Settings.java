@@ -22,7 +22,6 @@ import org.jdom2.input.SAXBuilder;
 public class Settings {
 
   //    private String dbVersion = "NO_VAL";
-  private String version;
   private String exportPath;
   private String stringValuesPath;
   private String vkDataPath;
@@ -54,9 +53,6 @@ public class Settings {
     final String exportPath = "_export";
     final Charset vkDataEncoding = StandardCharsets.UTF_8;
 
-    //version:
-    final String XML_VERSION = "version";
-    final String version = readString(XML_VERSION, root);
     final String XML_VK_DATA = "vk_data";
     final String vkDataPath = readString(XML_VK_DATA, root);
     final String XML_STRING_VALUES = "string_values";
@@ -109,7 +105,7 @@ public class Settings {
     switch (databaseType) {
       case CSV:
       case XML:
-        initVars(m, version, resPath, exportPath, stringValuesPath, vkDataPath, iconPath,
+        initVars(m, resPath, exportPath, stringValuesPath, vkDataPath, iconPath,
             remarkFontPath, dateFormat, dateFormat2, dateFormat3, vkDataEncoding, databaseType,
             varSet);
         break;
@@ -331,11 +327,11 @@ public class Settings {
     //        }
   }
 
-  public Settings(Main m, String version, String resPath, String exportPath,
+  public Settings(Main m, String resPath, String exportPath,
                   String stringValuesPath, String vkDataPath, String iconPath,
                   String remarkFontPath, String dateFormat, String dateFormat2, String dateFormat3,
                   Charset vkDataEncoding, DatabaseType databaseType, VarSet varSet) {
-    initVars(m, version, resPath, exportPath, stringValuesPath, vkDataPath, iconPath,
+    initVars(m, resPath, exportPath, stringValuesPath, vkDataPath, iconPath,
         remarkFontPath, dateFormat, dateFormat2, dateFormat3, vkDataEncoding, databaseType, varSet);
   }
 
@@ -348,12 +344,11 @@ public class Settings {
     return elems.get(0).getValue();
   }
 
-  private void initVars(Main m, String version, String resPath, String exportPath,
+  private void initVars(Main m, String resPath, String exportPath,
                         String stringValuesPath, String vkDataPath, String iconPath,
                         String remarkFontPath, String dateFormat, String dateFormat2,
                         String dateFormat3, Charset vkDataEncoding, DatabaseType databaseType,
                         VarSet varSet) {
-    this.version = version;
     this.exportPath = exportPath;
     this.stringValuesPath = resPath + stringValuesPath;
     this.vkDataPath = resPath + vkDataPath;
@@ -414,10 +409,6 @@ public class Settings {
 
   public VarSet getVarSet() {
     return varSet;
-  }
-
-  public String getVersion() {
-    return version;
   }
 
   public Charset getVkDataEncoding() {

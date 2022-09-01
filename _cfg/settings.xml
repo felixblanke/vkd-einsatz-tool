@@ -1,14 +1,11 @@
 <settings>
 <!-- Tags that must be set
-*    version
 *    var_flag - multiple        (flags used in the reading process of an xml file like string_values in order to support simple functions and variables in those)
 *    vk_data                    (database, allowed filetypes: csv, xml)
 *    string_values            (string values, allowed filetypes: xml)
 *    icon                    (icon used, allowed filetypes: any FileType the Java Class ImageIcon accepts (recommended is PNG))
 *    remark_font                (font used in the remark dialog, allowed filetypes: ttf)
 -->
-    <version>v0.3.1</version>
-
     <vk_data>guz2018b_utf8.csv</vk_data><!---->
     <!--<vk_data>data_vk.xml</vk_data>-->
 
