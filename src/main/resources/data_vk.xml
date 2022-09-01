@@ -1,0 +1,19 @@
+<database>
+    <version>guz2017a_001</version>
+    <vk>
+        <vk_rank>HVK*</vk_rank>
+        <vk_name>Max</vk_name>
+        <vk_surname>Mustermann</vk_surname>
+        <vk_group>Gruppe I</vk_group>
+        <vk_pos>2</vk_pos>
+        <vk_func></vk_func>
+    </vk>
+    <vk>
+        <vk_rank>HVK</vk_rank>
+        <vk_name>Lieschen</vk_name>
+        <vk_surname>Müller</vk_surname>
+        <vk_group>Gruppe II</vk_group>
+        <vk_pos>3</vk_pos>
+        <vk_func></vk_func>
+    </vk>
+</database>

@@ -1,3 +1,13 @@
+
+# Ignore VKD data files
+src/main/resources/*.csv
+
+# Ignore exported files
+_export/
+
+# Ignore IntelliJ Files
+.idea
+
 #
 # Maven .gitignore
 #
