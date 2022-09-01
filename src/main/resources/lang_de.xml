@@ -16,10 +16,10 @@
         <var_name>POS</var_name>
         <var_value>Position</var_value>
     </var>
-    <var name="GROUP_VAR">
+<!--    <var name="GROUP_VAR">
         <var_name>GRP</var_name>
-        <var_value>Gruppe</var_value>
-    </var>
+        <var_value>Zug</var_value>
+    </var>-->
     <var name="RANK_VAR">
         <var_name>RNK</var_name>
         <var_value>Rang</var_value>
@@ -185,22 +185,22 @@
         GROUPS:
     -->
     <value name="GROUP_1">
-        <value_text>?GRP? I</value_text>
+        <value_text>%GRP% I</value_text>
     </value>
     <value name="GROUP_2">
-        <value_text>?GRP? II</value_text>
+        <value_text>%GRP% II</value_text>
     </value>
     <value name="GROUP_3">
-        <value_text>?GRP? III</value_text>
+        <value_text>%GRP% III</value_text>
     </value>
     <value name="GROUP_4">
-        <value_text>?GRP? IV</value_text>
+        <value_text>%GRP% IV</value_text>
     </value>
     <value name="GROUP_5">
-        <value_text>?GRP? V</value_text>
+        <value_text>%GRP% V</value_text>
     </value>
     <value name="GROUP_6">
-        <value_text>?GRP? VI</value_text>
+        <value_text>%GRP% VI</value_text>
     </value>
     <value name="GROUP_L">
         <value_text>Leitung</value_text>
@@ -435,7 +435,7 @@
         <value_text>?BUS?</value_text>
     </value>
     <value name="TABLE_GROUP">
-        <value_text>?GRP?</value_text>
+        <value_text>%GRP%</value_text>
     </value>
     <value name="TABLE_RANK">
         <value_text>?RNK?</value_text>
@@ -519,7 +519,7 @@
         CLASS VK
     -->
     <value name="VK_GROUP">
-        <value_text>?GRP?</value_text>
+        <value_text>%GRP%</value_text>
     </value>
     <value name="VK_POS">
         <value_text>?POS?</value_text>

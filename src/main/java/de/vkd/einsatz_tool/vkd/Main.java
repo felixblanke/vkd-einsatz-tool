@@ -113,6 +113,7 @@ public class Main {
         sysVarList.add(new Variable("DESC", properties.getProperty("application.description")));
         sysVarList.add(new Variable("APPNAME", properties.getProperty("application.name")));
         sysVarList.add(new Variable("YEAR", Integer.toString(Calendar.getInstance().get(Calendar.YEAR))));
+        sysVarList.add(new Variable("GRP", settings.getGroupPrefix()));
 
         framework.setSysVarList(sysVarList);
 

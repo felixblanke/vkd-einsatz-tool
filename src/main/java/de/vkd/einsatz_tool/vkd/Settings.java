@@ -34,6 +34,8 @@ public class Settings {
   private DatabaseType databaseType;
   private VarSet varSet;
 
+  private String groupPrefix;
+
   //TODO:
   //SUPPORT MULTIPLE CHARSETS
 
@@ -61,6 +63,8 @@ public class Settings {
     final String iconPath = readString(XML_ICON, root);
     final String XML_REMARK_FONT = "remark_font";
     final String remarkFontPath = readString(XML_REMARK_FONT, root);
+    final String XML_GRP_PREFIX = "group_prefix";
+    final String groupPrefix = readString(XML_GRP_PREFIX, root);
 
     final DatabaseType databaseType;
 
@@ -107,7 +111,7 @@ public class Settings {
       case XML:
         initVars(m, resPath, exportPath, stringValuesPath, vkDataPath, iconPath,
             remarkFontPath, dateFormat, dateFormat2, dateFormat3, vkDataEncoding, databaseType,
-            varSet);
+            varSet, groupPrefix);
         break;
       default:
         throw new SettingsLoadingException("Unknown enum type");
@@ -330,9 +334,9 @@ public class Settings {
   public Settings(Main m, String resPath, String exportPath,
                   String stringValuesPath, String vkDataPath, String iconPath,
                   String remarkFontPath, String dateFormat, String dateFormat2, String dateFormat3,
-                  Charset vkDataEncoding, DatabaseType databaseType, VarSet varSet) {
+                  Charset vkDataEncoding, DatabaseType databaseType, VarSet varSet, String groupPrefix) {
     initVars(m, resPath, exportPath, stringValuesPath, vkDataPath, iconPath,
-        remarkFontPath, dateFormat, dateFormat2, dateFormat3, vkDataEncoding, databaseType, varSet);
+        remarkFontPath, dateFormat, dateFormat2, dateFormat3, vkDataEncoding, databaseType, varSet, groupPrefix);
   }
 
   private String readString(String elemName, Element root) throws SettingsLoadingException {
@@ -348,7 +352,7 @@ public class Settings {
                         String stringValuesPath, String vkDataPath, String iconPath,
                         String remarkFontPath, String dateFormat, String dateFormat2,
                         String dateFormat3, Charset vkDataEncoding, DatabaseType databaseType,
-                        VarSet varSet) {
+                        VarSet varSet, String groupPrefix) {
     this.exportPath = exportPath;
     this.stringValuesPath = resPath + stringValuesPath;
     this.vkDataPath = resPath + vkDataPath;
@@ -360,6 +364,8 @@ public class Settings {
 
     this.dateTimeFormatter = DateTimeFormatter.ofPattern(dateFormat3);
     this.databaseType = databaseType;
+
+    this.groupPrefix = groupPrefix;
 
     Font remarkFont = null;
     try {
@@ -417,5 +423,9 @@ public class Settings {
 
   public String getVkDataPath() {
     return vkDataPath;
+  }
+
+  public String getGroupPrefix() {
+      return groupPrefix;
   }
 }
