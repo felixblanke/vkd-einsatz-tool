@@ -26,8 +26,6 @@ import de.vkd.einsatz_tool.gui.Frame;
 
 /**
  * @author Felix Blanke
- * @version v0.3.1
- * @date 02.02.2019
  */
 public class Main {
     public final static String JAR_PATH = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getParent() + "/";
