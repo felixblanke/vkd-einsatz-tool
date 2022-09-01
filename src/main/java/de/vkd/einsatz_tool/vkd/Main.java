@@ -234,6 +234,7 @@ public class Main {
 
     private void printCopyright(){
         getLogger().log(Level.INFO, getFramework().getString("COPYRIGHT_NAME"));
+        getLogger().log(Level.INFO, getFramework().getString("COPYRIGHT_DESC"));
         getLogger().log(Level.INFO, getFramework().getString("COPYRIGHT_AUTHOR"));
     }
 

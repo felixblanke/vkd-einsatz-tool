@@ -170,7 +170,10 @@
         GENERAL
     -->
     <value name="COPYRIGHT_NAME">
-        <value_text>?EINSATZBER?e ?VKD? %VER%</value_text>
+        <value_text>%APPNAME% %VER%</value_text>
+    </value>
+    <value name="COPYRIGHT_DESC">
+        <value_text>%DESC%</value_text>
     </value>
     <value name="COPYRIGHT_AUTHOR">
         <value_text>(C) Felix Blanke 2017-%YEAR%</value_text>
