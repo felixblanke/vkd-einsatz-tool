@@ -1,0 +1,32 @@
+<settings>
+<!-- Tags that must be set
+*    version
+*    var_flag - multiple        (flags used in the reading process of an xml file like string_values in order to support simple functions and variables in those)
+*    vk_data                    (database, allowed filetypes: csv, xml)
+*    string_values            (string values, allowed filetypes: xml)
+*    icon                    (icon used, allowed filetypes: any FileType the Java Class ImageIcon accepts (recommended is PNG))
+*    remark_font                (font used in the remark dialog, allowed filetypes: ttf)
+-->
+    <version>v0.3.1</version>
+
+    <vk_data>guz2018b_utf8.csv</vk_data><!---->
+    <!--<vk_data>data_vk.xml</vk_data>-->
+
+    <string_values>lang_de.xml</string_values>
+
+    <icon>vk_logo.png</icon>
+
+    <remark_font>Verdana.ttf</remark_font>
+
+    <var_flag name="xml_sysVar_marker">%</var_flag>
+    <var_flag name="xml_localVar_marker">?</var_flag>
+    <var_flag name="xml_func_arg_splitter">,</var_flag>
+    <var_flag name="xml_var">var</var_flag>
+    <var_flag name="xml_var_name">var_name</var_flag>
+    <var_flag name="xml_var_value">var_value</var_flag>
+    <var_flag name="xml_var_args">var_args</var_flag>
+    <var_flag name="xml_var_argument">var_argument</var_flag>
+    <var_flag name="xml_value">value</var_flag>
+    <var_flag name="xml_value_name">name</var_flag>
+    <var_flag name="xml_value_text">value_text</var_flag>
+</settings>
