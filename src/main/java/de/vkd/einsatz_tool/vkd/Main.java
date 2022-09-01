@@ -10,6 +10,7 @@ import org.apache.commons.collections4.BidiMap;
 import org.apache.commons.collections4.bidimap.TreeBidiMap;
 import org.jdom2.JDOMException;
 
+import de.vkd.auxiliary.Auxiliary;
 import de.vkd.auxiliary.ComparatorChain;
 import de.vkd.auxiliary.NamedComparator;
 import de.vkd.database.DatabaseCSV;
@@ -32,6 +33,7 @@ public class Main {
     public final static String JAR_PATH = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getParent() + "/";
 
     public final static String SETTINGS_PATH = JAR_PATH + "_cfg/settings.xml";
+    public final static String PROPERTIES_FILE = "/application.properties";
     public final static String DB_VERSION_MARKER_CSV = "version:";
     public final static String DB_VERSION_MARKER_XML = "version";
     public final static String DB_DEFAULT_VERSION = "NO_VERSION";
@@ -86,9 +88,22 @@ public class Main {
             getLogger().log(Level.WARNING, "", ex);
         }
 
+        getLogger().log(Level.FINEST, "Loading application properties from " + PROPERTIES_FILE);
+        Properties properties = new Properties();
+        properties.load(Auxiliary.getResourceURLFromJAR(PROPERTIES_FILE).openStream());
+
+        getLogger().log(Level.FINEST, "Properties file loaded:");
+        Set<String> keys = properties.stringPropertyNames();
+        for (String key : keys) {
+            getLogger().log(Level.FINEST, "\t" + key + " - " + properties.getProperty(key));
+        }
+
         List<Variable> sysVarList = new ArrayList<>();
-        sysVarList.add(new Variable("VER", settings.getVersion()));
+        sysVarList.add(new Variable("VER", properties.getProperty("application.version")));
+        sysVarList.add(new Variable("DESC", properties.getProperty("application.description")));
+        sysVarList.add(new Variable("APPNAME", properties.getProperty("application.name")));
         sysVarList.add(new Variable("YEAR", Integer.toString(Calendar.getInstance().get(Calendar.YEAR))));
+
         framework.setSysVarList(sysVarList);
 
         framework.initVars(settings.getVarSet());
