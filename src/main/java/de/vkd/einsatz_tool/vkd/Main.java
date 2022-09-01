@@ -73,8 +73,20 @@ public class Main {
     private Settings loadSettings() throws SettingsLoadingException, JDOMException, IOException{
         return new Settings(this, SETTINGS_PATH);
     }
-    public Main() throws Exception {
-        framework = new Framework<>(Level.ALL);
+    public Main(String[] args) throws Exception {
+        Level log_lvl;
+
+        if(args.length > 0) {
+            log_lvl = Level.parse(args[0]);
+        } else {
+            log_lvl = Level.INFO;
+        }
+
+        framework = new Framework<>(log_lvl);
+        for(String str: args){
+            getLogger().log(Level.INFO, str);
+        }
+
         getLogger().log(Level.FINE, "Starting loading process");
         getLogger().log(Level.FINE, JAR_PATH);
         this.settings = loadSettings();
@@ -244,7 +256,7 @@ public class Main {
     public static void main(String[] args){
         Main m = null;
         try {
-            m = new Main();
+            m = new Main(args);
             final Main fixScopeProblemMain = m;
             /* LOOKANDFEEL - NOT USED
             try {
