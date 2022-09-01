@@ -173,7 +173,7 @@
         <value_text>?EINSATZBER?e ?VKD? %VER%</value_text>
     </value>
     <value name="COPYRIGHT_AUTHOR">
-        <value_text>(C) Felix Blanke 2017-2019</value_text>
+        <value_text>(C) Felix Blanke 2017-%YEAR%</value_text>
     </value>
     <value name="EMPTY_LIST">
         <value_text>--</value_text>

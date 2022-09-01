@@ -88,6 +88,7 @@ public class Main {
 
         List<Variable> sysVarList = new ArrayList<>();
         sysVarList.add(new Variable("VER", settings.getVersion()));
+        sysVarList.add(new Variable("YEAR", Integer.toString(Calendar.getInstance().get(Calendar.YEAR))));
         framework.setSysVarList(sysVarList);
 
         framework.initVars(settings.getVarSet());
