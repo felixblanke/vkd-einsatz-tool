@@ -88,9 +88,9 @@ final class CustomDialogTableModel extends CustomTableModel<VK> {
       VK vk = l.get(i);
       rowData[i][0] = workingList.contains(vk);
       rowData[i][1] = Main.getRankString(vk.getRank());
-      rowData[i][2] = Main.outputPosition(vk.getPosition());
-      rowData[i][3] = vk.getName();
-      rowData[i][4] = vk.getSurname();
+      rowData[i][2] = vk.getName();
+      rowData[i][3] = vk.getSurname();
+      rowData[i][4] = Main.outputPosition(vk.getPosition());
       rowData[i][5] = vk.getId();
     }
     for (Object[] o : rowData) {
