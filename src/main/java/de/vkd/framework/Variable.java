@@ -23,7 +23,7 @@ public class Variable {
       for (int i = 0; i < this.args.length; i++) {
         if (tempValue.contains(this.args[i])) {
           tempValue = tempValue.replaceAll(
-              "\\\\" + localVariableMarker + this.args[i] + "\\\\" + localVariableMarker, args[i]);
+              "\\" + localVariableMarker + this.args[i] + "\\" + localVariableMarker, args[i]);
         }
       }
       return tempValue;

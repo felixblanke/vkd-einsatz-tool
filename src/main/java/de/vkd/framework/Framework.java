@@ -236,8 +236,8 @@ public class Framework<E> {
                   }
                 }
                 input = input.replaceFirst(
-                    "\\\\" + variableMarker + s.getName() + "\\\\" + variableMarker + "\\\\("
-                        + bracketContent + "\\\\)",
+                    "\\" + variableMarker + s.getName() + "\\" + variableMarker + "\\("
+                        + bracketContent + "\\)",
                     s.getValue(this.varSet.get("xml_localVar_marker"),
                         argList.toArray(new String[0])));
                 replace = false;
@@ -256,7 +256,7 @@ public class Framework<E> {
           //not a method - regular var
           if (replace) {
             input =
-                input.replaceAll("\\\\" + variableMarker + s.getName() + "\\\\" + variableMarker,
+                input.replaceAll("\\" + variableMarker + s.getName() + "\\" + variableMarker,
                     s.getValue(this.varSet.get("xml_localVar_marker")));
           }
         }
