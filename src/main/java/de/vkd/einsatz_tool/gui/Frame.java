@@ -102,7 +102,7 @@ public class Frame extends JFrame {
   private CustomTable<VK> tablePageOne;
   private TableColumn tableColumnDriver;
   //Menu
-  private JPopupMenu menuOtherActions;
+  private JPopupMenu menuDriverActions;
   private JCheckBoxMenuItem menuItemBussePutzen;
   private JCheckBoxMenuItem menuItemOnlyFahrdienst;
   private JCheckBoxMenuItem menuItemShowDriverColumn;
@@ -395,18 +395,18 @@ public class Frame extends JFrame {
 
     btnDriverActions = new CustomButton(main.getFramework().getString("BUTTON_DRIVER_ACTIONS"));
 
-    menuOtherActions = new JPopupMenu();
+    menuDriverActions = new JPopupMenu();
 
     menuItemBussePutzen = new JCheckBoxMenuItem(main.getFramework().getString("MENU_CHECK_BP"));
-    menuOtherActions.add(menuItemBussePutzen);
+    menuDriverActions.add(menuItemBussePutzen);
 
     menuItemOnlyFahrdienst =
         new JCheckBoxMenuItem(main.getFramework().getString("MENU_CHECK_ONLY_FD"), true);
-    menuOtherActions.add(menuItemOnlyFahrdienst);
+    menuDriverActions.add(menuItemOnlyFahrdienst);
 
     menuItemShowDriverColumn =
         new JCheckBoxMenuItem(main.getFramework().getString("MENU_CHECK_FD_COL"), false);
-    menuOtherActions.add(menuItemShowDriverColumn);
+    menuDriverActions.add(menuItemShowDriverColumn);
 
     //menuItemBussePutzen.setMnemonic('B');
     //menuItemOnlyFahrdienst.setMnemonic('F');
@@ -496,7 +496,7 @@ public class Frame extends JFrame {
       tablePageTwo.refreshTable();
     });
     btnDriverActions.addActionListener(
-        e -> menuOtherActions.show(btnDriverActions, btnDriverActions.getWidth() / 2,
+        e -> menuDriverActions.show(btnDriverActions, btnDriverActions.getWidth() / 2,
             btnDriverActions.getHeight() / 2));
 
     pnlMain.add(pnlPageOne);
