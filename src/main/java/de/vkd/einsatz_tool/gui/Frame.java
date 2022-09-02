@@ -95,7 +95,6 @@ public class Frame extends JFrame {
   private JPanel pnlPageTwo;
   private CardLayout cl;
   private JToggleButton btnShowSelected;
-  private JToggleButton btnShowDriver;
   //Labels
   private CustomButton btnDriverActions;
   //Table (showing the VK)
@@ -106,9 +105,11 @@ public class Frame extends JFrame {
   private JCheckBoxMenuItem menuItemBussePutzen;
   private JCheckBoxMenuItem menuItemOnlyFahrdienst;
   private JCheckBoxMenuItem menuItemShowDriverColumn;
+  private JCheckBoxMenuItem menuItemShowOnlyDrivers;
   private CustomButton btnNextPanelPageTwo;
   private DateTimePicker beginPicker;
   private DateTimePicker endPicker;
+  private JLabel lblSelectionCounter;
   private JLabel lblEL;
   private JLabel lblAL;
   private JLabel lblBus;
@@ -348,12 +349,11 @@ public class Frame extends JFrame {
 
     gbc.anchor = GridBagConstraints.CENTER;
     gbc.gridy = 3;
+    gbc.fill = GridBagConstraints.NONE;
     gbc.insets = new Insets(INSETS_PNLCONTROL, INSETS_PNLCONTROL, 0, INSETS_PNLCONTROL);
 
-    btnShowDriver = new JToggleButton();
-    btnShowDriver.setText(main.getFramework().getString("BUTTON_SHOWDRIVER"));
-    btnShowDriver.setFocusPainted(false);
-    pnlTemp2.add(btnShowDriver, gbc);
+    lblSelectionCounter = new JLabel();
+    pnlTemp2.add(lblSelectionCounter, gbc);
 
 
     gbc = new GridBagConstraints();
@@ -408,6 +408,10 @@ public class Frame extends JFrame {
         new JCheckBoxMenuItem(main.getFramework().getString("MENU_CHECK_FD_COL"), false);
     menuDriverActions.add(menuItemShowDriverColumn);
 
+    menuItemShowOnlyDrivers =
+        new JCheckBoxMenuItem(main.getFramework().getString("BUTTON_SHOWDRIVER"), false);
+    menuDriverActions.add(menuItemShowOnlyDrivers);
+
     //menuItemBussePutzen.setMnemonic('B');
     //menuItemOnlyFahrdienst.setMnemonic('F');
 
@@ -436,7 +440,8 @@ public class Frame extends JFrame {
             main.getFramework().getString("TABLE_ID")},
         new ComparatorChain<>(Main.VK_GROUP_COMPARATOR, Main.VK_POSITION_COMPARATOR,
             Main.VK_RANK_COMPARATOR, Main.VK_NAME_COMPARATOR, Main.VK_SURNAME_COMPARATOR),
-        tablePageOne));
+        tablePageOne,
+        lblSelectionCounter));
 
     tableColumnDriver = tablePageOne.getColumnModel().getColumn(6);
     // Hide Fahrdienst and ID columns
@@ -473,15 +478,10 @@ public class Frame extends JFrame {
       }
       tablePageOne.refreshTable();
     });
-    btnShowDriver.addActionListener(e -> {
-      btnShowSelected.setSelected(false);
-      showDriver = btnShowDriver.isSelected();
-      showSelected = btnShowSelected.isSelected();
-      tablePageOne.refreshTable();
-    });
+
     btnShowSelected.addActionListener(e -> {
-      btnShowDriver.setSelected(false);
-      showDriver = btnShowDriver.isSelected();
+      menuItemShowOnlyDrivers.setSelected(false);
+      showDriver = menuItemShowOnlyDrivers.isSelected();
       showSelected = btnShowSelected.isSelected();
       tablePageOne.refreshTable();
     });
@@ -498,6 +498,22 @@ public class Frame extends JFrame {
     btnDriverActions.addActionListener(
         e -> menuDriverActions.show(btnDriverActions, btnDriverActions.getWidth() / 2,
             btnDriverActions.getHeight() / 2));
+
+    menuItemShowDriverColumn.addActionListener(e -> {
+      if (menuItemShowDriverColumn.isSelected()){
+        tablePageOne.getColumnModel().addColumn(tableColumnDriver);
+      } else {
+        tablePageOne.getColumnModel().removeColumn(tableColumnDriver);
+      }
+      tablePageOne.refreshTable();
+    });
+
+    menuItemShowOnlyDrivers.addActionListener(e -> {
+      btnShowSelected.setSelected(false);
+      showDriver = menuItemShowOnlyDrivers.isSelected();
+      showSelected = btnShowSelected.isSelected();
+      tablePageOne.refreshTable();
+    });
 
     pnlMain.add(pnlPageOne);
     //end of page one
@@ -1064,16 +1080,6 @@ public class Frame extends JFrame {
     pnlPageTwo.add(scrollPanePageTwo, "Center");
     pnlMain.add(pnlPageTwo);
 
-    menuItemShowDriverColumn.addActionListener(e -> {
-      if (menuItemShowDriverColumn.isSelected()){
-        tablePageOne.getColumnModel().addColumn(tableColumnDriver);
-      } else {
-        tablePageOne.getColumnModel().removeColumn(tableColumnDriver);
-      }
-      tablePageOne.refreshTable();
-    });
-
-
     add(pnlMain, "Center");
     pack();
     setMinimumSize(getPreferredSize());
@@ -1319,9 +1325,11 @@ public class Frame extends JFrame {
 
   class TableModelPageOne extends CustomTableModel<VK> {
 
+    private JLabel lblSelectionCounter;
     public TableModelPageOne(String[] columnNames, ComparatorChain<VK> defaultChain,
-                             CustomTable<VK> table) {
+                             CustomTable<VK> table, JLabel lblSelectionCounter) {
       super(columnNames, defaultChain, table);
+      this.lblSelectionCounter = lblSelectionCounter;
     }
 
     @Override
@@ -1368,6 +1376,7 @@ public class Frame extends JFrame {
 
       this.setRowCount(0);
 
+      int selectedCount = 0;
       Object[][] rowData = new Object[l.size()][this.getColumnCount()];
       for (int i = 0; i < l.size(); i++) {
         VK vk = l.get(i);
@@ -1380,9 +1389,13 @@ public class Frame extends JFrame {
         rowData[i][6] = vk.isDriver();
         rowData[i][7] = vk.getId();
       }
+      for (VK vk : main.getDatabase()) {
+        if(vk.isSelected()) selectedCount++;
+      }
       for (Object[] o : rowData) {
         this.addRow(o);
       }
+      this.lblSelectionCounter.setText("Aktuell ausgewählt: " + selectedCount);
       super.refreshTable();
     }
   }
