@@ -3,13 +3,13 @@ package de.vkd.framework;
 import java.util.HashMap;
 
 public class VarSet {
-    private HashMap<String, String> hm = new HashMap<String, String>();
+  private final HashMap<String, String> hm = new HashMap<>();
 
-    public void put(String varName, String varVal) {
-        hm.put(varName, varVal);
-    }
+  public void put(String varName, String varVal) {
+    hm.put(varName, varVal);
+  }
 
-    public String get(String varName) {
-        return hm.get(varName);
-    }
+  public String get(String varName) {
+    return hm.get(varName);
+  }
 }

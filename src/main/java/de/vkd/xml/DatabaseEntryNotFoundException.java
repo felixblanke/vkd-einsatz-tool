@@ -10,10 +10,11 @@ public class DatabaseEntryNotFoundException extends XmlDatabaseException{
         super("Could not find the entry " + getStringFromStringList(searchedEntry.getElementNames()) + " using the criteria " + getCriteriaString(criteria));
     }
     private static String getCriteriaString(XmlEntry[] criteria){
-        String s = "";
+        StringBuilder s = new StringBuilder();
         for(XmlEntry entry: criteria){
-            s+= "\tcriterium " + getStringFromStringList(entry.getElementNames()) + " with the value " + entry.getValue() + "\n";
+            s.append("\tcriterium ").append(getStringFromStringList(entry.getElementNames()))
+                .append(" with the value ").append(entry.getValue()).append("\n");
         }
-        return s;
+        return s.toString();
     }
 }

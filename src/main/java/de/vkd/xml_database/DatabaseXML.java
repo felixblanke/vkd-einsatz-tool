@@ -42,13 +42,13 @@ public class DatabaseXML <E> {
             if(version.isEmpty())throw new ReadDataException("Empty version!");
         }else throw new ReadDataException("More than one version!");
 
-        List<E> readData = new ArrayList<E>();
+        List<E> readData = new ArrayList<>();
         //reading data
         for(Element v: parentElement.getChildren(elementName)){
             readData.add(creator.create(v));
         }
 
-        return new DatabaseReturnType<E>(readData, version);
+        return new DatabaseReturnType<>(readData, version);
     }
 
     //TODO: check for multiple ids in VK

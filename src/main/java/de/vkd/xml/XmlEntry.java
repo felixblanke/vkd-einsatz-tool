@@ -8,12 +8,12 @@ public class XmlEntry {
     private final String value;
 
     public XmlEntry(List<String> elementNames, String lastElementName, String value) {
-        this.elementNames = new ArrayList<String>(elementNames);
+        this.elementNames = new ArrayList<>(elementNames);
         this.elementNames.add(lastElementName);
         this.value = value;
     }
     public XmlEntry(List<String> elementNames, String value) {
-        this.elementNames = new ArrayList<String>(elementNames);
+        this.elementNames = new ArrayList<>(elementNames);
         this.value = value;
     }
 
@@ -28,8 +28,8 @@ public class XmlEntry {
         return "XmlEntry " + getStringFromStringList(getElementNames()) + ": " + getValue();
     }
     private String getStringFromStringList(List<String> stringList){
-        String returnString = "";
-        for(String s: stringList)returnString+=s;
-        return returnString;
+        StringBuilder returnString = new StringBuilder();
+        for(String s: stringList) returnString.append(s);
+        return returnString.toString();
     }
 }

@@ -8,8 +8,8 @@ public abstract class XmlDatabaseException extends Exception{
         super(s);
     }
     public static String getStringFromStringList(List<String> stringList){
-        String returnString = "";
-        for(String s: stringList)returnString+=s + "|";
-        return returnString;
+        StringBuilder returnString = new StringBuilder();
+        for(String s: stringList) returnString.append(s).append("|");
+        return returnString.toString();
     }
 }
