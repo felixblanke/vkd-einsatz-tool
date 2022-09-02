@@ -471,6 +471,8 @@ public class Einsatzbericht {
   }
 
   public void createEinsatzbericht(boolean isBussePutzenReport) throws IOException {
+    // create export folder
+    new File(main.settings.getExportPath()).mkdirs();
     String exportPath =
         main.settings.getExportPath() + "/" + new SimpleDateFormat("yyyy").format(begin) + "_"
             + new SimpleDateFormat("MM").format(begin) + "_" + new SimpleDateFormat("dd").format(
