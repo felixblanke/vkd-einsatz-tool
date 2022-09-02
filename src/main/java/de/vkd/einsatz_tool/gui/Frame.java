@@ -100,11 +100,13 @@ public class Frame extends JFrame {
   private CustomButton btnOtherActions;
   //Table (showing the VK)
   private CustomTable<VK> tablePageOne;
+  private TableColumn tableColumnDriver;
   //Menu
   private JPopupMenu menuOtherActions;
   private JMenuItem menuItemOpenFile;
   private JCheckBoxMenuItem menuItemBussePutzen;
   private JCheckBoxMenuItem menuItemOnlyFahrdienst;
+  private JCheckBoxMenuItem menuItemShowDriverColumn;
   private CustomButton btnNextPanelPageTwo;
   private DateTimePicker beginPicker;
   private DateTimePicker endPicker;
@@ -389,6 +391,10 @@ public class Frame extends JFrame {
         new JCheckBoxMenuItem(main.getFramework().getString("MENU_CHECK_ONLY_FD"), true);
     menuOtherActions.add(menuItemOnlyFahrdienst);
 
+    menuItemShowDriverColumn =
+        new JCheckBoxMenuItem(main.getFramework().getString("MENU_CHECK_FD_COL"), false);
+    menuOtherActions.add(menuItemShowDriverColumn);
+
     //menuItemOpenFile.setMnemonic('O');
     //menuItemBussePutzen.setMnemonic('B');
     //menuItemOnlyFahrdienst.setMnemonic('F');
@@ -419,6 +425,11 @@ public class Frame extends JFrame {
         new ComparatorChain<>(Main.VK_GROUP_COMPARATOR, Main.VK_POSITION_COMPARATOR,
             Main.VK_RANK_COMPARATOR, Main.VK_NAME_COMPARATOR, Main.VK_SURNAME_COMPARATOR),
         tablePageOne));
+
+    tableColumnDriver = tablePageOne.getColumnModel().getColumn(6);
+    // Hide Fahrdienst and ID columns
+    tablePageOne.getColumnModel().removeColumn(tablePageOne.getColumnModel().getColumn(6));
+    tablePageOne.getColumnModel().removeColumn(tablePageOne.getColumnModel().getColumn(6));
     tablePageOne.refreshTable();
 
     htfSearchPageOne.setTable(tablePageOne);
@@ -437,16 +448,16 @@ public class Frame extends JFrame {
     btnSelectAll.addActionListener(e -> {
       for (int i = 0; i < tablePageOne.getRowCount(); i++) {
         tablePageOne.setValueAt(true, i, 0);
-        main.getVK((int) tablePageOne.getValueAt(i, 7))
-            .setSelected((boolean) tablePageOne.getValueAt(i, 0));
+        main.getVK((int) tablePageOne.getModel().getValueAt(i, 7))
+            .setSelected((boolean) tablePageOne.getModel().getValueAt(i, 0));
       }
       tablePageOne.refreshTable();
     });
     btnDeSelectAll.addActionListener(e -> {
       for (int i = 0; i < tablePageOne.getRowCount(); i++) {
         tablePageOne.setValueAt(false, i, 0);
-        main.getVK((int) tablePageOne.getValueAt(i, 7))
-            .setSelected((boolean) tablePageOne.getValueAt(i, 0));
+        main.getVK((int) tablePageOne.getModel().getValueAt(i, 7))
+            .setSelected((boolean) tablePageOne.getModel().getValueAt(i, 0));
       }
       tablePageOne.refreshTable();
     });
@@ -955,6 +966,9 @@ public class Frame extends JFrame {
             main.getFramework().getString("TABLE_ID")},
         new ComparatorChain<>(Main.VK_POSITION_COMPARATOR, Main.VK_RANK_COMPARATOR,
             Main.VK_NAME_COMPARATOR, Main.VK_SURNAME_COMPARATOR), tablePageTwo));
+
+    tablePageTwo.getColumnModel().removeColumn(tablePageTwo.getColumnModel().getColumn(6));
+
     //initializing column 4 with JComboBoxes
     TableColumn col = tablePageTwo.getColumnModel().getColumn(4);
     JComboBox<String> statusBox = new JComboBox<>();
@@ -991,7 +1005,7 @@ public class Frame extends JFrame {
                     c = c.getParent();
                   }
                 }
-                VK vk = main.getVK((int) target.getValueAt(row, 6));
+                VK vk = main.getVK((int) target.getModel().getValueAt(row, 6));
                 RemarkDialog d = new RemarkDialog(main.getFramework(), (Frame) c,
                     main.getFramework().getString("FRAME_TITLE"), vk);
                 d.setVisible(true);
@@ -1014,7 +1028,7 @@ public class Frame extends JFrame {
             c = c.getParent();
           }
         }
-        VK vk = main.getVK((int) tablePageTwo.getValueAt(tablePageTwo.getSelectedRow(), 6));
+        VK vk = main.getVK((int) tablePageTwo.getModel().getValueAt(tablePageTwo.getSelectedRow(), 6));
         RemarkDialog d =
             new RemarkDialog(main.getFramework(), (Frame) c,
                 main.getFramework().getString("FRAME_TITLE"),
@@ -1119,6 +1133,15 @@ public class Frame extends JFrame {
           JOptionPane.showMessageDialog(c, main.getFramework().getString("LOADING_EXCEPTION"));
         }
       }
+    });
+
+    menuItemShowDriverColumn.addActionListener(e -> {
+      if (menuItemShowDriverColumn.isSelected()){
+        tablePageOne.getColumnModel().addColumn(tableColumnDriver);
+      } else {
+        tablePageOne.getColumnModel().removeColumn(tableColumnDriver);
+      }
+      tablePageOne.refreshTable();
     });
 
 
@@ -1317,18 +1340,10 @@ public class Frame extends JFrame {
     @Override
     public void refreshTable() {
       List<VK> l;
-      if (showSelected) {
+      if (showSelected || showDriver) {
         l = new ArrayList<>();
         for (VK vk : main.getDatabase()) {
-          if (vk.isSelected()) {
-            l.add(vk);
-          }
-        }
-        l = sort(l);
-      } else if (showDriver) {
-        l = new ArrayList<>();
-        for (VK vk : main.getDatabase()) {
-          if (vk.isDriver()) {
+          if (showSelected && vk.isSelected() || showDriver && vk.isDriver()) {
             l.add(vk);
           }
         }

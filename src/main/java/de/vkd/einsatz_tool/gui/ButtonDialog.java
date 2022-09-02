@@ -83,6 +83,8 @@ public class ButtonDialog extends Dialog {
         new CustomDialogTableModel(m, columnNames, workingList, lblAlreadyAssigned, defaultChain,
             table, isDriverDialog);
     table.setModel(tb);
+    table.getColumnModel().removeColumn(table.getColumnModel().getColumn(5));
+
     table.getCustomTableModel().refreshTable();
     table.resizeColumnWidth();
     table.setFillsViewportHeight(true);
