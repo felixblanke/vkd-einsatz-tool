@@ -316,6 +316,9 @@
     <value name="BUTTON_DRIVER_ACTIONS">
         <value_text>?FAHRD?-Einstellungen</value_text>
     </value>
+    <value name="LABEL_CURRENTLY_SELECTED">
+        <value_text>Aktuell ausgewählt: </value_text>
+    </value>
     <value name="MENU_OPEN_FILE">
         <value_text>Einsatzbericht öffnen</value_text>
     </value>

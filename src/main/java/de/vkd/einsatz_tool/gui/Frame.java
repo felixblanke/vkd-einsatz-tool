@@ -1395,7 +1395,7 @@ public class Frame extends JFrame {
       for (Object[] o : rowData) {
         this.addRow(o);
       }
-      this.lblSelectionCounter.setText("Aktuell ausgewählt: " + selectedCount);
+      this.lblSelectionCounter.setText(main.getFramework().getString("LABEL_CURRENTLY_SELECTED") + selectedCount);
       super.refreshTable();
     }
   }
