@@ -283,7 +283,7 @@
     <value name="MNU_ADD_REMARK">
         <value_text>Kürzung/Bemerkung hinzufügen</value_text>
     </value>
-    <value name="DIALOG_TITLE_SORT">
+    <value name="DIALOG_SORT_TITLE">
         <value_text>Sortierreihenfolge ändern</value_text>
     </value>
     <value name="DIALOG_LOADING_TITLE">

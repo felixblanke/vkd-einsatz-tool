@@ -58,7 +58,7 @@ public class CustomTable<E> extends JTable {
 
     sortMenuItem.addActionListener(e -> {
       SortDialog<E> sortDialog = new SortDialog<>(framework, CustomTable.this, parent,
-          framework.getString("DIALOG_TITLE_SORT"), dataModel.getComparatorChain(),
+          framework.getString("DIALOG_SORT_TITLE"), dataModel.getComparatorChain(),
           comparatorList);
       sortDialog.setVisible(true);
     });
