@@ -167,6 +167,22 @@ public class Frame extends JFrame {
         new ComparatorChain<>(Main.VK_POSITION_COMPARATOR, Main.VK_RANK_COMPARATOR,
             Main.VK_NAME_COMPARATOR, Main.VK_SURNAME_COMPARATOR);
     initComponents();
+
+    boolean tryLoading = JOptionPane.showConfirmDialog(Frame.this,
+                main.getFramework().getString("DIALOG_LOADING_MESSAGE"),
+                main.getFramework().getString("DIALOG_LOADING_TITLE"),
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
+
+    while (tryLoading) {
+        boolean loadingResult = loadEinsatzbericht();
+        if (loadingResult) break;
+        else {
+          tryLoading = JOptionPane.showConfirmDialog(Frame.this,
+                main.getFramework().getString("DIALOG_RETRY_LOADING_MESSAGE"),
+                main.getFramework().getString("DIALOG_RETRY_LOADING_TITLE"),
+                JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE) == JOptionPane.YES_OPTION;
+        }
+    }
   }
 
   //TODO: Inverse Sorting (e.g. Z-A instead of A-Z)
@@ -1053,86 +1069,7 @@ public class Frame extends JFrame {
     pnlMain.add(pnlPageTwo);
 
     menuItemOpenFile.addActionListener(e -> {
-      JFileChooser fileChooser = new JFileChooser(".");
-      fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-      fileChooser.setFileFilter(new FileFilter() {
-        @Override
-        public String getDescription() {
-          return ".xls Dateien";
-        }
-
-        @Override
-        public boolean accept(File f) {
-          return f.isDirectory() || f.getName().endsWith(".xls");
-        }
-      });
-      int status = fileChooser.showOpenDialog(menuItemOpenFile);
-      if (status == JFileChooser.APPROVE_OPTION) {
-        File selectedFile = fileChooser.getSelectedFile();
-        Container c = btnNextPanelPageTwo.getParent();
-        while (true) {
-          if (c instanceof Frame) {
-            break;
-          } else {
-            c = c.getParent();
-          }
-        }
-        try {
-          //TODO:
-          //BUG: report throws Exception, if the underlying Einsatzbericht an older GuZ uses.
-          //TODO: maybe create a unique code for each GuZ, so that it can be distinguished,
-          // which report uses what
-          Einsatzbericht report = new Einsatzbericht(main, selectedFile);
-          beginPicker.setDateTimePermissive(
-              LocalDateTime.ofInstant(report.getBegin().toInstant(), ZoneId.systemDefault()));
-          endPicker.setDateTimePermissive(
-              LocalDateTime.ofInstant(report.getEnd().toInstant(), ZoneId.systemDefault()));
-
-          List<VK> database = main.getCleanDatabase();
-          for (VK vkReport : report.getSelectedVK()) {
-            boolean vkFound = false;
-            for (VK vk : database) {
-              if (vk.getId() == vkReport.getId()) {
-                database.remove(vk);
-                database.add(vkReport);
-                vkFound = true;
-                break;
-              }
-            }
-            if (!vkFound) {
-              throw new EinsatzberichtLoadingException(selectedFile.getAbsolutePath(),
-                  "The Einsatzbericht could not be loaded correctly.", -1, -1);
-            }
-          }
-          main.getFramework().setDatabase(new DatabaseReturnType<>(database, report.getVersion()));
-
-          remark = report.getRemark();
-          listEL = report.getListEL();
-          listAL = report.getListAL();
-          listBus = report.getListBus();
-
-          listEL = Framework.sort(listEL, defaultChainEL);
-          lblEL.setText(
-              main.getFramework().getString("LABEL_EL").concat(main.getStringFromVKList(listEL)));
-
-          listAL = Framework.sort(listAL, defaultChainAL);
-          lblAL.setText(
-              main.getFramework().getString("LABEL_AL").concat(main.getStringFromVKList(listAL)));
-
-          listBus = Framework.sort(listBus, defaultChainBus);
-          lblBus.setText(
-              main.getFramework().getString("LABEL_BUS").concat(main.getStringFromVKList(listBus)));
-
-          htfName.setText(report.getName());
-
-          JOptionPane.showMessageDialog(c, main.getFramework().getString("LOADING_SUCCESS"));
-
-          //TODO
-        } catch (Exception ex) {
-          main.getLogger().log(Level.SEVERE, null, ex);
-          JOptionPane.showMessageDialog(c, main.getFramework().getString("LOADING_EXCEPTION"));
-        }
-      }
+      loadEinsatzbericht();
     });
 
     menuItemShowDriverColumn.addActionListener(e -> {
@@ -1227,6 +1164,91 @@ public class Frame extends JFrame {
     lbl.setText(lblText + main.getStringFromVKList(list));
     lbl.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
     parent.add(lbl, gbc);
+  }
+
+  private boolean loadEinsatzbericht() {
+    JFileChooser fileChooser = new JFileChooser(".");
+    fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+    fileChooser.setFileFilter(new FileFilter() {
+      @Override
+      public String getDescription() {
+        return ".xls Dateien";
+      }
+
+      @Override
+      public boolean accept(File f) {
+        return f.isDirectory() || f.getName().endsWith(".xls");
+      }
+    });
+    int status = fileChooser.showOpenDialog(menuItemOpenFile);
+    if (status == JFileChooser.APPROVE_OPTION) {
+      File selectedFile = fileChooser.getSelectedFile();
+      Container c = btnNextPanelPageTwo.getParent();
+      while (true) {
+        if (c instanceof Frame) {
+          break;
+        } else {
+          c = c.getParent();
+        }
+      }
+      try {
+        //TODO:
+        //BUG: report throws Exception, if the underlying Einsatzbericht an older GuZ uses.
+        //TODO: maybe create a unique code for each GuZ, so that it can be distinguished,
+        // which report uses what
+        Einsatzbericht report = new Einsatzbericht(main, selectedFile);
+        beginPicker.setDateTimePermissive(
+            LocalDateTime.ofInstant(report.getBegin().toInstant(), ZoneId.systemDefault()));
+        endPicker.setDateTimePermissive(
+            LocalDateTime.ofInstant(report.getEnd().toInstant(), ZoneId.systemDefault()));
+
+        List<VK> database = main.getCleanDatabase();
+        for (VK vkReport : report.getSelectedVK()) {
+          boolean vkFound = false;
+          for (VK vk : database) {
+            if (vk.getId() == vkReport.getId()) {
+              database.remove(vk);
+              database.add(vkReport);
+              vkFound = true;
+              break;
+            }
+          }
+          if (!vkFound) {
+            throw new EinsatzberichtLoadingException(selectedFile.getAbsolutePath(),
+                "The Einsatzbericht could not be loaded correctly.", -1, -1);
+          }
+        }
+        main.getFramework().setDatabase(new DatabaseReturnType<>(database, report.getVersion()));
+
+        remark = report.getRemark();
+        listEL = report.getListEL();
+        listAL = report.getListAL();
+        listBus = report.getListBus();
+
+        listEL = Framework.sort(listEL, defaultChainEL);
+        lblEL.setText(
+            main.getFramework().getString("LABEL_EL").concat(main.getStringFromVKList(listEL)));
+
+        listAL = Framework.sort(listAL, defaultChainAL);
+        lblAL.setText(
+            main.getFramework().getString("LABEL_AL").concat(main.getStringFromVKList(listAL)));
+
+        listBus = Framework.sort(listBus, defaultChainBus);
+        lblBus.setText(
+            main.getFramework().getString("LABEL_BUS").concat(main.getStringFromVKList(listBus)));
+
+        htfName.setText(report.getName());
+
+        tablePageOne.refreshTable();
+        tablePageTwo.refreshTable();
+        JOptionPane.showMessageDialog(c, main.getFramework().getString("LOADING_SUCCESS"));
+        return true;
+      } catch (Exception ex) {
+        main.getLogger().log(Level.SEVERE, null, ex);
+        JOptionPane.showMessageDialog(c, main.getFramework().getString("LOADING_EXCEPTION"));
+      }
+    }
+    return false;
   }
 
   private ActionListener createActionListener(CustomButton dialogCause,

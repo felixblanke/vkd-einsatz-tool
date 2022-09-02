@@ -286,6 +286,18 @@
     <value name="DIALOG_TITLE_SORT">
         <value_text>Sortierreihenfolge ändern</value_text>
     </value>
+    <value name="DIALOG_LOADING_TITLE">
+        <value_text>Existierenden Einsatzbericht laden?</value_text>
+    </value>
+    <value name="DIALOG_LOADING_MESSAGE">
+        <value_text>Soll ein existierender Einsatzbericht geladen werden?</value_text>
+    </value>
+    <value name="DIALOG_RETRY_LOADING_TITLE">
+        <value_text>Laden fehlgeschlagen! Erneut versuchen?</value_text>
+    </value>
+    <value name="DIALOG_RETRY_LOADING_MESSAGE">
+        <value_text>Das Laden des Einsatzberichtes ist fehlgeschlagen. Erneut versuchen?</value_text>
+    </value>
     <!--
         GUI_PAGEONE:
     -->
