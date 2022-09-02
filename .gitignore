@@ -1,3 +1,6 @@
+# Ignore local files
+deploy/
+scratch/
 
 # Ignore VKD data files
 src/main/resources/*.csv
