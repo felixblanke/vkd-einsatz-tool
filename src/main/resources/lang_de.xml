@@ -38,11 +38,11 @@
     </var>
     <var name="BUS_VAR">
         <var_name>BUS</var_name>
-        <var_value>Busfahrer</var_value>
+        <var_value>Fahrdienst</var_value>
     </var>
     <var name="EL_VAR">
         <var_name>EL</var_name>
-        <var_value>Einsatzleiter</var_value>
+        <var_value>Einsatzleitung</var_value>
     </var>
     <var name="EL_SHORT_VAR">
         <var_name>EL_SHORT</var_name>
@@ -50,7 +50,7 @@
     </var>
     <var name="AL_VAR">
         <var_name>AL</var_name>
-        <var_value>Abschnittsleiter</var_value>
+        <var_value>Abschnittsleitung</var_value>
     </var>
     <var name="AL_SHORT_VAR">
         <var_name>AL_SHORT</var_name>
@@ -218,13 +218,13 @@
         <value_text>Mannschaft</value_text>
     </value>
     <value name="POS_2STV">
-        <value_text>2. Stellvertreter</value_text>
+        <value_text>2. Stellvertretung</value_text>
     </value>
     <value name="POS_1STV">
-        <value_text>1. Stellvertreter</value_text>
+        <value_text>1. Stellvertretung</value_text>
     </value>
     <value name="POS_GL">
-        <value_text>Gruppenleiter</value_text>
+        <value_text>Gruppenleitung</value_text>
     </value>
     <!--
         RANKS:
@@ -573,10 +573,10 @@
         <value_text>der ?BGN? nach dem ?END? liegt.</value_text>
     </value>
     <value name="CREATION_EXCEPTION_NO_EL">
-        <value_text>kein ?EL? gewählt ist.</value_text>
+        <value_text>keine ?EL? gewählt ist.</value_text>
     </value>
     <value name="CREATION_EXCEPTION_NO_EL_NOR_AL">
-        <value_text>kein ?EL? und auch kein ?AL? gewählt ist.</value_text>
+        <value_text>keine ?EL? und auch keine ?AL? gewählt ist.</value_text>
     </value>
     <value name="CREATION_EXCEPTION_NO_VK">
         <value_text>keine ?VKS? ausgewählt sind.</value_text>
@@ -615,10 +615,10 @@
         <value_text>Der ?EINSATZBER? wurde erfolgreich geladen.</value_text>
     </value>
     <value name="USER_ERROR_NO_EL_SELECTED">
-        <value_text>Es wurde kein ?EL? ausgewählt!</value_text>
+        <value_text>Es wurde keine ?EL? ausgewählt!</value_text>
     </value>
     <value name="USER_ERROR_NO_AL_SELECTED">
-        <value_text>Es wurde kein ?AL? ausgewählt!</value_text>
+        <value_text>Es wurde keine ?AL? ausgewählt!</value_text>
     </value>
     <value name="USER_ERROR_NO_DRIVER_SELECTED">
         <value_text>Es wurde kein ?BUS? ausgewählt!</value_text>
