@@ -1,6 +1,7 @@
 
 # Ignore VKD data files
 src/main/resources/*.csv
+_cfg/*.csv
 
 # Ignore exported files
 _export/
