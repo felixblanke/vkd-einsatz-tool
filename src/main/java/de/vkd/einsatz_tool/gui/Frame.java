@@ -97,7 +97,7 @@ public class Frame extends JFrame {
   private JToggleButton btnShowSelected;
   private JToggleButton btnShowDriver;
   //Labels
-  private CustomButton btnOtherActions;
+  private CustomButton btnDriverActions;
   //Table (showing the VK)
   private CustomTable<VK> tablePageOne;
   private TableColumn tableColumnDriver;
@@ -393,7 +393,7 @@ public class Frame extends JFrame {
     gbc2.insets = new Insets(0, INSETS_PNLCONTROL, 0, 0);
     gbc2.weightx = 0;
 
-    btnOtherActions = new CustomButton("Sonstiges");
+    btnDriverActions = new CustomButton(main.getFramework().getString("BUTTON_DRIVER_ACTIONS"));
 
     menuOtherActions = new JPopupMenu();
 
@@ -411,7 +411,7 @@ public class Frame extends JFrame {
     //menuItemBussePutzen.setMnemonic('B');
     //menuItemOnlyFahrdienst.setMnemonic('F');
 
-    subPanelSearch.add(btnOtherActions, gbc2);
+    subPanelSearch.add(btnDriverActions, gbc2);
 
     pnlFilter.add(subPanelSearch, gbc);
 
@@ -495,9 +495,9 @@ public class Frame extends JFrame {
       tablePageOne.refreshTable();
       tablePageTwo.refreshTable();
     });
-    btnOtherActions.addActionListener(
-        e -> menuOtherActions.show(btnOtherActions, btnOtherActions.getWidth() / 2,
-            btnOtherActions.getHeight() / 2));
+    btnDriverActions.addActionListener(
+        e -> menuOtherActions.show(btnDriverActions, btnDriverActions.getWidth() / 2,
+            btnDriverActions.getHeight() / 2));
 
     pnlMain.add(pnlPageOne);
     //end of page one
