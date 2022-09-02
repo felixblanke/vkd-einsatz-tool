@@ -1317,18 +1317,10 @@ public class Frame extends JFrame {
     @Override
     public void refreshTable() {
       List<VK> l;
-      if (showSelected) {
+      if (showSelected || showDriver) {
         l = new ArrayList<>();
         for (VK vk : main.getDatabase()) {
-          if (vk.isSelected()) {
-            l.add(vk);
-          }
-        }
-        l = sort(l);
-      } else if (showDriver) {
-        l = new ArrayList<>();
-        for (VK vk : main.getDatabase()) {
-          if (vk.isDriver()) {
+          if (showSelected && vk.isSelected() || showDriver && vk.isDriver()) {
             l.add(vk);
           }
         }
