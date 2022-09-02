@@ -360,8 +360,13 @@ public class Settings {
                         VarSet varSet, String groupPrefix, boolean readDatabaseFromJar) {
     this.exportPath = exportPath;
     this.stringValuesPath = resPath + stringValuesPath;
-    this.vkDataPath = resPath + vkDataPath;
     this.iconPath = resPath + iconPath;
+
+    if(readDatabaseFromJar) {
+      this.vkDataPath = resPath + vkDataPath;
+    } else {
+      this.vkDataPath = vkDataPath;
+    }
 
     this.dateFormat = new SimpleDateFormat(dateFormat);
     this.dateFormatExcel = dateFormat2;
