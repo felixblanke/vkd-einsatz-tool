@@ -437,16 +437,16 @@ public class Frame extends JFrame {
     btnSelectAll.addActionListener(e -> {
       for (int i = 0; i < tablePageOne.getRowCount(); i++) {
         tablePageOne.setValueAt(true, i, 0);
-        main.getVK((int) tablePageOne.getValueAt(i, 7))
-            .setSelected((boolean) tablePageOne.getValueAt(i, 0));
+        main.getVK((int) tablePageOne.getModel().getValueAt(i, 6))
+            .setSelected((boolean) tablePageOne.getModel().getValueAt(i, 0));
       }
       tablePageOne.refreshTable();
     });
     btnDeSelectAll.addActionListener(e -> {
       for (int i = 0; i < tablePageOne.getRowCount(); i++) {
         tablePageOne.setValueAt(false, i, 0);
-        main.getVK((int) tablePageOne.getValueAt(i, 7))
-            .setSelected((boolean) tablePageOne.getValueAt(i, 0));
+        main.getVK((int) tablePageOne.getModel().getValueAt(i, 6))
+            .setSelected((boolean) tablePageOne.getModel().getValueAt(i, 0));
       }
       tablePageOne.refreshTable();
     });
@@ -994,7 +994,7 @@ public class Frame extends JFrame {
                     c = c.getParent();
                   }
                 }
-                VK vk = main.getVK((int) target.getValueAt(row, 6));
+                VK vk = main.getVK((int) target.getModel().getValueAt(row, 6));
                 RemarkDialog d = new RemarkDialog(main.getFramework(), (Frame) c,
                     main.getFramework().getString("FRAME_TITLE"), vk);
                 d.setVisible(true);
@@ -1017,7 +1017,7 @@ public class Frame extends JFrame {
             c = c.getParent();
           }
         }
-        VK vk = main.getVK((int) tablePageTwo.getValueAt(tablePageTwo.getSelectedRow(), 6));
+        VK vk = main.getVK((int) tablePageTwo.getModel().getValueAt(tablePageTwo.getSelectedRow(), 6));
         RemarkDialog d =
             new RemarkDialog(main.getFramework(), (Frame) c,
                 main.getFramework().getString("FRAME_TITLE"),
