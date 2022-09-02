@@ -603,7 +603,7 @@
         <value_text>Ein ?EINSATZBER? wurde erfolgreich erstellt.</value_text>
     </value>
     <value name="LOADING_EXCEPTION">
-        <value_text>Der ?EINSATZBER? konnte nicht geladen werden. Schaue ggf. in die Konsole für die Gründe hierfür und/oder wende dich an ?ADMIN? für weitere Hilfe. (Momentan ist die Lade-Funktion noch in der Entwicklung)</value_text>
+        <value_text>Der ?EINSATZBER? konnte nicht geladen werden. Schaue ggf. in die Konsole für die Gründe hierfür und/oder wende dich an ?ADMIN? für weitere Hilfe. (Momentan ist die Lade-Funktion noch in der Entwicklung). Vorsicht: Eventuell wurde der Einsatzbericht teilweise geladen. Schaue also am besten, ob noch alle Daten im Tool stimmen.</value_text>
     </value>
     <value name="LOADING_SUCCESS">
         <value_text>Der ?EINSATZBER? wurde erfolgreich geladen.</value_text>
