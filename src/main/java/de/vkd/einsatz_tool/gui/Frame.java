@@ -426,8 +426,8 @@ public class Frame extends JFrame {
             Main.VK_RANK_COMPARATOR, Main.VK_NAME_COMPARATOR, Main.VK_SURNAME_COMPARATOR),
         tablePageOne));
 
-
     tableColumnDriver = tablePageOne.getColumnModel().getColumn(6);
+    // Hide Fahrdienst and ID columns
     tablePageOne.getColumnModel().removeColumn(tablePageOne.getColumnModel().getColumn(6));
     tablePageOne.getColumnModel().removeColumn(tablePageOne.getColumnModel().getColumn(6));
     tablePageOne.refreshTable();
