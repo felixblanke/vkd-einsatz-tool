@@ -9,7 +9,7 @@
 *    remark_font                (font used in the remark dialog, allowed filetypes: ttf)
 -->
     <vk_data_in_jar>false</vk_data_in_jar>
-    <vk_data>_cfg/guz2021_test.csv</vk_data><!---->
+    <vk_data>_cfg/guz2022b.csv</vk_data><!---->
     <!--<vk_data>data_vk.xml</vk_data>-->
 
     <group_prefix>Zug</group_prefix>
