@@ -418,6 +418,7 @@ public class Frame extends JFrame {
         new ComparatorChain<>(Main.VK_GROUP_COMPARATOR, Main.VK_POSITION_COMPARATOR,
             Main.VK_RANK_COMPARATOR, Main.VK_NAME_COMPARATOR, Main.VK_SURNAME_COMPARATOR),
         tablePageOne));
+    tablePageOne.getColumnModel().removeColumn(tablePageOne.getColumnModel().getColumn(6));
     tablePageOne.refreshTable();
 
     htfSearchPageOne.setTable(tablePageOne);
@@ -954,6 +955,9 @@ public class Frame extends JFrame {
             main.getFramework().getString("TABLE_ID")},
         new ComparatorChain<>(Main.VK_POSITION_COMPARATOR, Main.VK_RANK_COMPARATOR,
             Main.VK_NAME_COMPARATOR, Main.VK_SURNAME_COMPARATOR), tablePageTwo));
+
+    tablePageTwo.getColumnModel().removeColumn(tablePageTwo.getColumnModel().getColumn(6));
+
     //initializing column 4 with JComboBoxes
     TableColumn col = tablePageTwo.getColumnModel().getColumn(4);
     JComboBox<String> statusBox = new JComboBox<>();
