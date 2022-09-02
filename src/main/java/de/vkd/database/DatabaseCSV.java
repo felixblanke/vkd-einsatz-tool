@@ -3,6 +3,7 @@ package de.vkd.database;
 import de.vkd.auxiliary.Auxiliary;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -23,21 +24,25 @@ public class DatabaseCSV<E> {
   private final List<E> readData;
 
   public DatabaseCSV(String filedir, String charsetName, DatabaseEntryCreator<E> creator,
-                     String versionMarker, String defaultVersion)
+                     String versionMarker, String defaultVersion, boolean readFromJar)
       throws ReadDataException, IOException {
-    this(filedir, charsetName, creator, versionMarker, defaultVersion, DEFAULT_COMMENT_STR);
+    this(filedir, charsetName, creator, versionMarker, defaultVersion, DEFAULT_COMMENT_STR, readFromJar);
   }
 
   public DatabaseCSV(String filedir, String charsetName, DatabaseEntryCreator<E> creator,
-                     String versionMarker, String defaultVersion, String commentString)
+                     String versionMarker, String defaultVersion, String commentString, boolean readFromJar)
       throws ReadDataException, IOException {
     this.commentString = commentString;
     List<E> readData = new ArrayList<>();
 
     Scanner scanner;
-    InputStream resource =
-        Auxiliary.getResourceFromJAR(filedir, Logger.getLogger(DatabaseCSV.class.getName()));
-    scanner = new Scanner(resource, charsetName);
+    if(readFromJar)  {
+      InputStream resource =
+      Auxiliary.getResourceFromJAR(filedir, Logger.getLogger(DatabaseCSV.class.getName()));
+      scanner = new Scanner(resource, charsetName);
+    } else {
+      scanner = new Scanner(Paths.get(filedir), charsetName);
+    }
 
     try {
       //skip first line:
