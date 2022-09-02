@@ -103,7 +103,6 @@ public class Frame extends JFrame {
   private TableColumn tableColumnDriver;
   //Menu
   private JPopupMenu menuOtherActions;
-  private JMenuItem menuItemOpenFile;
   private JCheckBoxMenuItem menuItemBussePutzen;
   private JCheckBoxMenuItem menuItemOnlyFahrdienst;
   private JCheckBoxMenuItem menuItemShowDriverColumn;
@@ -397,8 +396,6 @@ public class Frame extends JFrame {
     btnOtherActions = new CustomButton("Sonstiges");
 
     menuOtherActions = new JPopupMenu();
-    menuItemOpenFile = new JMenuItem(main.getFramework().getString("MENU_OPEN_FILE"));
-    menuOtherActions.add(menuItemOpenFile);
 
     menuItemBussePutzen = new JCheckBoxMenuItem(main.getFramework().getString("MENU_CHECK_BP"));
     menuOtherActions.add(menuItemBussePutzen);
@@ -411,7 +408,6 @@ public class Frame extends JFrame {
         new JCheckBoxMenuItem(main.getFramework().getString("MENU_CHECK_FD_COL"), false);
     menuOtherActions.add(menuItemShowDriverColumn);
 
-    //menuItemOpenFile.setMnemonic('O');
     //menuItemBussePutzen.setMnemonic('B');
     //menuItemOnlyFahrdienst.setMnemonic('F');
 
@@ -1068,10 +1064,6 @@ public class Frame extends JFrame {
     pnlPageTwo.add(scrollPanePageTwo, "Center");
     pnlMain.add(pnlPageTwo);
 
-    menuItemOpenFile.addActionListener(e -> {
-      loadEinsatzbericht();
-    });
-
     menuItemShowDriverColumn.addActionListener(e -> {
       if (menuItemShowDriverColumn.isSelected()){
         tablePageOne.getColumnModel().addColumn(tableColumnDriver);
@@ -1180,7 +1172,7 @@ public class Frame extends JFrame {
         return f.isDirectory() || f.getName().endsWith(".xls");
       }
     });
-    int status = fileChooser.showOpenDialog(menuItemOpenFile);
+    int status = fileChooser.showOpenDialog(null);
     if (status == JFileChooser.APPROVE_OPTION) {
       File selectedFile = fileChooser.getSelectedFile();
       Container c = btnNextPanelPageTwo.getParent();
