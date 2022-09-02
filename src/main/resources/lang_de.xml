@@ -310,6 +310,9 @@
     <value name="MENU_CHECK_ONLY_FD">
         <value_text>Nur ?FAHRD? darf Busse fahren</value_text>
     </value>
+    <value name="MENU_CHECK_FD_COL">
+        <value_text>Zeige ?FAHRD?-Spalte</value_text>
+    </value>
     <!--
         GUI_PAGETWO:
     -->

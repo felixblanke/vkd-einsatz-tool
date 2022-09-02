@@ -100,11 +100,13 @@ public class Frame extends JFrame {
   private CustomButton btnOtherActions;
   //Table (showing the VK)
   private CustomTable<VK> tablePageOne;
+  private TableColumn tableColumnDriver;
   //Menu
   private JPopupMenu menuOtherActions;
   private JMenuItem menuItemOpenFile;
   private JCheckBoxMenuItem menuItemBussePutzen;
   private JCheckBoxMenuItem menuItemOnlyFahrdienst;
+  private JCheckBoxMenuItem menuItemShowDriverColumn;
   private CustomButton btnNextPanelPageTwo;
   private DateTimePicker beginPicker;
   private DateTimePicker endPicker;
@@ -389,6 +391,10 @@ public class Frame extends JFrame {
         new JCheckBoxMenuItem(main.getFramework().getString("MENU_CHECK_ONLY_FD"), true);
     menuOtherActions.add(menuItemOnlyFahrdienst);
 
+    menuItemShowDriverColumn =
+        new JCheckBoxMenuItem(main.getFramework().getString("MENU_CHECK_FD_COL"), false);
+    menuOtherActions.add(menuItemShowDriverColumn);
+
     //menuItemOpenFile.setMnemonic('O');
     //menuItemBussePutzen.setMnemonic('B');
     //menuItemOnlyFahrdienst.setMnemonic('F');
@@ -414,10 +420,15 @@ public class Frame extends JFrame {
             main.getFramework().getString("TABLE_NAME"),
             main.getFramework().getString("TABLE_SURNAME"),
             main.getFramework().getString("TABLE_POS"),
+            main.getFramework().getString("TABLE_DRIVER"),
             main.getFramework().getString("TABLE_ID")},
         new ComparatorChain<>(Main.VK_GROUP_COMPARATOR, Main.VK_POSITION_COMPARATOR,
             Main.VK_RANK_COMPARATOR, Main.VK_NAME_COMPARATOR, Main.VK_SURNAME_COMPARATOR),
         tablePageOne));
+
+
+    tableColumnDriver = tablePageOne.getColumnModel().getColumn(6);
+    tablePageOne.getColumnModel().removeColumn(tablePageOne.getColumnModel().getColumn(6));
     tablePageOne.getColumnModel().removeColumn(tablePageOne.getColumnModel().getColumn(6));
     tablePageOne.refreshTable();
 
@@ -437,7 +448,7 @@ public class Frame extends JFrame {
     btnSelectAll.addActionListener(e -> {
       for (int i = 0; i < tablePageOne.getRowCount(); i++) {
         tablePageOne.setValueAt(true, i, 0);
-        main.getVK((int) tablePageOne.getModel().getValueAt(i, 6))
+        main.getVK((int) tablePageOne.getModel().getValueAt(i, 7))
             .setSelected((boolean) tablePageOne.getModel().getValueAt(i, 0));
       }
       tablePageOne.refreshTable();
@@ -445,7 +456,7 @@ public class Frame extends JFrame {
     btnDeSelectAll.addActionListener(e -> {
       for (int i = 0; i < tablePageOne.getRowCount(); i++) {
         tablePageOne.setValueAt(false, i, 0);
-        main.getVK((int) tablePageOne.getModel().getValueAt(i, 6))
+        main.getVK((int) tablePageOne.getModel().getValueAt(i, 7))
             .setSelected((boolean) tablePageOne.getModel().getValueAt(i, 0));
       }
       tablePageOne.refreshTable();
@@ -1124,6 +1135,15 @@ public class Frame extends JFrame {
       }
     });
 
+    menuItemShowDriverColumn.addActionListener(e -> {
+      if (menuItemShowDriverColumn.isSelected()){
+        tablePageOne.getColumnModel().addColumn(tableColumnDriver);
+      } else {
+        tablePageOne.getColumnModel().removeColumn(tableColumnDriver);
+      }
+      tablePageOne.refreshTable();
+    });
+
 
     add(pnlMain, "Center");
     pack();
@@ -1292,10 +1312,10 @@ public class Frame extends JFrame {
 
     @Override
     public Class<?> getColumnClass(int columnIndex) {
-      if (columnIndex == 0) {
+      if (columnIndex == 0 || columnIndex == 6) {
         return Boolean.class;
       }
-      if (columnIndex == 6) {
+      if (columnIndex == 7) {
         return Integer.class;
       }
       return String.class;
@@ -1312,7 +1332,7 @@ public class Frame extends JFrame {
       if (value instanceof Boolean && column == 0) {
         Vector rowData = (Vector) getDataVector().get(row);
         rowData.set(column, value);
-        main.getVK((int) getValueAt(row, 6)).setSelected((boolean) value);
+        main.getVK((int) getValueAt(row, 7)).setSelected((boolean) value);
         refreshTable();
       }
     }
@@ -1343,7 +1363,8 @@ public class Frame extends JFrame {
         rowData[i][3] = vk.getName();
         rowData[i][4] = vk.getSurname();
         rowData[i][5] = Main.outputPosition(vk.getPosition());
-        rowData[i][6] = vk.getId();
+        rowData[i][6] = vk.isDriver();
+        rowData[i][7] = vk.getId();
       }
       for (Object[] o : rowData) {
         this.addRow(o);
