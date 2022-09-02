@@ -38,11 +38,6 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>de.vkd.framework</groupId>
-      <artifactId>framework</artifactId>
-      <version>1.1-SNAPSHOT</version>
-    </dependency>
-    <dependency>
       <groupId>org.apache.poi</groupId>
       <artifactId>poi</artifactId>
       <version>5.2.0</version>
@@ -61,6 +56,11 @@
       <groupId>com.github.lgooddatepicker</groupId>
       <artifactId>LGoodDatePicker</artifactId>
       <version>11.2.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jdom</groupId>
+      <artifactId>jdom2</artifactId>
+      <version>2.0.6.1</version>
     </dependency>
   </dependencies>
 
