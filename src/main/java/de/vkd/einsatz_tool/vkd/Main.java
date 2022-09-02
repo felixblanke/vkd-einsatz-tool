@@ -124,7 +124,7 @@ public class Main {
         initVars();
 
         //read Data
-        DatabaseReturnType<VK> databaseReturnType = readInData(settings.getVkDataPath());
+        DatabaseReturnType<VK> databaseReturnType = readInData(settings.getVkDataPath(), settings.isReadDatabaseFromJar());
         framework.setDatabase(databaseReturnType);
 
         getLogger().log(Level.FINE, "Loading complete");
@@ -387,7 +387,7 @@ public class Main {
      * @throws IOException Throws this Exception, if the reading process from the file was not successful, e.g. because the file could not be opened
      * @throws ReadDataException Throws this Exception, if the read data is not valid.
      */
-    private DatabaseReturnType<VK> readInData(String filedir) throws Exception {
+    private DatabaseReturnType<VK> readInData(String filedir, boolean readFromJar) throws Exception {
         getLogger().log(Level.FINER, "Loading VK data from " + filedir + (settings.getDatabaseType() == DatabaseType.XML?" (XML-Mode)":settings.getDatabaseType() == DatabaseType.CSV?" (CSV-Mode)":""));
         if(settings.getDatabaseType() == DatabaseType.XML){
             throw new RuntimeException("XML data files currently not supported due to work on the backend. Try a CSV Sheet.");
@@ -455,7 +455,8 @@ public class Main {
                         colNames
                     ),
                     DB_VERSION_MARKER_CSV,
-                    DB_DEFAULT_VERSION
+                    DB_DEFAULT_VERSION,
+                    readFromJar
                     );
             getLogger().log(Level.FINER, "VK data loaded");
             return new DatabaseReturnType<>(databaseCSV.getReadData(), databaseCSV.getVersion());

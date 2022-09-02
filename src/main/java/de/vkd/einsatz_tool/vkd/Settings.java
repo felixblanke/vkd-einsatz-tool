@@ -36,6 +36,8 @@ public class Settings {
 
   private String groupPrefix;
 
+  private boolean readDatabaseFromJar;
+
   //TODO:
   //SUPPORT MULTIPLE CHARSETS
 
@@ -65,6 +67,9 @@ public class Settings {
     final String remarkFontPath = readString(XML_REMARK_FONT, root);
     final String XML_GRP_PREFIX = "group_prefix";
     final String groupPrefix = readString(XML_GRP_PREFIX, root);
+    final String XML_DATABASE_IN_JAR = "vk_data_in_jar";
+    final String databaseInJar = readString(XML_DATABASE_IN_JAR, root);
+    boolean readDatabaseFromJar = Boolean.parseBoolean(databaseInJar);
 
     final DatabaseType databaseType;
 
@@ -111,7 +116,7 @@ public class Settings {
       case XML:
         initVars(m, resPath, exportPath, stringValuesPath, vkDataPath, iconPath,
             remarkFontPath, dateFormat, dateFormat2, dateFormat3, vkDataEncoding, databaseType,
-            varSet, groupPrefix);
+            varSet, groupPrefix, readDatabaseFromJar);
         break;
       default:
         throw new SettingsLoadingException("Unknown enum type");
@@ -334,9 +339,9 @@ public class Settings {
   public Settings(Main m, String resPath, String exportPath,
                   String stringValuesPath, String vkDataPath, String iconPath,
                   String remarkFontPath, String dateFormat, String dateFormat2, String dateFormat3,
-                  Charset vkDataEncoding, DatabaseType databaseType, VarSet varSet, String groupPrefix) {
+                  Charset vkDataEncoding, DatabaseType databaseType, VarSet varSet, String groupPrefix, boolean readDatabaseFromJar) {
     initVars(m, resPath, exportPath, stringValuesPath, vkDataPath, iconPath,
-        remarkFontPath, dateFormat, dateFormat2, dateFormat3, vkDataEncoding, databaseType, varSet, groupPrefix);
+        remarkFontPath, dateFormat, dateFormat2, dateFormat3, vkDataEncoding, databaseType, varSet, groupPrefix, readDatabaseFromJar);
   }
 
   private String readString(String elemName, Element root) throws SettingsLoadingException {
@@ -352,7 +357,7 @@ public class Settings {
                         String stringValuesPath, String vkDataPath, String iconPath,
                         String remarkFontPath, String dateFormat, String dateFormat2,
                         String dateFormat3, Charset vkDataEncoding, DatabaseType databaseType,
-                        VarSet varSet, String groupPrefix) {
+                        VarSet varSet, String groupPrefix, boolean readDatabaseFromJar) {
     this.exportPath = exportPath;
     this.stringValuesPath = resPath + stringValuesPath;
     this.vkDataPath = resPath + vkDataPath;
@@ -366,6 +371,7 @@ public class Settings {
     this.databaseType = databaseType;
 
     this.groupPrefix = groupPrefix;
+    this.readDatabaseFromJar = readDatabaseFromJar;
 
     Font remarkFont = null;
     try {
@@ -427,5 +433,9 @@ public class Settings {
 
   public String getGroupPrefix() {
       return groupPrefix;
+  }
+
+  public boolean isReadDatabaseFromJar() {
+      return readDatabaseFromJar;
   }
 }

@@ -3,10 +3,12 @@
 *    var_flag - multiple        (flags used in the reading process of an xml file like string_values in order to support simple functions and variables in those)
 *    vk_data                    (database, allowed filetypes: csv, xml)
 *    group_prefix               (which group config is used, either "Gruppe" or "Zug")
+*    vk_data_in_jar             (whether the vk_data file is contained in the .jar-File or is stored in an folder; "true" or "false" are allowed)
 *    string_values              (string values, allowed filetypes: xml)
 *    icon                       (icon used, allowed filetypes: any FileType the Java Class ImageIcon accepts (recommended is PNG))
 *    remark_font                (font used in the remark dialog, allowed filetypes: ttf)
 -->
+    <vk_data_in_jar>true</vk_data_in_jar>
     <vk_data>guz2021_test.csv</vk_data><!---->
     <!--<vk_data>data_vk.xml</vk_data>-->
 
