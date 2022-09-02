@@ -668,29 +668,8 @@ public class Frame extends JFrame {
 
     pnlControlTwo.add(pnlEinsatzInfo, "Center");
 
-    beginPicker.getDatePicker().addDateChangeListener(e -> {
-      if (e.getNewDate().compareTo(endPicker.getDatePicker().getDate()) > 0) {
-        endPicker.getDatePicker().setDate(e.getNewDate());
-      }
-    });
-
-    endPicker.getDatePicker().addDateChangeListener(e -> {
-      if (e.getNewDate().compareTo(beginPicker.getDatePicker().getDate()) < 0) {
-        beginPicker.getDatePicker().setDate(e.getNewDate());
-      }
-    });
-
-    beginPicker.getTimePicker().addTimeChangeListener(e -> {
-      if (beginPicker.getDatePicker().getDate().compareTo(endPicker.getDatePicker().getDate()) == 0 && e.getNewTime().compareTo(endPicker.getTimePicker().getTime()) > 0) {
-        endPicker.getTimePicker().setTime(e.getNewTime());
-      }
-    });
-
-    endPicker.getTimePicker().addTimeChangeListener(e -> {
-      if (beginPicker.getDatePicker().getDate().compareTo(endPicker.getDatePicker().getDate()) == 0 && e.getNewTime().compareTo(beginPicker.getTimePicker().getTime()) < 0) {
-        beginPicker.getTimePicker().setTime(e.getNewTime());
-      }
-    });
+    beginPicker.addDateTimeChangeListener(e -> {checkTimePicker(true);});
+    endPicker.addDateTimeChangeListener(e -> {checkTimePicker(false);});
 
     btnPrevPanelPageTwo.addActionListener(e -> {
       cl.first(pnlMain);
@@ -1145,6 +1124,23 @@ public class Frame extends JFrame {
     main.getLogger().log(Level.FINE, "Frame initialized");
   }
 
+  private void checkTimePicker(boolean beginWasChanged) {
+    if (beginPicker.getDatePicker().getDate().compareTo(endPicker.getDatePicker().getDate()) > 0) {
+      if (beginWasChanged) {
+        endPicker.getDatePicker().setDate(beginPicker.getDatePicker().getDate());
+      } else {
+        beginPicker.getDatePicker().setDate(endPicker.getDatePicker().getDate());
+      }
+    }
+
+    if (beginPicker.getDatePicker().getDate().compareTo(endPicker.getDatePicker().getDate()) == 0 && beginPicker.getTimePicker().getTime().compareTo(endPicker.getTimePicker().getTime()) > 0) {
+      if (beginWasChanged) {
+        endPicker.getTimePicker().setTime(beginPicker.getTimePicker().getTime());
+      } else {
+        beginPicker.getTimePicker().setTime(endPicker.getTimePicker().getTime());
+      }
+    }
+  }
 
   private void addHintTextFieldToPageTwo(HintTextField htf, String lblText, JPanel parent) {
     //suppose parent uses GridBagLayout
