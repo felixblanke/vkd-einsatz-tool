@@ -82,7 +82,11 @@ public class Main {
             log_lvl = Level.INFO;
         }
 
-        framework = new Framework<>(log_lvl);
+        // TODO allow setting via args
+        boolean openConsole = false;
+
+        framework = new Framework<>(log_lvl, openConsole);
+
         for(String str: args){
             getLogger().log(Level.INFO, str);
         }
@@ -90,12 +94,15 @@ public class Main {
         getLogger().log(Level.FINE, "Starting loading process");
         getLogger().log(Level.FINE, JAR_PATH);
         this.settings = loadSettings();
-        try {
-            getLogger().log(Level.FINEST, "Loading icon from " + settings.getIconPath());
-            framework.getConsole().setIcon(settings.getIconPath(), true);
-            getLogger().log(Level.FINEST, "Icon loaded");
-        } catch(IOException ex) {
-            getLogger().log(Level.WARNING, "", ex);
+
+        if (framework.getConsole() != null) {
+            try {
+                getLogger().log(Level.FINEST, "Loading icon from " + settings.getIconPath());
+                framework.getConsole().setIcon(settings.getIconPath(), true);
+                getLogger().log(Level.FINEST, "Icon loaded");
+            } catch(IOException ex) {
+                getLogger().log(Level.WARNING, "", ex);
+            }
         }
 
         getLogger().log(Level.FINEST, "Loading application properties from " + PROPERTIES_FILE);
