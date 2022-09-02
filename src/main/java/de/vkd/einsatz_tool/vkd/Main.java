@@ -522,7 +522,12 @@ public class Main {
     }
     //methods dealing with positionMap
     public static String outputPosition(int position){
-        return POSITION_MAP.get(position);
+        // Position is GL
+        if (position == 1) {
+            return POSITION_MAP.get(1);
+        } else {
+            return POSITION_MAP.get(4);
+        }
     }
     public static int getPositionNumber(String position){
         return (POSITION_MAP.getKey(position)==0)? 0 : POSITION_MAP.getKey(position);
