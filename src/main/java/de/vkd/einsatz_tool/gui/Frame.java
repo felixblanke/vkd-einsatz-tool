@@ -1023,10 +1023,8 @@ public class Frame extends JFrame {
       for (VK vk : main.getDatabase()) {
         if (vk.isSelected()) {
           if (vk.getStatus().equals(Status.NONE)) {
-            if (!listBus.contains(vk)) {
-              vk.setStatus(Status.EINGETEILT);
-              tablePageTwo.refreshTable();
-            }
+            vk.setStatus(Status.EINGETEILT);
+            tablePageTwo.refreshTable();
           }
         }
       }
