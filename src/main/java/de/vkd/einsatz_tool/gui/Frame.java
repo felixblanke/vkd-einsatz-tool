@@ -668,6 +668,29 @@ public class Frame extends JFrame {
 
     pnlControlTwo.add(pnlEinsatzInfo, "Center");
 
+    beginPicker.getDatePicker().addDateChangeListener(e -> {
+      if (e.getNewDate().compareTo(endPicker.getDatePicker().getDate()) > 0) {
+        endPicker.getDatePicker().setDate(e.getNewDate());
+      }
+    });
+
+    endPicker.getDatePicker().addDateChangeListener(e -> {
+      if (e.getNewDate().compareTo(beginPicker.getDatePicker().getDate()) < 0) {
+        beginPicker.getDatePicker().setDate(e.getNewDate());
+      }
+    });
+
+    beginPicker.getTimePicker().addTimeChangeListener(e -> {
+      if (beginPicker.getDatePicker().getDate().compareTo(endPicker.getDatePicker().getDate()) == 0 && e.getNewTime().compareTo(endPicker.getTimePicker().getTime()) > 0) {
+        endPicker.getTimePicker().setTime(e.getNewTime());
+      }
+    });
+
+    endPicker.getTimePicker().addTimeChangeListener(e -> {
+      if (beginPicker.getDatePicker().getDate().compareTo(endPicker.getDatePicker().getDate()) == 0 && e.getNewTime().compareTo(beginPicker.getTimePicker().getTime()) < 0) {
+        beginPicker.getTimePicker().setTime(e.getNewTime());
+      }
+    });
 
     btnPrevPanelPageTwo.addActionListener(e -> {
       cl.first(pnlMain);
