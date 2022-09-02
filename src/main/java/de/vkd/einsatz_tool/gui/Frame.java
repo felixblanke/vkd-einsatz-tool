@@ -668,6 +668,8 @@ public class Frame extends JFrame {
 
     pnlControlTwo.add(pnlEinsatzInfo, "Center");
 
+    beginPicker.addDateTimeChangeListener(e -> {checkTimePicker(true);});
+    endPicker.addDateTimeChangeListener(e -> {checkTimePicker(false);});
 
     btnPrevPanelPageTwo.addActionListener(e -> {
       cl.first(pnlMain);
@@ -1122,6 +1124,23 @@ public class Frame extends JFrame {
     main.getLogger().log(Level.FINE, "Frame initialized");
   }
 
+  private void checkTimePicker(boolean beginWasChanged) {
+    if (beginPicker.getDatePicker().getDate().compareTo(endPicker.getDatePicker().getDate()) > 0) {
+      if (beginWasChanged) {
+        endPicker.getDatePicker().setDate(beginPicker.getDatePicker().getDate());
+      } else {
+        beginPicker.getDatePicker().setDate(endPicker.getDatePicker().getDate());
+      }
+    }
+
+    if (beginPicker.getDatePicker().getDate().compareTo(endPicker.getDatePicker().getDate()) == 0 && beginPicker.getTimePicker().getTime().compareTo(endPicker.getTimePicker().getTime()) > 0) {
+      if (beginWasChanged) {
+        endPicker.getTimePicker().setTime(beginPicker.getTimePicker().getTime());
+      } else {
+        beginPicker.getTimePicker().setTime(endPicker.getTimePicker().getTime());
+      }
+    }
+  }
 
   private void addHintTextFieldToPageTwo(HintTextField htf, String lblText, JPanel parent) {
     //suppose parent uses GridBagLayout
