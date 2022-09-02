@@ -411,8 +411,9 @@ public class Frame extends JFrame {
         new String[] {main.getFramework().getString("TABLE_SELECTION"),
             main.getFramework().getString("TABLE_GROUP"),
             main.getFramework().getString("TABLE_RANK"),
-            main.getFramework().getString("TABLE_POS"), main.getFramework().getString("TABLE_NAME"),
+            main.getFramework().getString("TABLE_NAME"),
             main.getFramework().getString("TABLE_SURNAME"),
+            main.getFramework().getString("TABLE_POS"),
             main.getFramework().getString("TABLE_DRIVER"),
             main.getFramework().getString("TABLE_ID")},
         new ComparatorChain<>(Main.VK_GROUP_COMPARATOR, Main.VK_POSITION_COMPARATOR,
@@ -833,9 +834,10 @@ public class Frame extends JFrame {
 
     btnEL.addActionListener(createActionListener(btnEL,
         new String[] {main.getFramework().getString("TABLE_EL"),
-            main.getFramework().getString("TABLE_RANK"), main.getFramework().getString("TABLE_POS"),
+            main.getFramework().getString("TABLE_RANK"),
             main.getFramework().getString("TABLE_NAME"),
             main.getFramework().getString("TABLE_SURNAME"),
+            main.getFramework().getString("TABLE_POS"),
             main.getFramework().getString("TABLE_ID")},
         "LABEL_EL",
         lblEL, defaultChainEL, false, new ListHolder<VK>() {
@@ -846,9 +848,10 @@ public class Frame extends JFrame {
         }));
     btnAL.addActionListener(createActionListener(btnAL,
         new String[] {main.getFramework().getString("TABLE_EL"),
-            main.getFramework().getString("TABLE_RANK"), main.getFramework().getString("TABLE_POS"),
+            main.getFramework().getString("TABLE_RANK"),
             main.getFramework().getString("TABLE_NAME"),
             main.getFramework().getString("TABLE_SURNAME"),
+            main.getFramework().getString("TABLE_POS"),
             main.getFramework().getString("TABLE_ID")},
         "LABEL_AL",
         lblAL, defaultChainAL, false, new ListHolder<VK>() {
@@ -859,9 +862,10 @@ public class Frame extends JFrame {
         }));
     btnBus.addActionListener(createActionListener(btnBus,
         new String[] {main.getFramework().getString("TABLE_BUS"),
-            main.getFramework().getString("TABLE_RANK"), main.getFramework().getString("TABLE_POS"),
+            main.getFramework().getString("TABLE_RANK"),
             main.getFramework().getString("TABLE_NAME"),
             main.getFramework().getString("TABLE_SURNAME"),
+            main.getFramework().getString("TABLE_POS"),
             main.getFramework().getString("TABLE_ID")},
         "LABEL_BUS",
         lblBus, defaultChainBus, true, new ListHolder<VK>() {
@@ -1341,9 +1345,9 @@ public class Frame extends JFrame {
         rowData[i][0] = vk.isSelected();
         rowData[i][1] = Main.outputGroup(vk.getGroup());
         rowData[i][2] = Main.getRankString(vk.getRank());
-        rowData[i][3] = Main.outputPosition(vk.getPosition());
-        rowData[i][4] = vk.getName();
-        rowData[i][5] = vk.getSurname();
+        rowData[i][3] = vk.getName();
+        rowData[i][4] = vk.getSurname();
+        rowData[i][5] = Main.outputPosition(vk.getPosition());
         rowData[i][6] = vk.isDriver();
         rowData[i][7] = vk.getId();
       }
