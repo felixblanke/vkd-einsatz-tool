@@ -221,21 +221,13 @@ public class Frame extends JFrame {
 
       add(menuBar, "North");
     }
-    pnlMain = new JPanel();
-    cl = new CardLayout();
-    pnlMain.setLayout(cl);
+    pnlMain = new JPanel(cl = new CardLayout());
 
     //page one:
-    JPanel pnlPageOne = new JPanel();
-    pnlPageOne.setLayout(new GridBagLayout());
-    pnlPageOne.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+    JPanel pnlPageOne = new JPanel(new GridBagLayout());
 
     //PAGE ONE:
-    JPanel pnlControl = new JPanel();
-    //TODO: CLEAN UP CODE: REMOVE PREFERRED SIZE
-    pnlControl.setPreferredSize(
-        new Dimension((int) getContentPane().getPreferredSize().getWidth(), HEIGHT_OF_PNLCONTROL));
-    pnlControl.setLayout(new BorderLayout());
+    JPanel pnlControl = new JPanel(new BorderLayout());
 
     JPanel pnlTemp = new JPanel();
     pnlTemp.setLayout(new BoxLayout(pnlTemp, BoxLayout.Y_AXIS));
@@ -270,8 +262,7 @@ public class Frame extends JFrame {
     pnlControl.add(pnlNavButtonsAuxOne, "East");
 
     //SELECTIONS:
-    JPanel pnlFilter = new JPanel();
-    pnlFilter.setLayout(new GridBagLayout());
+    JPanel pnlFilter = new JPanel(new GridBagLayout());
 
     gbc = new GridBagConstraints();
     gbc.insets =
@@ -282,7 +273,6 @@ public class Frame extends JFrame {
     new FilterCheckBox("GROUP_2", pnlFilter, gbc, 0, 1, 3, true);
     new FilterCheckBox("GROUP_3", pnlFilter, gbc, 0, 2, 3, true);
     new FilterCheckBox("GROUP_L", pnlFilter, gbc, 0, 3, 3, true);
-
 
     new FilterCheckBox("GROUP_4", pnlFilter, gbc, 3, 0, 3, true);
     new FilterCheckBox("GROUP_5", pnlFilter, gbc, 3, 1, 3, true);
@@ -304,8 +294,7 @@ public class Frame extends JFrame {
     new FilterCheckBox("RANK_OGL", pnlFilter, gbc, 10, 2, 1, true);
     new FilterCheckBox("RANK_HGL", pnlFilter, gbc, 10, 3, 1, true);
 
-    JPanel pnlTemp2 = new JPanel();
-    pnlTemp2.setLayout(new GridBagLayout());
+    JPanel pnlTemp2 = new JPanel(new GridBagLayout());
 
     gbc = new GridBagConstraints();
     gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -346,7 +335,6 @@ public class Frame extends JFrame {
     lblSelectionCounter = new JLabel();
     pnlTemp2.add(lblSelectionCounter, gbc);
 
-
     gbc = new GridBagConstraints();
     gbc.anchor = GridBagConstraints.FIRST_LINE_START;
     gbc.gridy = 0;
@@ -368,8 +356,7 @@ public class Frame extends JFrame {
     gbc.gridwidth = 11;
     gbc.insets = new Insets(0, INSETS_PNLCONTROL, INSETS_PNLCONTROL, INSETS_PNLCONTROL);
 
-    JPanel subPanelSearch = new JPanel();
-    subPanelSearch.setLayout(new GridBagLayout());
+    JPanel subPanelSearch = new JPanel(new GridBagLayout());
 
     GridBagConstraints gbc2 = new GridBagConstraints();
     gbc2.anchor = GridBagConstraints.WEST;
@@ -510,15 +497,10 @@ public class Frame extends JFrame {
     //end of page one
 
     //page two:
-    pnlPageTwo = new JPanel();
-    pnlPageTwo.setLayout(new BorderLayout());
+    pnlPageTwo = new JPanel(new BorderLayout());
 
     //PAGE TWO:
-    JPanel pnlControlTwo = new JPanel();
-    pnlControlTwo.setPreferredSize(
-        new Dimension((int) getContentPane().getPreferredSize().getWidth(),
-            HEIGHT_OF_PNLCONTROLTWO));
-    pnlControlTwo.setLayout(new BorderLayout());
+    JPanel pnlControlTwo = new JPanel(new BorderLayout());
 
     //PrevPanel/NextPanel Buttons
     JPanel navPanelPageTwo = new JPanel();
@@ -551,19 +533,14 @@ public class Frame extends JFrame {
     pnlNavButtonsAuxTwo.add(navPanelPageTwo, gbc);
     pnlControlTwo.add(pnlNavButtonsAuxTwo, "East");
 
-    JPanel pnlEinsatzInfo = new JPanel();
-    pnlEinsatzInfo.setLayout(new GridBagLayout());
-
-    pnlEinsatzInfo.setPreferredSize(new Dimension(WIDTH, HEIGHT_OF_PNLCONTROL));
-
+    JPanel pnlEinsatzInfo = new JPanel(new GridBagLayout());
 
     addHintTextFieldToPageTwo(htfName = new HintTextField(main.getFramework().getString("TF_NAME")),
         main.getFramework().getString("LABEL_NAME"), pnlEinsatzInfo);
 
     //pnlTime
 
-    JPanel pnlTime = new JPanel();
-    pnlTime.setLayout(new GridBagLayout());
+    JPanel pnlTime = new JPanel(new GridBagLayout());
     gbc = new GridBagConstraints();
     gbc.insets = new Insets(0, 0, 0, 2 * INSETS_PNLCONTROL2_SIDES);
     gbc.anchor = GridBagConstraints.FIRST_LINE_START;
@@ -631,8 +608,7 @@ public class Frame extends JFrame {
         main.getFramework().getString("LABEL_BUS"), pnlEinsatzInfo, btnBus, lblBus, 5, listBus);
 
 
-    pnlTemp = new JPanel();
-    pnlTemp.setLayout(new GridBagLayout());
+    pnlTemp = new JPanel(new GridBagLayout());
 
     gbc = new GridBagConstraints();
     gbc.anchor = GridBagConstraints.LINE_START;
