@@ -167,19 +167,21 @@ public class Frame extends JFrame {
             Main.VK_NAME_COMPARATOR, Main.VK_SURNAME_COMPARATOR);
     initComponents();
 
-    boolean tryLoading = JOptionPane.showConfirmDialog(Frame.this,
+    boolean tryLoading = JOptionPane.showOptionDialog(Frame.this,
                 main.getFramework().getString("DIALOG_LOADING_MESSAGE"),
                 main.getFramework().getString("DIALOG_LOADING_TITLE"),
-                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION;
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Ja", "Nein"},
+                "Nein") == JOptionPane.YES_OPTION;
 
     while (tryLoading) {
         boolean loadingResult = loadEinsatzbericht();
         if (loadingResult) break;
         else {
-          tryLoading = JOptionPane.showConfirmDialog(Frame.this,
+          tryLoading = JOptionPane.showOptionDialog(Frame.this,
                 main.getFramework().getString("DIALOG_RETRY_LOADING_MESSAGE"),
                 main.getFramework().getString("DIALOG_RETRY_LOADING_TITLE"),
-                JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE) == JOptionPane.YES_OPTION;
+                JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE, null, new String[]{"Ja", "Nein"},
+                "Nein") == JOptionPane.YES_OPTION;
         }
     }
   }
