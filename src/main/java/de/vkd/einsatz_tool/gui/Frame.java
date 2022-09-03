@@ -37,8 +37,11 @@ import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.Vector;
 import java.util.logging.Level;
 import javax.imageio.ImageIO;
@@ -117,7 +120,7 @@ public class Frame extends JFrame {
   private boolean showDriver = false;
   private String remark = "";
 
-  {
+  private final void initializeFilterCheckboxMap() {
     /*
      * Integer[2]:
      * first pos determines used array:
@@ -127,31 +130,32 @@ public class Frame extends JFrame {
      * 3: filter_func
      * sec pos determines array index
      */
-    filterCheckBoxMap.put("GROUP_1", new Integer[] {0, 0});
-    filterCheckBoxMap.put("GROUP_2", new Integer[] {0, 1});
-    filterCheckBoxMap.put("GROUP_3", new Integer[] {0, 2});
-    filterCheckBoxMap.put("GROUP_4", new Integer[] {0, 3});
-    filterCheckBoxMap.put("GROUP_5", new Integer[] {0, 4});
-    filterCheckBoxMap.put("GROUP_6", new Integer[] {0, 5});
-    filterCheckBoxMap.put("GROUP_L", new Integer[] {0, 6});
-    filterCheckBoxMap.put("GROUP_ER", new Integer[] {0, 7});
-    filterCheckBoxMap.put("POS_GL", new Integer[] {1, 0});
-    filterCheckBoxMap.put("POS_1STV", new Integer[] {1, 1});
-    filterCheckBoxMap.put("POS_2STV", new Integer[] {1, 2});
-    filterCheckBoxMap.put("POS_MANNSCHAFT_CHECKBOX", new Integer[] {1, 3});
-    filterCheckBoxMap.put("RANK_VK", new Integer[] {2, 0});
-    filterCheckBoxMap.put("RANK_OVK", new Integer[] {2, 1});
-    filterCheckBoxMap.put("RANK_HVK", new Integer[] {2, 2});
-    filterCheckBoxMap.put("RANK_HVKA", new Integer[] {2, 3});
-    filterCheckBoxMap.put("RANK_UGL", new Integer[] {2, 4});
-    filterCheckBoxMap.put("RANK_PGL", new Integer[] {2, 5});
-    filterCheckBoxMap.put("RANK_GL", new Integer[] {2, 6});
-    filterCheckBoxMap.put("RANK_OGL", new Integer[] {2, 7});
-    filterCheckBoxMap.put("RANK_HGL", new Integer[] {2, 8});
+    filterCheckBoxMap.put(main.getFramework().getString("GROUP_1"), new Integer[] {0, 0});
+    filterCheckBoxMap.put(main.getFramework().getString("GROUP_2"), new Integer[] {0, 1});
+    filterCheckBoxMap.put(main.getFramework().getString("GROUP_3"), new Integer[] {0, 2});
+    filterCheckBoxMap.put(main.getFramework().getString("GROUP_4"), new Integer[] {0, 3});
+    filterCheckBoxMap.put(main.getFramework().getString("GROUP_5"), new Integer[] {0, 4});
+    filterCheckBoxMap.put(main.getFramework().getString("GROUP_6"), new Integer[] {0, 5});
+    filterCheckBoxMap.put(main.getFramework().getString("GROUP_L"), new Integer[] {0, 6});
+    filterCheckBoxMap.put(main.getFramework().getString("GROUP_ER"), new Integer[] {0, 7});
+    filterCheckBoxMap.put(main.getFramework().getString("POS_GL"), new Integer[] {1, 0});
+    filterCheckBoxMap.put(main.getFramework().getString("POS_1STV"), new Integer[] {1, 1});
+    filterCheckBoxMap.put(main.getFramework().getString("POS_2STV"), new Integer[] {1, 2});
+    filterCheckBoxMap.put(main.getFramework().getString("POS_MANNSCHAFT_CHECKBOX"), new Integer[] {1, 3});
+    filterCheckBoxMap.put(main.getFramework().getString("RANK_VK"), new Integer[] {2, 0});
+    filterCheckBoxMap.put(main.getFramework().getString("RANK_OVK"), new Integer[] {2, 1});
+    filterCheckBoxMap.put(main.getFramework().getString("RANK_HVK"), new Integer[] {2, 2});
+    filterCheckBoxMap.put(main.getFramework().getString("RANK_HVKA"), new Integer[] {2, 3});
+    filterCheckBoxMap.put(main.getFramework().getString("RANK_UGL"), new Integer[] {2, 4});
+    filterCheckBoxMap.put(main.getFramework().getString("RANK_PGL"), new Integer[] {2, 5});
+    filterCheckBoxMap.put(main.getFramework().getString("RANK_GL"), new Integer[] {2, 6});
+    filterCheckBoxMap.put(main.getFramework().getString("RANK_OGL"), new Integer[] {2, 7});
+    filterCheckBoxMap.put(main.getFramework().getString("RANK_HGL"), new Integer[] {2, 8});
   }
 
   public Frame(Main main) {
     this.main = main;
+    initializeFilterCheckboxMap();
     this.defaultChainEL =
         new ComparatorChain<>(Main.VK_POSITION_COMPARATOR, Main.VK_RANK_COMPARATOR,
             Main.VK_NAME_COMPARATOR, Main.VK_SURNAME_COMPARATOR);
@@ -262,30 +266,50 @@ public class Frame extends JFrame {
         new Insets(INSETS_PNLCONTROL, INSETS_PNLCONTROL, INSETS_PNLCONTROL, INSETS_PNLCONTROL);
     gbc.anchor = GridBagConstraints.FIRST_LINE_START;
 
-    new FilterCheckBox("GROUP_1", pnlFilter, gbc, 0, 0, 3, true);
-    new FilterCheckBox("GROUP_2", pnlFilter, gbc, 0, 1, 3, true);
-    new FilterCheckBox("GROUP_3", pnlFilter, gbc, 0, 2, 3, true);
-    new FilterCheckBox("GROUP_L", pnlFilter, gbc, 0, 3, 3, true);
+    new FilterCheckBox(main.getFramework().getString("POS_GL"), pnlFilter, gbc, 0, 0, 3, true);
+    new FilterCheckBox(main.getFramework().getString("POS_1STV"), pnlFilter, gbc, 0, 1, 3, true);
+    new FilterCheckBox(main.getFramework().getString("POS_2STV"), pnlFilter, gbc, 0, 2, 3, true);
+    new FilterCheckBox(main.getFramework().getString("POS_MANNSCHAFT_CHECKBOX"), pnlFilter, gbc, 0, 3, 3, true);
 
-    new FilterCheckBox("GROUP_4", pnlFilter, gbc, 3, 0, 3, true);
-    new FilterCheckBox("GROUP_5", pnlFilter, gbc, 3, 1, 3, true);
-    new FilterCheckBox("GROUP_6", pnlFilter, gbc, 3, 2, 3, true);
-    new FilterCheckBox("GROUP_ER", pnlFilter, gbc, 3, 3, 3, true);
+    new FilterCheckBox(main.getFramework().getString("RANK_VK"), pnlFilter, gbc, 3, 0, 1, true);
+    new FilterCheckBox(main.getFramework().getString("RANK_OVK"), pnlFilter, gbc, 3, 1, 1, true);
+    new FilterCheckBox(main.getFramework().getString("RANK_HVK"), pnlFilter, gbc, 3, 2, 1, true);
+    new FilterCheckBox(main.getFramework().getString("RANK_UGL"), pnlFilter, gbc, 3, 3, 1, true);
 
-    new FilterCheckBox("POS_GL", pnlFilter, gbc, 6, 0, 3, true);
-    new FilterCheckBox("POS_1STV", pnlFilter, gbc, 6, 1, 3, true);
-    new FilterCheckBox("POS_2STV", pnlFilter, gbc, 6, 2, 3, true);
-    new FilterCheckBox("POS_MANNSCHAFT_CHECKBOX", pnlFilter, gbc, 6, 3, 3, true);
+    new FilterCheckBox(main.getFramework().getString("RANK_PGL"), pnlFilter, gbc, 4, 0, 1, true);
+    new FilterCheckBox(main.getFramework().getString("RANK_GL"), pnlFilter, gbc, 4, 1, 1, true);
+    new FilterCheckBox(main.getFramework().getString("RANK_OGL"), pnlFilter, gbc, 4, 2, 1, true);
+    new FilterCheckBox(main.getFramework().getString("RANK_HGL"), pnlFilter, gbc, 4, 3, 1, true);
 
-    new FilterCheckBox("RANK_VK", pnlFilter, gbc, 9, 0, 1, true);
-    new FilterCheckBox("RANK_OVK", pnlFilter, gbc, 9, 1, 1, true);
-    new FilterCheckBox("RANK_HVK", pnlFilter, gbc, 9, 2, 1, true);
-    new FilterCheckBox("RANK_UGL", pnlFilter, gbc, 9, 3, 1, true);
+    // get group numbers occuring in database, split into regular groups and special groups (i.e. Leitung and Einsatzreserve)
+    Set<Integer> specialSet = new HashSet<>();
+    Set<Integer> regularSet = new HashSet<>();
+    for (VK vk: main.getDatabase()){
+      if (vk.getGroup() <= 0) {
+        specialSet.add(vk.getGroup());
+      } else {
+        regularSet.add(vk.getGroup());
+      }
+    }
 
-    new FilterCheckBox("RANK_PGL", pnlFilter, gbc, 10, 0, 1, true);
-    new FilterCheckBox("RANK_GL", pnlFilter, gbc, 10, 1, 1, true);
-    new FilterCheckBox("RANK_OGL", pnlFilter, gbc, 10, 2, 1, true);
-    new FilterCheckBox("RANK_HGL", pnlFilter, gbc, 10, 3, 1, true);
+    int regularGroupFilterRows = regularSet.size() % 2 == 0 ?  regularSet.size() / 2 : regularSet.size() / 2 + 1;
+
+    List<Integer> regularList = new ArrayList<>(regularSet);
+    Collections.sort(regularList);
+
+    List<Integer> specialList = new ArrayList<>(specialSet);
+    specialList.sort(Collections.reverseOrder());
+
+    // fill up the first column in order, then the second.
+    int index;
+    for(index = 0; index < regularList.size(); index++) {
+      new FilterCheckBox(Main.outputGroup(regularList.get(index)), pnlFilter, gbc, 5 + 3 * (index / regularGroupFilterRows), index % regularGroupFilterRows, 3, true);
+    }
+
+    // fill up from left to right
+    for(int j = 0; j < specialList.size(); j++) {
+      new FilterCheckBox(Main.outputGroup(specialList.get(j)), pnlFilter, gbc, 5 + 3 * ((j + regularList.size()) % 2), (j + regularList.size()) / 2, 3, true);
+    }
 
     JPanel pnlTemp2 = new JPanel(new GridBagLayout());
 
@@ -1220,7 +1244,7 @@ public class Frame extends JFrame {
   class FilterCheckBox extends JCheckBox {
     public FilterCheckBox(String stringName, JPanel parent, GridBagConstraints gbc, int x, int y,
                           int width, boolean selectedAtStart) {
-      super(main.getFramework().getString(stringName));
+      super(stringName);
       setAutoRequestFocus(false);
       setFocusPainted(false);
       setSelected(selectedAtStart);
