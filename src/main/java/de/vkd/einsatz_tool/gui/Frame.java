@@ -957,11 +957,12 @@ public class Frame extends JFrame {
             main.getFramework().getString("TABLE_DRIVER"),
             main.getFramework().getString("TABLE_STATUS"),
             main.getFramework().getString("TABLE_KUERZUNG"),
+            main.getFramework().getString("TABLE_REMARK"),
             main.getFramework().getString("TABLE_ID")},
         new ComparatorChain<>(Main.VK_POSITION_COMPARATOR, Main.VK_RANK_COMPARATOR,
             Main.VK_NAME_COMPARATOR, Main.VK_SURNAME_COMPARATOR), tablePageTwo));
 
-    tablePageTwo.getColumnModel().removeColumn(tablePageTwo.getColumnModel().getColumn(6));
+    tablePageTwo.getColumnModel().removeColumn(tablePageTwo.getColumnModel().getColumn(7));
 
     //initializing column 4 with JComboBoxes
     TableColumn col = tablePageTwo.getColumnModel().getColumn(4);
@@ -995,7 +996,7 @@ public class Frame extends JFrame {
                     c = c.getParent();
                   }
                 }
-                VK vk = main.getVK((int) target.getModel().getValueAt(row, 6));
+                VK vk = main.getVK((int) target.getModel().getValueAt(row, 7));
                 RemarkDialog d = new RemarkDialog(main.getFramework(), (Frame) c,
                     main.getFramework().getString("FRAME_TITLE"), vk);
                 d.setVisible(true);
@@ -1018,7 +1019,7 @@ public class Frame extends JFrame {
             c = c.getParent();
           }
         }
-        VK vk = main.getVK((int) tablePageTwo.getModel().getValueAt(tablePageTwo.getSelectedRow(), 6));
+        VK vk = main.getVK((int) tablePageTwo.getModel().getValueAt(tablePageTwo.getSelectedRow(), 7));
         RemarkDialog d =
             new RemarkDialog(main.getFramework(), (Frame) c,
                 main.getFramework().getString("FRAME_TITLE"),
@@ -1373,7 +1374,7 @@ public class Frame extends JFrame {
       if (columnIndex == 3) {
         return Boolean.class;
       }
-      if (columnIndex == 6) {
+      if (columnIndex == 7) {
         return Integer.class;
       }
       return String.class;
@@ -1390,7 +1391,7 @@ public class Frame extends JFrame {
       if (value instanceof String && column == 4) {
         Vector rowData = (Vector) getDataVector().get(row);
         rowData.set(column, value);
-        main.getVK((int) getValueAt(row, 6)).setStatus(Status.getStatusByShortName((String) value));
+        main.getVK((int) getValueAt(row, 7)).setStatus(Status.getStatusByShortName((String) value));
         refreshTable();
       }
     }
@@ -1415,7 +1416,8 @@ public class Frame extends JFrame {
         rowData[i][3] = vk.isDriver();
         rowData[i][4] = vk.getStatus().getShortName();
         rowData[i][5] = vk.getKuerzungsListe().isEmpty() ? "" : vk.getKuerzungsListe().size();
-        rowData[i][6] = vk.getId();
+        rowData[i][6] = vk.getRemark();
+        rowData[i][7] = vk.getId();
       }
       for (Object[] o : rowData) {
         this.addRow(o);

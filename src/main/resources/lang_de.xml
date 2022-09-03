@@ -482,6 +482,9 @@
     <value name="TABLE_KUERZUNG">
         <value_text>?KUERZ?</value_text>
     </value>
+    <value name="TABLE_REMARK">
+        <value_text>Bemerkung</value_text>
+    </value>
     <value name="TABLE_PERCENTAGE">
         <value_text>Prozent</value_text>
     </value>
