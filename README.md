@@ -1,7 +1,7 @@
 # VKD Einsatz-Tool
 
-Dies ist ein internes Tool der [Verkehrskadetten Düsseldorf](https://verkehrskadetten-duesseldorf.de/)
-zur Erstellung von Berichten für Einsätze.
+Dies ist ein internes Tool der Jugendorganisation [Verkehrskadetten Düsseldorf](https://verkehrskadetten-duesseldorf.de/)
+zur Erstellung von Berichten für die Einsätze der Verkehrskadetten.
 
 ### Ausführen
 Das Tool ist in Java geschrieben.
@@ -13,5 +13,6 @@ Zum Kompilieren und zur Verwaltung wird das Kommandozeilentool [Maven](https://m
 ```sh
 $ git clone https://github.com/felixblanke/vkd-einsatz-tool.git
 $ cd vkd-einsatz-tool
-$ mvn clean package
+$ # compile, package and run the tool
+$ ./scripts/dev_exec.sh
 ```
