@@ -73,19 +73,12 @@ import javax.swing.text.StyledDocument;
 
 @SuppressWarnings("serial")
 public class Frame extends JFrame {
-
-  private static final int WIDTH = 770;
-  private static final int HEIGHT = 636;
-  private static final int HEIGHT_OF_PNLCONTROL = 150;
-  private static final int HEIGHT_OF_PNLCONTROLTWO = 220;
   private static final int INSETS_PNLCONTROL = 3;
   private static final int INSETS_PNLCONTROL2 = 5;
   private static final int INSETS_PNLCONTROL2_SIDES = 5;
   private static final int INSETS_PNLCONTROL2_RIGHT = 5;
 
   private static final int NAV_PANEL_VSTRUT = 30;
-
-  private static final int NAV_BTN_PREF_WIDTH = 100;
 
   private final ComparatorChain<VK> defaultChainEL;
   private final ComparatorChain<VK> defaultChainAL;
