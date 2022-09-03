@@ -177,10 +177,11 @@ public class Frame extends JFrame {
         boolean loadingResult = loadEinsatzbericht();
         if (loadingResult) break;
         else {
-          tryLoading = JOptionPane.showConfirmDialog(Frame.this,
+          tryLoading = JOptionPane.showOptionDialog(Frame.this,
                 main.getFramework().getString("DIALOG_RETRY_LOADING_MESSAGE"),
                 main.getFramework().getString("DIALOG_RETRY_LOADING_TITLE"),
-                JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE) == JOptionPane.YES_OPTION;
+                JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE, null, new String[]{"Ja", "Nein"},
+                "Nein") == JOptionPane.YES_OPTION;
         }
     }
   }
