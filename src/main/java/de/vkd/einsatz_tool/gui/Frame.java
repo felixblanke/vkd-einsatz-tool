@@ -1391,6 +1391,7 @@ public class Frame extends JFrame {
         Vector rowData = (Vector) getDataVector().get(row);
         rowData.set(column, value);
         main.getVK((int) getValueAt(row, 6)).setStatus(Status.getStatusByShortName((String) value));
+        refreshTable();
       }
     }
 
