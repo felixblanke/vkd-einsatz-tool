@@ -1,0 +1,35 @@
+-- Leerzeile beibehalten --
+version: guz_demo
+Gruppe;Rang;Vorname;Nachname;Position;Funktion
+Zug I;GL;Jon;Snow;1;Fahrdienst
+Zug I;UGL;Daenerys;Targaryen;2;
+Zug I;HVK;Eddard;Stark;3;Fahrdienst
+Zug I;HVK*;Jaime;Lannister;4;
+Zug I;HVK*;Jorah;Mormont;4;
+Zug I;HVK;Arya;Stark;4;
+Zug I;HVK;Theon;Greyjoy;4;
+Zug I;HVK;Sandor;Clegane;4;
+Zug I;OVK;Tyrion;Lannister;4;
+Zug I;OVK;Petyr Littlefinger;Baelish;4;
+Zug I;VK;Davos;Seaworth;4;
+Zug I;VK;Samwell;Tarly;4;
+Zug II;GL;Harry;Potter;1;Fahrdienst
+Zug II;UGL;Hermione;Granger;2;Fahrdienst
+Zug II;HVK*;Ron;Weasley;3;
+Zug II;HVK*;Sirius;Black;4;
+Zug II;HVK;Severus;Snape;4;
+Zug II;HVK;Draco;Malfoy;4;
+Zug II;HVK;Dudley;Dursley;4;
+Zug II;HVK;Rubeus;Hagrid;4;
+Zug II;OVK;Mad-Eye;Moody;4;
+Zug II;OVK;Dolores;Umbridge;4;
+Zug II;VK;Viktor;Krum;4;
+Zug II;VK;Thomas Marvolo;Riddle;4;
+Leitung;HGL;Robinson;Crusoe;1;Fahrdienst
+Leitung;OGL;Huckleberry;Finn;1;Fahrdienst
+Leitung;OGL;Tom;Sawyer;1;
+Einsatzreserve;HVK;Nils;Holgersson;4;
+Einsatzreserve;HVK*;Akka;von Kebnekaise;4;
+Einsatzreserve;HVK;Kalle;Blomquist;4;
+Einsatzreserve;HVK;Anders;Bengtsson;4;Fahrdienst
+Einsatzreserve;UGL;Eva-Lotta;Lisander;2;Fahrdienst
