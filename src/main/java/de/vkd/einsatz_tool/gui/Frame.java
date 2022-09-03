@@ -83,6 +83,8 @@ public class Frame extends JFrame {
   private static final int INSETS_PNLCONTROL2_SIDES = 5;
   private static final int INSETS_PNLCONTROL2_RIGHT = 5;
 
+  private static final int NAV_PANEL_VSTRUT = 30;
+
   private static final int NAV_BTN_PREF_WIDTH = 100;
 
   private final ComparatorChain<VK> defaultChainEL;
@@ -249,34 +251,23 @@ public class Frame extends JFrame {
     btnNextPanelPageOne.setAlignmentX(0);
 
     JPanel navPanelPageOne = new JPanel();
-    navPanelPageOne.setLayout(new GridBagLayout());
+    navPanelPageOne.setLayout(new BoxLayout(navPanelPageOne, BoxLayout.Y_AXIS));
+
+    navPanelPageOne.add(Box.createVerticalStrut(NAV_PANEL_VSTRUT));
+    navPanelPageOne.add(btnPrevPanelPageOne);
+    navPanelPageOne.add(Box.createVerticalStrut(NAV_PANEL_VSTRUT));
+    navPanelPageOne.add(btnNextPanelPageOne);
+    navPanelPageOne.add(Box.createVerticalGlue());
 
     GridBagConstraints gbc = new GridBagConstraints();
-    gbc.fill = GridBagConstraints.HORIZONTAL;
-    gbc.gridx = 0;
-    gbc.gridy = 0;
-    gbc.gridwidth = 1;
-    gbc.anchor = GridBagConstraints.PAGE_START;
-    gbc.weighty = 1;
-    gbc.weightx = 1;
-    navPanelPageOne.add(btnPrevPanelPageOne, gbc);
-
+    gbc.fill = GridBagConstraints.BOTH;
     gbc.weightx = 1;
     gbc.weighty = 1;
-    gbc.gridy = 1;
-    gbc.anchor = GridBagConstraints.PAGE_END;
-    navPanelPageOne.add(btnNextPanelPageOne, gbc);
-    int h = (HEIGHT_OF_PNLCONTROL - (btnPrevPanelPageOne.getPreferredSize().height
-        + btnNextPanelPageOne.getPreferredSize().height)) / 3;
+    gbc.insets = new Insets(INSETS_PNLCONTROL, INSETS_PNLCONTROL, INSETS_PNLCONTROL, INSETS_PNLCONTROL);
 
-    navPanelPageOne.setPreferredSize(
-        new Dimension(NAV_BTN_PREF_WIDTH, navPanelPageOne.getPreferredSize().height));
-
-    pnlTemp.add(Box.createVerticalStrut(h));
-    pnlTemp.add(navPanelPageOne);
-    pnlTemp.add(Box.createVerticalStrut(h));
-
-    pnlControl.add(pnlTemp, "East");
+    JPanel pnlNavButtonsAuxOne = new JPanel(new GridBagLayout());
+    pnlNavButtonsAuxOne.add(navPanelPageOne, gbc);
+    pnlControl.add(pnlNavButtonsAuxOne, "East");
 
     //SELECTIONS:
     JPanel pnlFilter = new JPanel();
@@ -544,39 +535,21 @@ public class Frame extends JFrame {
     btnNextPanelPageTwo.setFocusPainted(false);
     btnNextPanelPageTwo.setAlignmentX(0);
 
+    navPanelPageTwo.add(Box.createVerticalStrut(NAV_PANEL_VSTRUT));
+    navPanelPageTwo.add(btnPrevPanelPageTwo);
+    navPanelPageTwo.add(Box.createVerticalStrut(NAV_PANEL_VSTRUT));
+    navPanelPageTwo.add(btnNextPanelPageTwo);
+    navPanelPageTwo.add(Box.createVerticalGlue());
 
-    JPanel pnlNavButtonsAux = new JPanel();
-    pnlNavButtonsAux.setLayout(new GridBagLayout());
+    JPanel pnlNavButtonsAuxTwo = new JPanel(new GridBagLayout());
 
     gbc = new GridBagConstraints();
-    gbc.fill = GridBagConstraints.HORIZONTAL;
-    gbc.gridx = 0;
-    gbc.gridy = 0;
-    gbc.gridwidth = 1;
-    gbc.anchor = GridBagConstraints.PAGE_START;
-    gbc.weighty = 1;
-    gbc.weightx = 1;
-    pnlNavButtonsAux.add(btnPrevPanelPageTwo, gbc);
-
+    gbc.fill = GridBagConstraints.BOTH;
     gbc.weightx = 1;
     gbc.weighty = 1;
-    gbc.gridy = 1;
-    gbc.anchor = GridBagConstraints.PAGE_END;
-    pnlNavButtonsAux.add(btnNextPanelPageTwo, gbc);
-
-
-    int marginNavButtons = (HEIGHT_OF_PNLCONTROL - (btnPrevPanelPageTwo.getPreferredSize().height
-        + btnNextPanelPageTwo.getPreferredSize().height)) / 3;
-
-    navPanelPageTwo.add(Box.createVerticalStrut(marginNavButtons));
-    navPanelPageTwo.add(pnlNavButtonsAux);
-    navPanelPageTwo.add(
-        Box.createVerticalStrut(marginNavButtons + HEIGHT_OF_PNLCONTROLTWO - HEIGHT_OF_PNLCONTROL));
-
-    navPanelPageTwo.setPreferredSize(
-        new Dimension(NAV_BTN_PREF_WIDTH, navPanelPageTwo.getPreferredSize().height));
-
-    pnlControlTwo.add(navPanelPageTwo, "East");
+    gbc.insets = new Insets(INSETS_PNLCONTROL, INSETS_PNLCONTROL, INSETS_PNLCONTROL, INSETS_PNLCONTROL);
+    pnlNavButtonsAuxTwo.add(navPanelPageTwo, gbc);
+    pnlControlTwo.add(pnlNavButtonsAuxTwo, "East");
 
     JPanel pnlEinsatzInfo = new JPanel();
     pnlEinsatzInfo.setLayout(new GridBagLayout());
@@ -1010,10 +983,6 @@ public class Frame extends JFrame {
 
     tablePageTwo.resizeColumnWidth();
     tablePageTwo.setFillsViewportHeight(true);
-    scrollPanePageTwo.setPreferredSize(
-        new Dimension((int) getContentPane().getPreferredSize().getWidth(),
-            (int) (getContentPane().getPreferredSize().getHeight()
-                - pnlControlTwo.getPreferredSize().getHeight())));
     htfSearchPageTwo.setTable(tablePageTwo);
     tablePageTwo.addMouseListener(new MouseAdapter() {
       @Override
