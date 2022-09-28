@@ -980,6 +980,7 @@ public class Frame extends JFrame {
     tablePageTwo.resizeColumnWidth();
     tablePageTwo.setFillsViewportHeight(true);
     htfSearchPageTwo.setTable(tablePageTwo);
+
     tablePageTwo.addMouseListener(new MouseAdapter() {
       @Override
       public void mousePressed(MouseEvent e) {
@@ -988,6 +989,23 @@ public class Frame extends JFrame {
             @SuppressWarnings("unchecked") CustomTable<VK> target = (CustomTable<VK>) e.getSource();
             int column = target.columnAtPoint(e.getPoint());
             if (column == 5) {
+              int row = target.rowAtPoint(e.getPoint());
+              if (row >= 0) {
+                Container c = tablePageTwo.getParent();
+                while (true) {
+                  if (c instanceof Frame) {
+                    break;
+                  } else {
+                    c = c.getParent();
+                  }
+                }
+                VK vk = main.getVK((int) target.getModel().getValueAt(row, 7));
+                KuerzungDialog d = new KuerzungDialog(main.getFramework(), (Frame) c,
+                    main.getFramework().getString("FRAME_TITLE"), vk);
+                d.setVisible(true);
+                tablePageTwo.refreshTable();
+              }
+            } else if (column == 6) {
               int row = target.rowAtPoint(e.getPoint());
               if (row >= 0) {
                 Container c = tablePageTwo.getParent();
@@ -1010,7 +1028,49 @@ public class Frame extends JFrame {
       }
     });
 
+    JMenuItem menuItemStatusDialog = new JMenuItem(main.getFramework().getString("MNU_ADD_STATUS"));
     JMenuItem menuItemRemarkDialog = new JMenuItem(main.getFramework().getString("MNU_ADD_REMARK"));
+    JMenuItem menuItemKuerzungDialog = new JMenuItem(main.getFramework().getString("MNU_ADD_KUERZUNG"));
+    menuItemStatusDialog.addActionListener(e -> {
+      if (tablePageTwo.getSelectedRow() >= 0) {
+        Container c = tablePageTwo.getParent();
+        while (true) {
+          if (c instanceof Frame) {
+            break;
+          } else {
+            c = c.getParent();
+          }
+        }
+        VK vk = main.getVK((int) tablePageTwo.getModel().getValueAt(tablePageTwo.getSelectedRow(), 7));
+        StatusDialog d =
+            new StatusDialog(main.getFramework(), (Frame) c,
+                main.getFramework().getString("FRAME_TITLE"),
+                vk);
+        d.setVisible(true);
+        tablePageTwo.refreshTable();
+      }
+    });
+
+    menuItemKuerzungDialog.addActionListener(e -> {
+      if (tablePageTwo.getSelectedRow() >= 0) {
+        Container c = tablePageTwo.getParent();
+        while (true) {
+          if (c instanceof Frame) {
+            break;
+          } else {
+            c = c.getParent();
+          }
+        }
+        VK vk = main.getVK((int) tablePageTwo.getModel().getValueAt(tablePageTwo.getSelectedRow(), 7));
+        KuerzungDialog d =
+            new KuerzungDialog(main.getFramework(), (Frame) c,
+                main.getFramework().getString("FRAME_TITLE"),
+                vk);
+        d.setVisible(true);
+        tablePageTwo.refreshTable();
+      }
+    });
+
     menuItemRemarkDialog.addActionListener(e -> {
       if (tablePageTwo.getSelectedRow() >= 0) {
         Container c = tablePageTwo.getParent();
@@ -1030,6 +1090,8 @@ public class Frame extends JFrame {
         tablePageTwo.refreshTable();
       }
     });
+    tablePageTwo.addMenuItem(menuItemStatusDialog);
+    tablePageTwo.addMenuItem(menuItemKuerzungDialog);
     tablePageTwo.addMenuItem(menuItemRemarkDialog);
 
     btnDefaultStatus.addActionListener(e -> {
@@ -1395,6 +1457,23 @@ public class Frame extends JFrame {
         rowData.set(column, value);
         main.getVK((int) getValueAt(row, 7)).setStatus(Status.getStatusByShortName((String) value));
         refreshTable();
+        if (Status.getStatusByShortName((String) value) == Status.ERSATZ) {
+          Container c = tablePageTwo.getParent();
+          while (true) {
+            if (c instanceof Frame) {
+              break;
+            } else {
+              c = c.getParent();
+            }
+          }
+          VK vk = main.getVK((int) getValueAt(row, 7));
+          StatusDialog d =
+              new StatusDialog(main.getFramework(), (Frame) c,
+                  main.getFramework().getString("FRAME_TITLE"),
+                  vk);
+          d.setVisible(true);
+          refreshTable();
+        }
       }
     }
 

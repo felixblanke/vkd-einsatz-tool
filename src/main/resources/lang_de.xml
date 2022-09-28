@@ -280,8 +280,14 @@
     <value name="MNU_SORT">
         <value_text>Ändere Sortierreihenfolge</value_text>
     </value>
+    <value name="MNU_ADD_STATUS">
+        <value_text>Status bearbeiten</value_text>
+    </value>
     <value name="MNU_ADD_REMARK">
-        <value_text>Kürzung/Bemerkung hinzufügen</value_text>
+        <value_text>Bemerkung hinzufügen/bearbeiten</value_text>
+    </value>
+    <value name="MNU_ADD_KUERZUNG">
+        <value_text>Kürzung hinzufügen/bearbeiten</value_text>
     </value>
     <value name="DIALOG_SORT_TITLE">
         <value_text>Sortierreihenfolge ändern</value_text>
