@@ -1318,9 +1318,8 @@ public class Frame extends JFrame {
     public FilterCheckBox(String stringName, JPanel parent, GridBagConstraints gbc, int x, int y,
                           int width, boolean selectedAtStart) {
       super(stringName);
-      setAutoRequestFocus(false);
-      setFocusPainted(false);
-      setSelected(selectedAtStart);
+      this.setFocusPainted(false);
+      this.setSelected(selectedAtStart);
       gbc.gridx = x;
       gbc.gridy = y;
       gbc.gridwidth = width;
