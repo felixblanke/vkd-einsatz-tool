@@ -1,5 +1,8 @@
 package de.vkd.einsatz_tool.vkd;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +20,8 @@ public class VK {
   private Status status = Status.NONE;
   private String remark = "";
   private VK ersatz;
+  private LocalDateTime beginDateTime = null;
+  private LocalDateTime endDateTime = null;
 
   //constructors
   public VK(int group, Rank rank, String name, String surname, int position, boolean driver) {
@@ -143,5 +148,23 @@ public class VK {
   public String getStringRepresentation() {
     return Main.getRankString(getRank()).concat(" ").concat(getName()).concat(" ")
         .concat(getSurname());
+  }
+
+  public LocalDateTime getBeginDateTime() {
+    return this.beginDateTime;
+  }
+
+  public LocalDateTime getEndDateTime() {
+    return this.endDateTime;
+  }
+
+  public boolean hasIndividualTimes() {
+    return this.beginDateTime != null && this.endDateTime != null;
+  }
+
+  public void updateIndividualTimes(LocalDateTime beginDateTime, LocalDateTime endDateTime) {
+    assert ! ((beginDateTime == null) ^ (endDateTime == null));
+    this.beginDateTime = beginDateTime;
+    this.endDateTime = endDateTime;
   }
 }

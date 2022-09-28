@@ -1302,6 +1302,14 @@ public class Frame extends JFrame {
     };
   }
 
+  DateTimePicker getBeginPicker() {
+      return beginPicker;
+  }
+
+  DateTimePicker getEndPicker() {
+      return endPicker;
+  }
+
   private abstract static class ListHolder<T> { //No (Function) Pointer in Java
     abstract List<T> getWorkingList();
   }
@@ -1497,7 +1505,26 @@ public class Frame extends JFrame {
         rowData[i][3] = vk.isDriver();
         rowData[i][4] = vk.getStatus().getShortName();
         rowData[i][5] = vk.getKuerzungsListe().isEmpty() ? "" : vk.getKuerzungsListe().size();
-        rowData[i][6] = vk.getRemark();
+        if (vk.hasIndividualTimes()) {
+          String remarkString = "";
+          if (!vk.getRemark().trim().isEmpty()) {
+            remarkString += vk.getRemark() + ", ";
+          }
+
+          String beginDate = vk.getBeginDateTime().format(main.settings.getDateTimeFormatter());
+          String endDate = vk.getEndDateTime().format(main.settings.getDateTimeFormatter());
+
+          String beginTime = vk.getBeginDateTime().toLocalTime().toString();
+          String endTime = vk.getEndDateTime().toLocalTime().toString();
+
+          if (beginDate.equals(endDate)) {
+            rowData[i][6] = remarkString + beginDate + " " + beginTime + "–" + endTime;
+          } else {
+            rowData[i][6] = remarkString + beginDate + " " + beginTime + " – " + endDate + " " + endTime;
+          }
+        } else {
+          rowData[i][6] = vk.getRemark();
+        }
         rowData[i][7] = vk.getId();
       }
       for (Object[] o : rowData) {
