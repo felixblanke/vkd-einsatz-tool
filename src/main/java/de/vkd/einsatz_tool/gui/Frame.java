@@ -99,6 +99,9 @@ public class Frame extends JFrame {
   private JMenuBar menuBar;
   private JMenu menuFiles;
   private JMenu menuDriverActions;
+  private JMenuItem menuItemExportPath;
+  private JMenuItem menuItemOpen;
+
   private JCheckBoxMenuItem menuItemBussePutzen;
   private JCheckBoxMenuItem menuItemOnlyFahrdienst;
   private JCheckBoxMenuItem menuItemShowDriverColumn;
@@ -219,13 +222,14 @@ public class Frame extends JFrame {
     if (showMenuBar) {
       menuBar = new JMenuBar();
       menuFiles = new JMenu("Datei");
-      JMenuItem item1 = new JMenuItem("Speicherort für neue Einsatzberichte ändern (aktuell '" + main.settings.getExportPath() + "')");
-      item1.setEnabled(false);
-      menuFiles.add(item1);
+      menuItemExportPath = new JMenuItem();
+      refreshSelectExportMenuItem();
+      menuItemExportPath.addActionListener(e -> selectExportFolder());
+      menuFiles.add(menuItemExportPath);
 
-      JMenuItem item2 = new JMenuItem("Einsatzbericht öffnen");
-      menuFiles.add(item2);
-      item2.addActionListener(e -> loadEinsatzbericht());
+      menuItemOpen = new JMenuItem("Einsatzbericht öffnen");
+      menuFiles.add(menuItemOpen);
+      menuItemOpen.addActionListener(e -> loadEinsatzbericht());
 
       menuBar.add(menuFiles);
 
@@ -1146,6 +1150,14 @@ public class Frame extends JFrame {
     }
   }
 
+  private void refreshSelectExportMenuItem() {
+    this.menuItemExportPath.setText(
+      main.getFramework().getString("MENU_SELECT_EXPORT_PREFIX") +
+      main.settings.getExportPath() +
+      main.getFramework().getString("MENU_SELECT_EXPORT_SUFFIX")
+    );
+  }
+
   private void addHintTextFieldToPageTwo(HintTextField htf, String lblText, JPanel parent) {
     //suppose parent uses GridBagLayout
     GridBagConstraints gbc = new GridBagConstraints();
@@ -1220,7 +1232,7 @@ public class Frame extends JFrame {
         return f.isDirectory() || f.getName().endsWith(".xls");
       }
     });
-    int status = fileChooser.showOpenDialog(null);
+    int status = fileChooser.showOpenDialog(this);
     if (status == JFileChooser.APPROVE_OPTION) {
       File selectedFile = fileChooser.getSelectedFile();
       Container c = btnNextPanelPageTwo.getParent();
@@ -1286,6 +1298,25 @@ public class Frame extends JFrame {
       } catch (Exception ex) {
         main.getLogger().log(Level.SEVERE, null, ex);
         JOptionPane.showMessageDialog(c, main.getFramework().getString("LOADING_EXCEPTION"));
+      }
+    }
+    return false;
+  }
+
+  private boolean selectExportFolder() {
+    JFileChooser fileChooser = new JFileChooser(main.settings.getExportPath());
+    fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+    int status = fileChooser.showOpenDialog(this);
+    if (status == JFileChooser.APPROVE_OPTION) {
+      File selectedFile = fileChooser.getSelectedFile();
+      try {
+        assert selectedFile.exists() && selectedFile.isDirectory();
+        main.settings.setExportPath(selectedFile.getPath());
+        refreshSelectExportMenuItem();
+        return true;
+      } catch (Exception ex) {
+        main.getLogger().log(Level.SEVERE, null, ex);
+        JOptionPane.showMessageDialog(this, main.getFramework().getString("SELECT_EXPORT_EXCEPTION"));
       }
     }
     return false;

@@ -412,6 +412,10 @@ public class Settings {
     return exportPath;
   }
 
+  public void setExportPath(String exportPath) {
+    this.exportPath = exportPath;
+  }
+
   public String getIconPath() {
     return iconPath;
   }
