@@ -61,7 +61,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.JToggleButton;
@@ -93,13 +92,13 @@ public class Frame extends JFrame {
   private JPanel pnlPageTwo;
   private CardLayout cl;
   private JToggleButton btnShowSelected;
-  //Labels
-  private CustomButton btnDriverActions;
   //Table (showing the VK)
   private CustomTable<VK> tablePageOne;
   private TableColumn tableColumnDriver;
   //Menu
-  private JPopupMenu menuDriverActions;
+  private JMenuBar menuBar;
+  private JMenu menuFiles;
+  private JMenu menuDriverActions;
   private JCheckBoxMenuItem menuItemBussePutzen;
   private JCheckBoxMenuItem menuItemOnlyFahrdienst;
   private JCheckBoxMenuItem menuItemShowDriverColumn;
@@ -210,13 +209,41 @@ public class Frame extends JFrame {
     }
     setLayout(new BorderLayout());
 
-    boolean showMenuBar = false;
+    boolean showMenuBar = true;
     if (showMenuBar) {
-      JMenuBar menuBar = new JMenuBar();
-      JMenu menu1 = new JMenu("Datei");
-      JMenuItem item1 = new JMenuItem("Speicherort");
-      menu1.add(item1);
-      menuBar.add(menu1);
+      menuBar = new JMenuBar();
+      menuFiles = new JMenu("Datei");
+      JMenuItem item1 = new JMenuItem("Speicherort für neue Einsatzberichte ändern (aktuell '" + main.settings.getExportPath() + "')");
+      item1.setEnabled(false);
+      menuFiles.add(item1);
+
+      JMenuItem item2 = new JMenuItem("Einsatzbericht öffnen");
+      menuFiles.add(item2);
+      item2.addActionListener(e -> loadEinsatzbericht());
+
+      menuBar.add(menuFiles);
+
+      menuDriverActions = new JMenu("Fahrdienst & Busse");
+
+      menuItemBussePutzen = new JCheckBoxMenuItem(main.getFramework().getString("MENU_CHECK_BP"));
+      menuDriverActions.add(menuItemBussePutzen);
+
+      menuItemOnlyFahrdienst =
+          new JCheckBoxMenuItem(main.getFramework().getString("MENU_CHECK_ONLY_FD"), true);
+      menuDriverActions.add(menuItemOnlyFahrdienst);
+
+      menuItemShowDriverColumn =
+          new JCheckBoxMenuItem(main.getFramework().getString("MENU_CHECK_FD_COL"), false);
+      menuDriverActions.add(menuItemShowDriverColumn);
+
+      menuItemShowOnlyDrivers =
+          new JCheckBoxMenuItem(main.getFramework().getString("BUTTON_SHOWDRIVER"), false);
+      menuDriverActions.add(menuItemShowOnlyDrivers);
+
+      menuBar.add(menuDriverActions);
+
+      //menuItemBussePutzen.setMnemonic('B');
+      //menuItemOnlyFahrdienst.setMnemonic('F');
 
       add(menuBar, "North");
     }
@@ -235,6 +262,7 @@ public class Frame extends JFrame {
     btnPrevPanelPageOne.setText(main.getFramework().getString("BUTTON_PREVPANEL"));
     btnPrevPanelPageOne.setFocusPainted(false);
     btnPrevPanelPageOne.setAlignmentX(0);
+    btnPrevPanelPageOne.setEnabled(false);
 
     CustomButton btnNextPanelPageOne = new CustomButton();
     btnNextPanelPageOne.setText(main.getFramework().getString("BUTTON_NEXTPANEL"));
@@ -390,30 +418,6 @@ public class Frame extends JFrame {
     gbc2.insets = new Insets(0, INSETS_PNLCONTROL, 0, 0);
     gbc2.weightx = 0;
 
-    btnDriverActions = new CustomButton(main.getFramework().getString("BUTTON_DRIVER_ACTIONS"));
-
-    menuDriverActions = new JPopupMenu();
-
-    menuItemBussePutzen = new JCheckBoxMenuItem(main.getFramework().getString("MENU_CHECK_BP"));
-    menuDriverActions.add(menuItemBussePutzen);
-
-    menuItemOnlyFahrdienst =
-        new JCheckBoxMenuItem(main.getFramework().getString("MENU_CHECK_ONLY_FD"), true);
-    menuDriverActions.add(menuItemOnlyFahrdienst);
-
-    menuItemShowDriverColumn =
-        new JCheckBoxMenuItem(main.getFramework().getString("MENU_CHECK_FD_COL"), false);
-    menuDriverActions.add(menuItemShowDriverColumn);
-
-    menuItemShowOnlyDrivers =
-        new JCheckBoxMenuItem(main.getFramework().getString("BUTTON_SHOWDRIVER"), false);
-    menuDriverActions.add(menuItemShowOnlyDrivers);
-
-    //menuItemBussePutzen.setMnemonic('B');
-    //menuItemOnlyFahrdienst.setMnemonic('F');
-
-    subPanelSearch.add(btnDriverActions, gbc2);
-
     pnlFilter.add(subPanelSearch, gbc);
 
     pnlControl.add(pnlFilter, "West");
@@ -489,12 +493,13 @@ public class Frame extends JFrame {
     });
     btnNextPanelPageOne.addActionListener(e -> {
       cl.last(pnlMain);
+
+      menuItemShowDriverColumn.setEnabled(false);
+      menuItemShowOnlyDrivers.setEnabled(false);
+
       tablePageOne.refreshTable();
       tablePageTwo.refreshTable();
     });
-    btnDriverActions.addActionListener(
-        e -> menuDriverActions.show(btnDriverActions, btnDriverActions.getWidth() / 2,
-            btnDriverActions.getHeight() / 2));
 
     menuItemShowDriverColumn.addActionListener(e -> {
       if (menuItemShowDriverColumn.isSelected()){
@@ -681,6 +686,10 @@ public class Frame extends JFrame {
 
     btnPrevPanelPageTwo.addActionListener(e -> {
       cl.first(pnlMain);
+
+      menuItemShowDriverColumn.setEnabled(true);
+      menuItemShowOnlyDrivers.setEnabled(true);
+
       tablePageOne.refreshTable();
       tablePageTwo.refreshTable();
     });
