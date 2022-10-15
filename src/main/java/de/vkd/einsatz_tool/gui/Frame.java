@@ -166,11 +166,17 @@ public class Frame extends JFrame {
             Main.VK_NAME_COMPARATOR, Main.VK_SURNAME_COMPARATOR);
     initComponents();
 
-    boolean tryLoading = JOptionPane.showOptionDialog(Frame.this,
+    boolean tryLoading = JOptionPane.showOptionDialog(
+                Frame.this,
                 main.getFramework().getString("DIALOG_LOADING_MESSAGE"),
                 main.getFramework().getString("DIALOG_LOADING_TITLE"),
-                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Ja", "Nein"},
-                "Nein") == JOptionPane.YES_OPTION;
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+                new String[]{
+                  main.getFramework().getString("DIALOG_LOADING_MESSAGE_OPT_NEW"),
+                  main.getFramework().getString("DIALOG_LOADING_MESSAGE_OPT_LOAD"),
+                },
+                main.getFramework().getString("DIALOG_LOADING_MESSAGE_OPT_NEW")
+              ) == JOptionPane.NO_OPTION;
 
     while (tryLoading) {
         boolean loadingResult = loadEinsatzbericht();

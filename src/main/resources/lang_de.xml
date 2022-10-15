@@ -296,7 +296,13 @@
         <value_text>Existierenden Einsatzbericht laden?</value_text>
     </value>
     <value name="DIALOG_LOADING_MESSAGE">
-        <value_text>Soll ein existierender Einsatzbericht geladen werden?</value_text>
+        <value_text>Soll ein neuer Einsatzbericht erstellt oder ein existierender Einsatzbericht geladen werden?</value_text>
+    </value>
+    <value name="DIALOG_LOADING_MESSAGE_OPT_LOAD">
+        <value_text>Existierenden Bericht laden</value_text>
+    </value>
+    <value name="DIALOG_LOADING_MESSAGE_OPT_NEW">
+        <value_text>Neuen Bericht erstellen</value_text>
     </value>
     <value name="DIALOG_RETRY_LOADING_TITLE">
         <value_text>Laden fehlgeschlagen! Erneut versuchen?</value_text>
