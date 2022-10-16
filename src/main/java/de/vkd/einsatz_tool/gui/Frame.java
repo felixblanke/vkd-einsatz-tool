@@ -873,7 +873,7 @@ public class Frame extends JFrame {
           }
         }));
     btnAL.addActionListener(createActionListener(btnAL,
-        new String[] {main.getFramework().getString("TABLE_EL"),
+        new String[] {main.getFramework().getString("TABLE_AL"),
             main.getFramework().getString("TABLE_RANK"),
             main.getFramework().getString("TABLE_NAME"),
             main.getFramework().getString("TABLE_SURNAME"),
