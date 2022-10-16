@@ -1333,7 +1333,29 @@ public class Einsatzbericht {
       default:
         break;
     }
-    cell.setCellValue(s + vk.getRemark());
+
+    if (vk.hasIndividualTimes()) {
+      String remarkString = "";
+      if (!vk.getRemark().trim().isEmpty()) {
+        remarkString += vk.getRemark() + ", ";
+      }
+
+      String beginDate = vk.getBeginDateTime().format(main.settings.getDateTimeFormatter());
+      String endDate = vk.getEndDateTime().format(main.settings.getDateTimeFormatter());
+
+      String beginTime = vk.getBeginDateTime().toLocalTime().toString();
+      String endTime = vk.getEndDateTime().toLocalTime().toString();
+
+      if (beginDate.equals(endDate)) {
+        s += remarkString + beginDate + " " + beginTime + "–" + endTime;
+      } else {
+        s += remarkString + beginDate + " " + beginTime + " – " + endDate + " " + endTime;
+      }
+    } else {
+      s += vk.getRemark();
+    }
+
+    cell.setCellValue(s);
     lockCell(cell, wb);
     cell.setCellStyle(cellStyle);
 
