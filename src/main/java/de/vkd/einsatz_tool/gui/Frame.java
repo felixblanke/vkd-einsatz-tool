@@ -1010,6 +1010,7 @@ public class Frame extends JFrame {
             if (column == 5) {
               int row = target.rowAtPoint(e.getPoint());
               if (row >= 0) {
+                row = target.convertRowIndexToModel(row);
                 Container c = tablePageTwo.getParent();
                 while (true) {
                   if (c instanceof Frame) {
@@ -1027,6 +1028,7 @@ public class Frame extends JFrame {
             } else if (column == 6) {
               int row = target.rowAtPoint(e.getPoint());
               if (row >= 0) {
+                row = target.convertRowIndexToModel(row);
                 Container c = tablePageTwo.getParent();
                 while (true) {
                   if (c instanceof Frame) {
